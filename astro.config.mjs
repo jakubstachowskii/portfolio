@@ -1,5 +1,5 @@
 // @ts-check
-import { defineConfig, envField } from 'astro/config';
+import { defineConfig, envField, fontProviders } from 'astro/config';
 import { unified } from '@astrojs/markdown-remark';
 import mdx from '@astrojs/mdx';
 import react from '@astrojs/react';
@@ -8,6 +8,7 @@ import vercel from '@astrojs/vercel';
 import tailwindcss from '@tailwindcss/vite';
 import expressiveCode from 'astro-expressive-code';
 import icon from 'astro-icon';
+import designPage from './src/integrations/design-page.ts';
 
 // https://astro.build/config
 export default defineConfig({
@@ -25,14 +26,47 @@ export default defineConfig({
   markdown: {
     processor: unified(),
   },
+  // Fonty: OFL, latin-ext, variable (DESIGN.md §4.1). Preload tylko Display + Sans w BaseLayout.
+  fonts: [
+    {
+      name: 'Funnel Display',
+      cssVariable: '--font-funnel-display',
+      provider: fontProviders.fontsource(),
+      weights: ['500 600'],
+      styles: ['normal'],
+      subsets: ['latin', 'latin-ext'],
+      fallbacks: ['sans-serif'],
+    },
+    {
+      name: 'Funnel Sans',
+      cssVariable: '--font-funnel-sans',
+      provider: fontProviders.fontsource(),
+      weights: ['400 500'],
+      styles: ['normal'],
+      subsets: ['latin', 'latin-ext'],
+      fallbacks: ['sans-serif'],
+    },
+    {
+      name: 'Geist Mono',
+      cssVariable: '--font-geist-mono',
+      provider: fontProviders.fontsource(),
+      weights: ['400 500'],
+      styles: ['normal'],
+      subsets: ['latin', 'latin-ext'],
+      fallbacks: ['monospace'],
+    },
+  ],
   // expressiveCode musi być przed mdx()
   integrations: [
     expressiveCode(),
     mdx(),
     react(),
     icon(),
+    // /design: tylko dev i build testowy (DESIGN_PAGE=1) — DECISIONS #8
+    designPage(),
     sitemap({
       i18n: { defaultLocale: 'pl', locales: { pl: 'pl-PL', en: 'en-US' } },
+      filter: (page) => !page.includes('/design'),
     }),
   ],
   vite: {

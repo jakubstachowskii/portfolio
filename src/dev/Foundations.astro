@@ -1,0 +1,101 @@
+---
+import {
+  RADII,
+  SHADOWS,
+  SPACING,
+  TEXT_STYLES,
+  contrastTable,
+  swatches,
+  type CatalogTheme,
+} from '@/lib/design-catalog';
+
+interface Props {
+  theme: CatalogTheme;
+}
+
+const { theme } = Astro.props;
+const colors = swatches(theme);
+const contrasts = contrastTable(theme);
+---
+
+<section class="flex flex-col gap-3">
+  <h2 class="text-h3">Kolory</h2>
+  <ul class="grid grid-cols-2 gap-1 sm:grid-cols-4">
+    {colors.map((c) => (
+      <li class="flex flex-col gap-0.5">
+        <span class="h-6 rounded-sm border border-line" style={`background: var(--c-${c.token})`} />
+        <code class="text-mono-sm text-fg">{c.token}</code>
+        <code class="text-mono-sm text-dim">{c.hex}</code>
+      </li>
+    ))}
+  </ul>
+  <table class="w-full font-mono text-mono-sm">
+    <caption class="sr-only">Kontrasty WCAG ({theme})</caption>
+    <thead class="text-dim">
+      <tr>
+        <th class="py-0.5 text-left">para</th>
+        <th class="text-right">kontrast</th>
+        <th class="text-right">min</th>
+      </tr>
+    </thead>
+    <tbody>
+      {contrasts.map((r) => (
+        <tr class="border-t border-line">
+          <td class="py-0.5">
+            {r.fg} / {r.bg}
+          </td>
+          <td class={`text-right ${r.pass ? 'text-success' : 'text-danger'}`}>
+            {r.ratio.toFixed(2)}
+          </td>
+          <td class="text-right text-dim">{r.min}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</section>
+
+<section class="flex flex-col gap-3">
+  <h2 class="text-h3">Typografia</h2>
+  {TEXT_STYLES.map(([cls, font, sample]) => (
+    <div class="flex flex-col gap-0.5 border-t border-line pt-1">
+      <code class="text-mono-sm text-dim">
+        {cls} · {font}
+      </code>
+      <p
+        class={`${cls} ${cls.startsWith('text-mono') ? 'font-mono' : cls.match(/display|h2|h3/) ? 'font-display font-semibold' : ''}`}
+      >
+        {sample}
+      </p>
+    </div>
+  ))}
+</section>
+
+<section class="flex flex-col gap-3">
+  <h2 class="text-h3">Odstępy (8pt), promienie, cienie</h2>
+  <ul class="flex flex-col gap-1">
+    {SPACING.map(([cls, px]) => (
+      <li class="flex items-center gap-2">
+        <span class={`${cls} h-2 rounded-xs bg-accent`} />
+        <code class="text-mono-sm text-dim">{px}px</code>
+      </li>
+    ))}
+  </ul>
+  <ul class="flex flex-wrap gap-2">
+    {RADII.map(([cls, px]) => (
+      <li
+        class={`${cls} grid size-8 place-items-center border border-line-strong bg-surface font-mono text-mono-sm text-dim`}
+      >
+        {px}
+      </li>
+    ))}
+  </ul>
+  <ul class="flex flex-wrap gap-3">
+    {SHADOWS.map((cls) => (
+      <li
+        class={`${cls} grid h-8 w-16 place-items-center rounded-md bg-surface font-mono text-mono-sm text-dim`}
+      >
+        {cls.replace('shadow-', '')}
+      </li>
+    ))}
+  </ul>
+</section>

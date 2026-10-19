@@ -35,39 +35,36 @@ Wszystkie wartości w **OKLCH** (hex dla wygody przeglądu). Tryb **ciemny jest 
 
 ### 3.1 Role i wartości
 
-| Token                                | Rola                                                             | Dark                               | Light                              |
-| ------------------------------------ | ---------------------------------------------------------------- | ---------------------------------- | ---------------------------------- |
-| `--color-canvas`                     | Tło strony, scena projektu                                       | `oklch(0 0 0)` `#000000`           | `oklch(1 0 0)` `#ffffff`           |
-| `--color-band`                       | Pasmo / tło podniesione (status, hover wierszy, sekcje „O mnie”) | `oklch(0.176 0.004 229)` `#0f1112` | `oklch(0.970 0.002 0)` `#f4f5f6`   |
-| `--color-surface`                    | Karty, przyciski drugorzędne, `Kbd`                              | `oklch(0.211 0.006 237)` `#16191b` | `oklch(1 0 0)` `#ffffff`           |
-| `--color-window`                     | Wnętrze okna projektu i palety                                   | `oklch(0.157 0.004 229)` `#0b0d0e` | `oklch(0.978 0.001 0)` `#f7f8f8`   |
-| `--color-line`                       | Linie dekoracyjne 1px (separatory, obramowania kart)             | `oklch(0.277 0.009 234)` `#24292c` | `oklch(0.923 0.004 237)` `#e3e6e8` |
-| `--color-line-strong`                | Hover obramowań, kropki okna                                     | `oklch(0.373 0.013 229)` `#3a4246` | `oklch(0.849 0.008 242)` `#c9ced2` |
-| `--color-line-control`               | Obramowania pól formularza (WCAG 1.4.11)                         | `oklch(0.498 0.012 229)` `#5c6468` | `oklch(0.637 0.008 242)` `#878c90` |
-| `--color-fg`                         | Tekst główny, nagłówki                                           | `oklch(0.970 0.002 0)` `#f4f5f6`   | `oklch(0.189 0.006 237)` `#111416` |
-| `--color-muted`                      | Tekst drugorzędny, opisy                                         | `oklch(0.710 0.013 237)` `#9aa3a9` | `oklch(0.481 0.015 245)` `#575f66` |
-| `--color-dim`                        | Etykiety, metadane, podpowiedzi                                  | `oklch(0.591 0.014 237)` `#767f85` | `oklch(0.536 0.016 241)` `#666f76` |
-| `--color-accent`                     | Bursztyn UI: kropki statusu, focus ring, wskaźniki               | `oklch(0.807 0.148 77)` `#f5b23d`  | `oklch(0.625 0.133 73)` `#b77900`  |
-| `--color-accent-text`                | Bursztyn jako tekst (kickery, linki akcji)                       | `oklch(0.807 0.148 77)` `#f5b23d`  | `oklch(0.508 0.108 73)` `#8a5a00`  |
-| `--color-cta` / `--color-on-cta`     | Główne CTA (jedno na widok)                                      | `#f5b23d` / `#111416`              | `#111416` / `#ffffff`              |
-| `--color-spot`                       | Snop światła (radial)                                            | `#f5b23d` @ 24%                    | `#b77900` @ 13%                    |
-| `--color-grid`                       | Siatka w świetle                                                 | `#f5b23d` @ 32%                    | `#8a5a00` @ 22%                    |
-| `--color-row-active`                 | Wybrany wiersz palety                                            | `#f5b23d` @ 10%                    | `#b77900` @ 10%                    |
-| `--color-success` / `--color-danger` | Stany formularza i toastów (Faza 1b: dobrać i zmierzyć ≥ 4.5:1)  | TODO(1b)                           | TODO(1b)                           |
+| Token                            | Rola                                                             | Dark                               | Light                              |
+| -------------------------------- | ---------------------------------------------------------------- | ---------------------------------- | ---------------------------------- |
+| `--color-canvas`                 | Tło strony, scena projektu                                       | `oklch(0 0 0)` `#000000`           | `oklch(1 0 0)` `#ffffff`           |
+| `--color-band`                   | Pasmo / tło podniesione (status, hover wierszy, sekcje „O mnie”) | `oklch(0.176 0.004 229)` `#0f1112` | `oklch(0.97 0.002 248)` `#f4f5f6`  |
+| `--color-surface`                | Karty, przyciski drugorzędne, `Kbd`                              | `oklch(0.211 0.006 237)` `#16191b` | `oklch(1 0 0)` `#ffffff`           |
+| `--color-window`                 | Wnętrze okna projektu i palety                                   | `oklch(0.157 0.004 229)` `#0b0d0e` | `oklch(0.978 0.001 197)` `#f7f8f8` |
+| `--color-line`                   | Linie dekoracyjne 1px (separatory, obramowania kart)             | `oklch(0.277 0.009 234)` `#24292c` | `oklch(0.923 0.004 237)` `#e3e6e8` |
+| `--color-line-strong`            | Hover obramowań, kropki okna                                     | `oklch(0.373 0.013 229)` `#3a4246` | `oklch(0.849 0.008 242)` `#c9ced2` |
+| `--color-line-control`           | Obramowania pól formularza (WCAG 1.4.11)                         | `oklch(0.498 0.012 229)` `#5c6468` | `oklch(0.637 0.008 242)` `#878c90` |
+| `--color-fg`                     | Tekst główny, nagłówki                                           | `oklch(0.97 0.002 248)` `#f4f5f6`  | `oklch(0.189 0.006 237)` `#111416` |
+| `--color-muted`                  | Tekst drugorzędny, opisy                                         | `oklch(0.710 0.013 237)` `#9aa3a9` | `oklch(0.481 0.015 245)` `#575f66` |
+| `--color-dim`                    | Etykiety, metadane, podpowiedzi                                  | `oklch(0.611 0.014 237)` `#7c858b` | `oklch(0.536 0.016 241)` `#666f76` |
+| `--color-accent`                 | Bursztyn UI: kropki statusu, focus ring, wskaźniki               | `oklch(0.807 0.148 77)` `#f5b23d`  | `oklch(0.625 0.133 73)` `#b77900`  |
+| `--color-accent-text`            | Bursztyn jako tekst (kickery, linki akcji)                       | `oklch(0.807 0.148 77)` `#f5b23d`  | `oklch(0.508 0.108 73)` `#8a5a00`  |
+| `--color-cta` / `--color-on-cta` | Główne CTA (jedno na widok)                                      | `#f5b23d` / `#111416`              | `#111416` / `#ffffff`              |
+| `--color-spot`                   | Snop światła (radial)                                            | `#f5b23d` @ 24%                    | `#b77900` @ 13%                    |
+| `--color-grid`                   | Siatka w świetle                                                 | `#f5b23d` @ 32%                    | `#8a5a00` @ 22%                    |
+| `--color-row-active`             | Wybrany wiersz palety                                            | `#f5b23d` @ 10%                    | `#b77900` @ 10%                    |
+| `--color-success`                | Stan powodzenia (toast, formularz)                               | `oklch(0.751 0.142 158)` `#4fc98b` | `oklch(0.513 0.119 153)` `#1d7a45` |
+| `--color-danger`                 | Stan błędu (toast, walidacja)                                    | `oklch(0.743 0.156 26)` `#ff8077`  | `oklch(0.544 0.178 28)` `#c2362d`  |
 
 ### 3.2 Zmierzone kontrasty (WCAG 2.x)
 
-| Para                               | Dark                  | Light                 | Wymóg  |
-| ---------------------------------- | --------------------- | --------------------- | ------ |
-| fg / canvas · band · surface       | 19.24 · 17.34 · 16.18 | 18.49 · 16.94 · 18.49 | 4.5 ✅ |
-| muted / canvas · band · surface    | 8.19 · 7.38 · 6.88    | 6.49 · 5.95 · 6.49    | 4.5 ✅ |
-| dim / canvas · band · window       | 5.14 · 4.64 · 4.77    | 5.12 · 4.69 · 4.81    | 4.5 ✅ |
-| accent-text / canvas · band        | 11.32 · 10.20         | 5.93 · 5.43           | 4.5 ✅ |
-| on-cta / cta                       | 9.97                  | 18.49                 | 4.5 ✅ |
-| accent (UI, focus) / canvas · band | 11.32 · 10.20         | 3.65 · 3.35           | 3.0 ✅ |
-| line-control / canvas · band       | 3.48 · 3.14           | 3.40 · 3.11           | 3.0 ✅ |
+Pełna tabela: **[`docs/DESIGN-TOKENS.md`](DESIGN-TOKENS.md)** (generowana: `pnpm tokens:report`). Te same 21 par w obu motywach sprawdza test `tests/unit/color.test.ts`, więc regresja kontrastu wywala `pnpm test`.
 
-`--color-line` i `--color-line-strong` są **wyłącznie dekoracyjne** (separatory i obramowania kart, które nie identyfikują kontrolki), więc nie podlegają 3:1. Kontrolki formularzy używają `--color-line-control`. Pełne pomiary trafiają do `docs/DESIGN-TOKENS.md` w Fazie 1b.
+Pary i wymagania: `fg`, `muted` na canvas/band/surface; `dim` na canvas/band/window/surface; `accent-text`, `success`, `danger` na canvas/band; `on-cta` na cta (wszystkie ≥ 4.5:1); `accent` (focus, kropki) i `line-control` na canvas/band (≥ 3:1). Najniższe wartości: `dim / band` 5.03 (dark) i 4.71 (light), `line-control / band` 3.14 / 3.12.
+
+`--color-line` i `--color-line-strong` są **wyłącznie dekoracyjne** (separatory i obramowania kart, które nie identyfikują kontrolki), więc nie podlegają 3:1. Kontrolki formularzy używają `--color-line-control`.
+
+**Zmiany po audycie Fazy 1b:** `dim` dark `#767f85` → `#7c858b` (axe: 4.32:1 na `surface`); odcienie niemal neutralnych tokenów poprawione (hue 0 → 248/197, bo przy hue 0 biel była różowawa).
 
 ### 3.3 Zasady koloru („kolor jako składnia”)
 
@@ -145,6 +142,7 @@ Wyjątek: 4px dozwolone wyłącznie wewnątrz mikrokomponentów (`Kbd`, odstęp 
 
 | Token           | Wartość | Użycie                                                 |
 | --------------- | ------- | ------------------------------------------------------ |
+| `--radius-xs`   | 8px     | Ikony w palecie, paski w katalogu                      |
 | `--radius-sm`   | 10px    | `Kbd`, ikony w palecie (8px), tagi, focus ring, inputy |
 | `--radius-md`   | 18px    | Paleta, karty listy projektów, toasty                  |
 | `--radius-lg`   | 26px    | Okna projektów, duże panele                            |
@@ -166,12 +164,13 @@ Wyjątek: 4px dozwolone wyłącznie wewnątrz mikrokomponentów (`Kbd`, odstęp 
 
 ### 7.1 Tokeny
 
-| Token                                           | Wartość                                                     |
-| ----------------------------------------------- | ----------------------------------------------------------- |
-| `--ease-out`                                    | `cubic-bezier(0.22, 1, 0.36, 1)`                            |
-| `--ease-spring`                                 | `cubic-bezier(0.34, 1.4, 0.64, 1)` (tylko hover przycisków) |
-| `--duration-fast` / `-base` / `-slow` / `-hero` | 160 / 240 / 700 / 1100 ms                                   |
-| Motion (wyspy React)                            | `spring { stiffness: 400, damping: 30 }`                    |
+| Token                                                      | Wartość                                                            |
+| ---------------------------------------------------------- | ------------------------------------------------------------------ |
+| `--ease-out`                                               | `cubic-bezier(0.22, 1, 0.36, 1)`                                   |
+| `--ease-spring`                                            | `cubic-bezier(0.34, 1.4, 0.64, 1)` (tylko hover przycisków)        |
+| `--duration-fast` / `-base` / `-slow` / `-hero` / `-pulse` | 160 / 240 / 700 / 1100 / 2400 ms (pulse: kropka statusu, skeleton) |
+| `--stage-perspective` / `--stage-tilt`                     | 1600px / 22° (premiera sceny)                                      |
+| Motion (wyspy React)                                       | `spring { stiffness: 400, damping: 30 }`                           |
 
 ### 7.2 Trzy momenty („efektownie, ale bez przesady”)
 
@@ -249,6 +248,11 @@ Porównanie zrzutu szkicu (`sketches/d3-dark-desktop.png`) ze stronami źródło
 
 ---
 
-## 12. Mapowanie na `tokens.css` (Faza 1b)
+## 12. Mapowanie na `tokens.css` (stan po Fazie 1b)
 
-Prefiksy zgodne z Tailwind v4 `@theme`: `--color-*`, `--font-*`, `--text-*`, `--spacing-*` (lub `--space-*` z mapowaniem), `--radius-*`, `--shadow-*`, `--ease-*`, `--duration-*`. Tryby: `[data-theme='dark']` (domyślny) i `[data-theme='light']`, oraz `@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *))`. Każdy token z §3–§7 ma tam dokładnie jeden odpowiednik, a każdy token w pliku ma odpowiednik tutaj.
+- **Tokeny stałe** w `@theme` (`src/styles/tokens.css`): `--spacing: 8px` (utility `p-1`=8 … `p-16`=128, `p-0.5`=4), `--container-content/stage/palette` (`max-w-*`), `--radius-xs/sm/md/lg/pill` (`rounded-*`), `--text-*` z `--line-height` i `--letter-spacing` (`text-display`, `text-h2` …), `--ease-out/spring`. Domyślne przestrzenie Tailwinda są wyczyszczone (`--color-*: initial` itd.), więc poza tokenami nie ma żadnych wartości.
+- **Tokeny motywu**: surowe `--c-*` / `--sh-*` w blokach `:root, [data-theme='dark']`, `[data-theme='light']` i `@media (prefers-color-scheme: light) :root:not([data-theme])` (bez JS). Mapowane przez `@theme inline` na `--color-*` / `--shadow-*`, więc `bg-canvas`, `text-muted`, `shadow-key` przełączają się też w zagnieżdżonych panelach.
+- **Poza przestrzeniami Tailwinda** (`:root`): `--duration-*`, `--size-nav/window-bar/target/dot`, `--measure-prose/caption`, `--stage-perspective/tilt`, `--toggle-sun/moon` (ikona przełącznika z najbliższego motywu).
+- **Fonty**: `--font-funnel-display`, `--font-funnel-sans`, `--font-geist-mono` tworzy Astro Fonts API, a `@theme inline` mapuje je na `font-display` / `font-sans` / `font-mono`.
+- **Stany**: warianty `is-hover:`, `is-active:`, `is-disabled:` (`src/styles/global.css`) = prawdziwy stan albo `data-state` (tylko katalog `/design`). Focus: `:focus-visible, [data-state=focus]`.
+- **Strażnik**: `tests/unit/no-magic-values.test.ts` wywala test, gdy w komponentach lub layoutach pojawi się hex, funkcja koloru, arbitrary value Tailwinda z liczbą, surowy czas w ms albo wymiar w px (poza 1px linią).

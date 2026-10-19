@@ -67,12 +67,12 @@ Stan npm na 2026-10-19 (`latest`):
 - **Alternatywy:** zostać na ESLint 9 (starsza major, `eslint-plugin-astro@3` wymaga >=10).
 - **Zweryfikowane (Faza 0):** preset `eslintPluginAstro.configs["jsx-a11y-strict"]` działa z `-x` (np. reguła `astro/jsx-a11y/alt-text` wyłapuje `<img>` bez `alt`).
 
-## #8 · 2026-10-19 · Strona `/_design` musi mieć inną ścieżkę pliku · proponowana
+## #8 · 2026-10-19 · Strona `/_design` musi mieć inną ścieżkę pliku · przyjęta
 
 - **Problem:** w Astro pliki w `src/pages/` z prefiksem `_` **nie są trasami**. Plik `src/pages/_design.astro` z PLAN §13 nigdy się nie wyrenderuje.
 - **Decyzja:** plik `src/pages/design/index.astro` (oraz `design/kierunki.astro`), z `getStaticPaths`/guardem `import.meta.env.DEV`, który w buildzie produkcyjnym nie generuje strony. Do tego wykluczenie z sitemapy przez `filter`.
 - **Alternatywy:** integracja dodająca trasę przez `injectRoute` tylko w trybie dev.
-- **Ostateczny wybór:** w Fazie 1b.
+- **Rozwiązanie (Faza 1b):** integracja `src/integrations/design-page.ts` wstrzykuje `/design` (`src/dev/design.astro`) przez `injectRoute` tylko gdy `command === 'dev'` albo `DESIGN_PAGE=1` (build e2e w `playwright.config.ts`). Produkcyjny build jej nie zawiera; sitemap ma `filter`, strona ma `noindex`.
 
 ## #9 · 2026-10-19 · `compressHTML` w Astro 7 · proponowana
 
@@ -158,3 +158,25 @@ Zgodnie z PLAN §6.0 konkretne wartości wynikają teraz z `docs/DESIGN.md`. Naj
 | §6.1 `--color-fg-subtle`                         | `--color-dim` poprawiony do ≥ 4.5:1 (`#767f85` / `#666f76`) + nowy `--color-line-control` (≥ 3:1) | Audyt kontrastu przed zapisaniem tokenów                  |
 
 Pozostałe wymagania strukturalne PLAN §6 (role tokenów, 5 stanów, focus ring 2px + offset, reduced-motion, strona `/design`) bez zmian.
+
+## #19 · 2026-10-19 · Visual snapshoty Playwrighta tylko z Linuksa · przyjęta
+
+- **Problem:** baseline z Windowsa (lokalnie) różni się renderowaniem fontów od Linuksa (CI), więc snapshot zawsze by się różnił.
+- **Decyzja:** test `visual snapshot` jest pomijany poza Linuksem. W CI `--update-snapshots=missing` (brak baseline = zapis, nie błąd). Workflow `update-snapshots.yml` (`workflow_dispatch`) generuje baseline na Linuksie i commituje je na gałąź. Od tego momentu CI wykrywa regresje wizualne.
+- **Alternatywy:** Docker z obrazem Playwrighta lokalnie (brak Dockera/WSL na maszynie), usługa zewnętrzna (Percy/Chromatic: koszt, zależność).
+
+## #20 · 2026-10-19 · `--spacing: 8px` w Tailwind v4 · przyjęta
+
+- **Decyzja:** bazowa jednostka spacingu = 8px, więc numery utility pokrywają się ze skalą DESIGN.md §5.1 (`p-1`=8, `p-3`=24, `p-16`=128; `p-0.5`=4).
+- **Powód:** zero przeliczeń i zero „prawie dobrych” wartości. Każdy odstęp w klasach jest z definicji ze skali 8pt.
+- **Koszt:** utility rozmiarów (`w-*`, `h-*`, `size-*`) też liczą się w 8px; ułamki (`size-1.25` = 10px) używane tylko dla drobnych elementów graficznych.
+
+## #21 · 2026-10-19 · Preload fontów: tylko podzbiór latin · przyjęta
+
+- **Fakt:** preload obu podzbiorów (latin + latin-ext) dla Display i Sans dawał 4 pliki, a PLAN §11 dopuszcza ≤ 2.
+- **Decyzja:** preload tylko `latin` (Funnel Display + Funnel Sans = 2 pliki, 17 + 17 KB). `latin-ext` (polskie znaki, 9 KB) ładuje się przez `unicode-range`; Geist Mono bez preload. Fallbacki z `size-adjust` generuje Fonts API (mniejszy CLS).
+
+## #22 · 2026-10-19 · Ikona przełącznika motywu przez zmienne CSS · przyjęta
+
+- **Problem:** `astro-icon` renderuje SVG bez atrybutu scope Astro, a reguła „ukryj wg motywu przodka” myli się w zagnieżdżonych panelach (`<html>` też ma `data-theme`).
+- **Decyzja:** `--toggle-sun` / `--toggle-moon` w blokach motywu (`tokens.css`): wartość dziedziczy się od najbliższego `[data-theme]`.

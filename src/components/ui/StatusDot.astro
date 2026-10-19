@@ -1,0 +1,53 @@
+---
+import { localeOf, t } from '@/i18n/utils';
+
+type Availability = 'open' | 'busy' | 'off';
+
+interface Props {
+  state?: Availability;
+  /** Pokaż tylko kropkę (tekst zostaje dla czytników ekranu). */
+  compact?: boolean;
+  class?: string;
+}
+
+const { state = 'open', compact = false, class: extra } = Astro.props;
+const dict = t(localeOf(Astro));
+const color: Record<Availability, string> = {
+  open: 'bg-accent',
+  busy: 'bg-dim',
+  off: 'bg-line-strong',
+};
+---
+
+<span class={['inline-flex items-center gap-1 font-mono text-caption text-muted', extra].join(' ')}>
+  <span
+    class={`dot relative size-(--size-dot) rounded-pill ${color[state]}`}
+    data-live={state === 'open'}
+    aria-hidden="true"
+  ></span>
+  <span class={compact ? 'sr-only' : undefined}>{dict.ui.availability[state]}</span>
+</span>
+
+<style>
+  @media (prefers-reduced-motion: no-preference) {
+    .dot[data-live='true']::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: inherit;
+      animation: ping var(--duration-pulse) var(--ease-out) infinite;
+    }
+  }
+  @keyframes ping {
+    0% {
+      transform: scale(1);
+      opacity: 0.6;
+    }
+    70%,
+    100% {
+      transform: scale(3);
+      opacity: 0;
+    }
+  }
+</style>

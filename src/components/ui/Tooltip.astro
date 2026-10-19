@@ -1,0 +1,37 @@
+---
+interface Props {
+  text: string;
+  /** Unikalne id (powiązanie aria-describedby). */
+  id: string;
+  /** Tylko /design: pokaż na stałe. */
+  open?: boolean;
+}
+
+const { text, id, open = false } = Astro.props;
+---
+
+<!-- CSS-only: pojawia się przy hover i focus wyzwalacza; tekst dostępny przez aria-describedby -->
+<span class="tooltip relative inline-flex" data-open={open}>
+  <span aria-describedby={id} class="contents">
+    <slot />
+  </span>
+  <span
+    role="tooltip"
+    id={id}
+    class="tip pointer-events-none absolute bottom-full left-0 mb-1 rounded-sm border border-line bg-surface px-1 py-0.5 font-mono text-mono-sm whitespace-nowrap text-fg shadow-key"
+  >
+    {text}
+  </span>
+</span>
+
+<style>
+  .tip {
+    opacity: 0;
+    transition: opacity var(--duration-fast) var(--ease-out);
+  }
+  .tooltip:hover .tip,
+  .tooltip:focus-within .tip,
+  .tooltip[data-open='true'] .tip {
+    opacity: 1;
+  }
+</style>

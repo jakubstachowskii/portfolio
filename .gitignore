@@ -36,3 +36,6 @@ coverage/
 
 # research: cudze zrzuty z Refero (docs/style-research/README.md)
 docs/style-research/screens/
+
+# lokalna konfiguracja aplikacji Claude (panel przeglądarki)
+.claude/

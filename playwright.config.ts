@@ -9,6 +9,10 @@ export default defineConfig({
   forbidOnly: !!process.env['CI'],
   retries: process.env['CI'] ? 2 : 0,
   reporter: process.env['CI'] ? [['github'], ['html', { open: 'never' }]] : 'list',
+  expect: {
+    // snapshoty generowane tylko w CI (Linux) — DECISIONS #19
+    toHaveScreenshot: { maxDiffPixelRatio: 0.01, animations: 'disabled' },
+  },
   use: {
     baseURL,
     trace: 'on-first-retry',
@@ -22,5 +26,7 @@ export default defineConfig({
     url: baseURL,
     timeout: 180_000,
     reuseExistingServer: !process.env['CI'],
+    // build testowy zawiera katalog /design (produkcyjny nie) — src/integrations/design-page.ts
+    env: { DESIGN_PAGE: '1' },
   },
 });

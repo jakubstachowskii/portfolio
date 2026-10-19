@@ -1,0 +1,39 @@
+---
+// Katalog design systemu: tylko `astro dev` i build z DESIGN_PAGE=1 (src/integrations/design-page.ts).
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Container from '@/components/ui/Container.astro';
+import Components from './Components.astro';
+import Foundations from './Foundations.astro';
+import StageDemo from './StageDemo.astro';
+import { THEMES } from '@/lib/design-catalog';
+---
+
+<BaseLayout
+  locale="pl"
+  title="Design system"
+  description="Katalog tokenów i komponentów (dev)."
+  noindex
+>
+  <main>
+    <Container class="flex flex-col gap-2 py-8">
+      <p class="font-mono text-mono text-accent-text">docs/DESIGN.md · Faza 1b</p>
+      <h1 class="text-h2">Design system „Premiera”</h1>
+      <p class="max-w-(--measure-prose) text-body-lg text-muted">
+        Tokeny i komponenty w obu motywach. Stany hover/focus/active/disabled są wymuszone przez
+        data-state; prawdziwe reagują na mysz i klawiaturę.
+      </p>
+    </Container>
+    <div class="grid xl:grid-cols-2">
+      {THEMES.map((theme) => (
+        <div data-theme={theme} class="bg-canvas text-fg" data-catalog-panel={theme}>
+          <Container class="flex flex-col gap-8 py-8">
+            <p class="font-mono text-mono text-dim">motyw: {theme}</p>
+            <Foundations theme={theme} />
+            <Components theme={theme} />
+          </Container>
+          <StageDemo id={`stage-${theme}`} />
+        </div>
+      ))}
+    </div>
+  </main>
+</BaseLayout>

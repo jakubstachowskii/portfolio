@@ -48,7 +48,8 @@ jobs:
       - name: Zainstaluj Chromium dla Playwrighta
         run: pnpm exec playwright install --with-deps chromium
 
-      - run: pnpm test:e2e
+      # brakujące baseline’y snapshotów są tworzone, nie oblewane — commituje je update-snapshots.yml (DECISIONS #19)
+      - run: pnpm test:e2e --update-snapshots=missing
 
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}

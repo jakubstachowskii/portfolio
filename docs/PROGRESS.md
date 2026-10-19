@@ -6,7 +6,7 @@ Legenda: ⬜ nie zaczęte · 🟨 w toku · ✅ zrobione · ⏸ czeka na Piotra
 | ---- | ------------------------- | ---------------------------- | -------- |
 | 0    | Fundament repo            | `feat/faza-0-fundament`      | ✅ PR #1 |
 | 1a   | Research stylu (Refero)   | `feat/faza-1a-styl`          | ✅ PR    |
-| 1b   | Design system             | `feat/faza-1b-design-system` | ⬜       |
+| 1b   | Design system             | `feat/faza-1b-design-system` | 🟨 PR    |
 | 2    | Layout i strona główna    | `feat/faza-2-layout-home`    | ⬜       |
 | 3    | Projekty i case studies   | `feat/faza-3-projekty`       | ⬜       |
 | 4    | O mnie, doświadczenie, CV | `feat/faza-4-o-mnie`         | ⬜       |
@@ -90,3 +90,26 @@ Legenda: ⬜ nie zaczęte · 🟨 w toku · ✅ zrobione · ⏸ czeka na Piotra
 - [x] Bez kodu produkcyjnego (tylko szkice w `docs/style-research/sketches/`)
 
 **Dalej:** Faza 1b (tokens.css według DESIGN.md, fonty, skrypt motywu, komponenty UI, strona `/design`), na zgodę Piotra.
+
+## 2026-10-19 — Faza 1b: design system
+
+**Zrobione** (gałąź `feat/faza-1b-design-system`)
+
+- `src/styles/tokens.css`: wszystkie tokeny DESIGN.md (OKLCH), dark domyślny, light przez `data-theme` i system bez JS; `@theme` z wyczyszczonymi domyślnymi przestrzeniami Tailwinda, `--spacing: 8px`.
+- Fonty przez Astro Fonts API: Funnel Display, Funnel Sans, Geist Mono (latin + latin-ext), 2 pliki preload.
+- Motyw bez FOUC: `ThemeScript` inline w `<head>` + `src/lib/theme.ts`; `ThemeToggle` (klawiatura, zapis, etykieta akcji).
+- 17 komponentów w `src/components/ui/`: Button, IconButton, Kbd, Tag, StatusDot, Link, Card, Container, SectionHeading, Divider, Skeleton, Tooltip, Toast, ThemeToggle, LangSwitch, ProjectWindow, Stage (+ `scripts/spotlight.ts`). Stany przez warianty `is-*` + `data-state`.
+- `/design` (tylko dev i build testowy): kolory z kontrastem na żywo, typografia, 8pt, promienie, cienie, komponenty × 5 stanów, scena; panele dark i light obok siebie.
+- Testy: kontrast 21 par × 2 motywy, zgodność inline skryptu motywu, strażnik magicznych wartości (81 unit); e2e: FOUC, persystencja, klawiatura, axe /design (24 e2e + 2 visual na Linuksie).
+- `docs/DESIGN-TOKENS.md` generowany (`pnpm tokens:report`), DESIGN.md uzupełniony (success/danger, §12), DECISIONS #8, #19–#22.
+- Audyt w trakcie: axe znalazł `dim` na `surface` 4.32:1 i niezgodną nazwę przełącznika języka (WCAG 2.5.3), oba naprawione; raport wykrył różowawe odcienie bieli (hue 0), poprawione.
+
+**Kryteria akceptacji Fazy 1b (PLAN §14)**
+
+- [x] Wszystkie komponenty w 5 stanach w obu motywach na `/design`
+- [x] Kontrasty zmierzone w `DESIGN-TOKENS.md` (i pilnowane testem)
+- [x] Brak FOUC przy twardym odświeżeniu (test e2e)
+- [ ] Snapshot `/design` w Playwrighcie: test gotowy; baseline powstaje po uruchomieniu workflow „Aktualizuj snapshoty” na gałęzi (Linux)
+- [x] Każda wartość w `tokens.css` ma odpowiednik w DESIGN.md (§3–§7, §12)
+
+**Dalej:** Faza 2 (layout i strona główna), na zgodę Piotra.
