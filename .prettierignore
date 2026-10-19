@@ -1,0 +1,13 @@
+dist/
+.astro/
+.vercel/
+node_modules/
+pnpm-lock.yaml
+test-results/
+playwright-report/
+.lighthouseci/
+# Dokumenty planistyczne właściciela — formatowane ręcznie
+docs/PLAN.md
+docs/CONTENT-CHECKLIST.md
+CLAUDE.md
+KICKOFF-PROMPT.md

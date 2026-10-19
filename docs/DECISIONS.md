@@ -10,20 +10,20 @@ Statusy: `przyjęta` · `proponowana` (czeka na akceptację Piotra) · `zastąpi
 
 Stan npm na 2026-10-19 (`latest`):
 
-| Pakiet | Wersja | Uwagi |
-|---|---|---|
-| astro | 7.4.0 | Vite 8, kompilator w Rust, Sätteri jako domyślny procesor Markdown |
-| tailwindcss / @tailwindcss/vite | 4.3.3 | CSS-first, bez `tailwind.config.js` |
-| @astrojs/mdx | 8.1.0 | |
-| @astrojs/react | 7.1.0 | React 19.3 |
-| @astrojs/vercel | 11.0.15 | |
-| @astrojs/sitemap | 3.7.4 | |
-| astro-expressive-code | 0.44.2 | peer: astro ^7 |
-| astro-icon | 1.2.0 | |
-| eslint | 10.13.0 | |
-| vitest | 5.0.5 | |
-| @playwright/test | 1.64.1 | |
-| typescript | **6.0.x** (nie 7.0.2) | patrz #2 |
+| Pakiet                          | Wersja                | Uwagi                                                              |
+| ------------------------------- | --------------------- | ------------------------------------------------------------------ |
+| astro                           | 7.4.0                 | Vite 8, kompilator w Rust, Sätteri jako domyślny procesor Markdown |
+| tailwindcss / @tailwindcss/vite | 4.3.3                 | CSS-first, bez `tailwind.config.js`                                |
+| @astrojs/mdx                    | 8.1.0                 |                                                                    |
+| @astrojs/react                  | 7.1.0                 | React 19.3                                                         |
+| @astrojs/vercel                 | 11.0.15               |                                                                    |
+| @astrojs/sitemap                | 3.7.4                 |                                                                    |
+| astro-expressive-code           | 0.44.2                | peer: astro ^7                                                     |
+| astro-icon                      | 1.2.0                 |                                                                    |
+| eslint                          | 10.13.0               |                                                                    |
+| vitest                          | 5.0.5                 |                                                                    |
+| @playwright/test                | 1.64.1                |                                                                    |
+| typescript                      | **6.0.x** (nie 7.0.2) | patrz #2                                                           |
 
 **Powód:** PLAN §3 każe brać najnowsze stabilne wersje i pinować lockfile.
 
