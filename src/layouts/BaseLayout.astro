@@ -1,0 +1,27 @@
+---
+import '@/styles/global.css';
+import type { Locale } from '@/config/site';
+import { site } from '@/config/site';
+
+interface Props {
+  locale: Locale;
+  title: string;
+}
+
+const { locale, title } = Astro.props;
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <!-- Favicon dochodzi w Fazie 7; pusty data URI zapobiega 404 na /favicon.ico -->
+    <link rel="icon" href="data:," />
+    <title>{`${title} — ${site.name}`}</title>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
