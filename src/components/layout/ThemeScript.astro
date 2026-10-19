@@ -1,0 +1,25 @@
+---
+// Inline w <head> przed CSS: ustawia data-theme zanim cokolwiek się narysuje (brak FOUC).
+// Logika = resolveTheme() z src/lib/theme.ts (test: tests/unit/theme.test.ts).
+---
+
+<script is:inline>
+  (() => {
+    const apply = () => {
+      let stored = null;
+      try {
+        stored = localStorage.getItem('theme');
+      } catch {}
+      const theme =
+        stored === 'dark' || stored === 'light'
+          ? stored
+          : matchMedia('(prefers-color-scheme: light)').matches
+            ? 'light'
+            : 'dark';
+      document.documentElement.dataset.theme = theme;
+    };
+    apply();
+    // View Transitions (Faza 3): nowy dokument po podmianie dostaje ten sam motyw
+    document.addEventListener('astro:after-swap', apply);
+  })();
+</script>
