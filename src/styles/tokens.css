@@ -82,6 +82,9 @@
   --duration-base: 240ms;
   --duration-slow: 700ms;
   --duration-hero: 1100ms;
+  --duration-pulse: 2400ms;
+  --stage-perspective: 1600px;
+  --stage-tilt: 22deg;
   --size-nav: 52px;
   --size-window-bar: 40px;
   --size-target: 44px;
@@ -94,6 +97,8 @@
 :root,
 [data-theme='dark'] {
   color-scheme: dark;
+  --toggle-sun: inline;
+  --toggle-moon: none;
   --c-canvas: oklch(0 0 0);
   --c-band: oklch(0.176 0.004 229);
   --c-surface: oklch(0.211 0.006 237);
@@ -124,6 +129,8 @@
 /* ── 2b. Motyw jasny ── */
 [data-theme='light'] {
   color-scheme: light;
+  --toggle-sun: none;
+  --toggle-moon: inline;
   --c-canvas: oklch(1 0 0);
   --c-band: oklch(0.97 0.002 0);
   --c-surface: oklch(1 0 0);
@@ -155,6 +162,8 @@
 @media (prefers-color-scheme: light) {
   :root:not([data-theme]) {
     color-scheme: light;
+    --toggle-sun: none;
+    --toggle-moon: inline;
     --c-canvas: oklch(1 0 0);
     --c-band: oklch(0.97 0.002 0);
     --c-surface: oklch(1 0 0);

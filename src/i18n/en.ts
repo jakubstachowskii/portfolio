@@ -9,4 +9,30 @@ export const en = {
   home: {
     heading: 'Portfolio',
   },
+  ui: {
+    theme: {
+      toLight: 'Switch to light theme',
+      toDark: 'Switch to dark theme',
+    },
+    lang: {
+      switchLabel: 'Switch to the Polish version',
+      short: 'PL',
+    },
+    link: {
+      external: '(external site)',
+    },
+    toast: {
+      close: 'Dismiss notification',
+    },
+    availability: {
+      open: 'Open to work',
+      busy: 'Currently busy',
+      off: 'Unavailable',
+    },
+    projectStatus: {
+      live: 'live',
+      'in-progress': 'in progress',
+      archived: 'archived',
+    },
+  },
 } satisfies typeof pl;

@@ -7,4 +7,30 @@ export const pl = {
   home: {
     heading: 'Portfolio',
   },
+  ui: {
+    theme: {
+      toLight: 'Włącz jasny motyw',
+      toDark: 'Włącz ciemny motyw',
+    },
+    lang: {
+      switchLabel: 'Przełącz na wersję angielską',
+      short: 'EN',
+    },
+    link: {
+      external: '(strona zewnętrzna)',
+    },
+    toast: {
+      close: 'Zamknij powiadomienie',
+    },
+    availability: {
+      open: 'Otwarty na oferty',
+      busy: 'Obecnie zajęty',
+      off: 'Niedostępny',
+    },
+    projectStatus: {
+      live: 'live',
+      'in-progress': 'w budowie',
+      archived: 'archiwum',
+    },
+  },
 };

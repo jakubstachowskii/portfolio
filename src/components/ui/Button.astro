@@ -1,0 +1,66 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+type Variant = 'primary' | 'secondary' | 'link';
+type Size = 'sm' | 'md' | 'lg';
+type State = 'hover' | 'focus' | 'active' | 'disabled';
+
+interface Props extends Omit<HTMLAttributes<'button'>, 'class'> {
+  variant?: Variant;
+  size?: Size;
+  href?: string;
+  disabled?: boolean;
+  /** Tylko katalog /design: wymusza stan do podglądu. */
+  state?: State | undefined;
+  class?: string;
+}
+
+const {
+  variant = 'primary',
+  size = 'md',
+  href,
+  disabled = false,
+  state,
+  class: extra,
+  type = 'button',
+  ...rest
+} = Astro.props;
+
+const base =
+  'inline-flex items-center justify-center gap-1 rounded-pill font-sans font-medium whitespace-nowrap ' +
+  'transition duration-(--duration-base) ease-spring is-active:scale-98 ' +
+  'is-disabled:opacity-50 is-disabled:cursor-not-allowed';
+
+const variants: Record<Variant, string> = {
+  primary: 'bg-cta text-on-cta is-hover:-translate-y-0.25 is-hover:shadow-cta-glow',
+  secondary:
+    'bg-surface text-fg border border-line shadow-key is-hover:-translate-y-0.25 is-hover:border-line-strong is-active:shadow-key-pressed',
+  link: 'text-accent-text underline-offset-4 is-hover:underline',
+};
+
+const sizes: Record<Size, string> = {
+  sm: 'min-h-4 px-2 text-ui-sm',
+  md: 'min-h-5.5 px-3 text-ui',
+  lg: 'min-h-7 px-4 text-body-lg',
+};
+
+const classes = [base, variants[variant], variant === 'link' ? '' : sizes[size], extra].join(' ');
+const Tag = href && !disabled ? 'a' : 'button';
+---
+
+{Tag === 'a' ? (
+  <a href={href} class={classes} data-state={state}>
+    <slot />
+  </a>
+) : (
+  <button
+    type={type}
+    class={classes}
+    disabled={disabled}
+    aria-disabled={disabled ? 'true' : undefined}
+    data-state={state}
+    {...rest}
+  >
+    <slot />
+  </button>
+)}

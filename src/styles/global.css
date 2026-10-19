@@ -4,6 +4,14 @@
 /* dark: = motyw ciemny ustawiony przez skrypt (docs/DESIGN.md §12) */
 @custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
 
+/*
+ * Stany komponentów (DESIGN.md §8): prawdziwy stan LUB data-state (tylko katalog /design,
+ * żeby pokazać wszystkie 5 stanów statycznie). Komponenty używają is-*: zamiast hover:/active:.
+ */
+@custom-variant is-hover (&:where(:hover, [data-state='hover']):not([aria-disabled='true'], :disabled));
+@custom-variant is-active (&:where(:active, [data-state='active']):not([aria-disabled='true'], :disabled));
+@custom-variant is-disabled (&:where([aria-disabled='true'], :disabled, [data-state='disabled']));
+
 @layer base {
   html {
     background-color: var(--color-canvas);
@@ -35,10 +43,10 @@
   pre {
     font-family: var(--font-mono);
   }
-  :focus-visible {
+  :focus-visible,
+  [data-state='focus'] {
     outline: 2px solid var(--color-accent);
     outline-offset: 3px;
-    border-radius: var(--radius-sm);
   }
   ::selection {
     background-color: var(--color-accent);
