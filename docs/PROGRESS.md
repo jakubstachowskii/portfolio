@@ -5,8 +5,8 @@ Legenda: ⬜ nie zaczęte · 🟨 w toku · ✅ zrobione · ⏸ czeka na Piotra
 | Faza | Nazwa                     | Gałąź                        | Status   |
 | ---- | ------------------------- | ---------------------------- | -------- |
 | 0    | Fundament repo            | `feat/faza-0-fundament`      | ✅ PR #1 |
-| 1a   | Research stylu (Refero)   | `feat/faza-1a-styl`          | ✅ PR    |
-| 1b   | Design system             | `feat/faza-1b-design-system` | 🟨 PR    |
+| 1a   | Research stylu (Refero)   | `feat/faza-1a-styl`          | ✅ PR #2 |
+| 1b   | Design system             | `feat/faza-1b-design-system` | ✅ PR #3 |
 | 2    | Layout i strona główna    | `feat/faza-2-layout-home`    | ⬜       |
 | 3    | Projekty i case studies   | `feat/faza-3-projekty`       | ⬜       |
 | 4    | O mnie, doświadczenie, CV | `feat/faza-4-o-mnie`         | ⬜       |
@@ -109,7 +109,11 @@ Legenda: ⬜ nie zaczęte · 🟨 w toku · ✅ zrobione · ⏸ czeka na Piotra
 - [x] Wszystkie komponenty w 5 stanach w obu motywach na `/design`
 - [x] Kontrasty zmierzone w `DESIGN-TOKENS.md` (i pilnowane testem)
 - [x] Brak FOUC przy twardym odświeżeniu (test e2e)
-- [ ] Snapshot `/design` w Playwrighcie: test gotowy; baseline powstaje po uruchomieniu workflow „Aktualizuj snapshoty” na gałęzi (Linux)
+- [x] Snapshot `/design` w Playwrighcie: baseline (desktop + mobile, Linux) wygenerowany workflow „Aktualizuj snapshoty” i zacommitowany na `main` (8b8ade2)
 - [x] Każda wartość w `tokens.css` ma odpowiednik w DESIGN.md (§3–§7, §12)
+
+**Zamknięte:** PR #2 (1a) i PR #3 (1b) zmergowane 2026-10-19; CI zielone, preview Vercel OK.
+
+**Do odnotowania:** `pnpm/action-setup@v4` działa na przestarzałym Node 20 (ostrzeżenie GitHub Actions); podbić w Fazie 2 albo przez Renovate.
 
 **Dalej:** Faza 2 (layout i strona główna), na zgodę Piotra.
