@@ -140,4 +140,5 @@ Wszystkie z PLAN §3, bez dodatków spoza planu poza wymienionymi niżej.
 - **Rekomendacja:** D.
 - **Uwagi Piotra do D (2026-10-19):** domyślnie ciemny, bursztyn i hero bez zmian, typografia bardziej premium, kształty bliżej Apple, efektowne animacje bez przesady. Wprowadzone w szkicu v2: Funnel Display + Funnel Sans + Geist Mono, promienie 10/18/26, trzy momenty ruchu (KIERUNKI.md).
 - **D v3 (2026-10-19):** na prośbę Piotra ocena Raycasta. Jako cała strona odrzucony (80/115), 3 zasady wchłonięte do D: powierzchnie „klawisza”, paleta ⌘K w hero, szklana nawigacja. Rekomendacja: v3.
-- **Decyzja:** czeka na wybór Piotra: v2 czy v3.
+- **D v3.1 (2026-10-19):** ocena Resenda (83/115): jako baza nie (WebGL w hero, tylko dark, fonty komercyjne, kod 2.35:1), wzięte zasady: szeryf na czerni (Newsreader zamiast Funnel Display w nagłówkach) i kolor jako składnia. Pasmo „Specyfikacja” zastąpione paskiem faktów w każdej scenie.
+- **Decyzja:** czeka na akceptację v3.1 przez Piotra.

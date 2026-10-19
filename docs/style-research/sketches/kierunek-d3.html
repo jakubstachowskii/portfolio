@@ -17,7 +17,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&family=Funnel+Sans:wght@300..800&family=Geist+Mono:wght@400;500&display=swap&subset=latin-ext"
+      href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&family=Instrument+Serif:ital@0;1&family=Newsreader:opsz,wght@6..72,300..600&family=Funnel+Sans:wght@300..800&family=Geist+Mono:wght@400;500&display=swap&subset=latin-ext"
       rel="stylesheet"
     />
     <style>
@@ -856,11 +856,72 @@
           margin-top: var(--s-6);
         }
       }
+
+      /* ═══ v3.1: fakty projektu w scenie (zastępują osobne pasmo „Specyfikacja”) ═══ */
+      .facts {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        max-width: 960px;
+        margin: var(--s-4) auto 0;
+        border-top: 1px solid var(--line);
+      }
+      .facts div {
+        padding: var(--s-2) var(--s-3) 0 0;
+      }
+      .facts dt {
+        font-size: 13px;
+        color: var(--dim);
+      }
+      .facts dd {
+        font-family: var(--mono);
+        font-size: 14px;
+        color: var(--fg);
+        margin-top: 4px;
+      }
+      @supports (animation-timeline: view()) {
+        @media (prefers-reduced-motion: no-preference) {
+          .facts div {
+            animation: fade-up linear both;
+            animation-timeline: view();
+            animation-range: entry 10% cover 25%;
+          }
+        }
+      }
+      @media (max-width: 720px) {
+        .facts {
+          grid-template-columns: 1fr 1fr;
+          row-gap: var(--s-2);
+        }
+      }
+
+      /* ═══ v3.1: przełącznik kroju nagłówków (porównanie) ═══ */
+      [data-h='instrument'] {
+        --display: 'Instrument Serif', Georgia, serif;
+      }
+      [data-h='newsreader'] {
+        --display: 'Newsreader', Georgia, serif;
+      }
+      [data-h='instrument'] .hero h1,
+      [data-h='instrument'] .caption h2 {
+        font-weight: 400;
+        letter-spacing: -0.02em;
+        line-height: 1;
+      }
+      [data-h='newsreader'] .hero h1,
+      [data-h='newsreader'] .caption h2 {
+        font-weight: 400;
+        letter-spacing: -0.03em;
+        line-height: 1;
+      }
     </style>
   </head>
   <body>
     <script>
       document.documentElement.dataset.t = new URLSearchParams(location.search).get('t') || 'dark';
+      document.documentElement.dataset.h =
+        new URLSearchParams(location.search).get('h') || 'newsreader';
     </script>
     <header class="nav">
       <div class="container">
@@ -952,28 +1013,22 @@
             </div>
             <a class="link">Zobacz case study</a>
           </div>
-        </div>
-      </section>
-
-      <section class="band">
-        <div class="container">
-          <h3>Specyfikacja</h3>
-          <dl class="specs">
+          <dl class="facts">
             <div>
               <dt>Typ</dt>
               <dd>Web, single-page</dd>
             </div>
             <div>
-              <dt>Rola</dt>
-              <dd class="mono">TODO(content)</dd>
+              <dt>Moja rola</dt>
+              <dd>TODO(content)</dd>
             </div>
             <div>
               <dt>Stack</dt>
-              <dd class="mono">TODO(content)</dd>
+              <dd>TODO(content)</dd>
             </div>
             <div>
               <dt>Efekt</dt>
-              <dd class="mono">TODO(content): liczby</dd>
+              <dd>TODO(content): liczby</dd>
             </div>
           </dl>
         </div>
@@ -997,6 +1052,24 @@
             </div>
             <a class="link">Zobacz case study</a>
           </div>
+          <dl class="facts">
+            <div>
+              <dt>Typ</dt>
+              <dd>Desktop</dd>
+            </div>
+            <div>
+              <dt>Moja rola</dt>
+              <dd>TODO(content)</dd>
+            </div>
+            <div>
+              <dt>Stack</dt>
+              <dd>TODO(content)</dd>
+            </div>
+            <div>
+              <dt>Efekt</dt>
+              <dd>TODO(content): liczby</dd>
+            </div>
+          </dl>
         </div>
       </section>
     </main>

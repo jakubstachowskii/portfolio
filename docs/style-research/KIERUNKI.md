@@ -130,9 +130,22 @@ Ocena Raycasta jako całej strony: **nie** (80/115; ciężkie hero z grafiką, t
 
 ---
 
+### D v3.1: szeryf à la Resend + fakty w scenie (2026-10-19)
+
+Porównanie krojów nagłówka: [Funnel Display](sketches/font-funnel-hero.png) · [Instrument Serif](sketches/font-instrument-hero.png) · [Newsreader](sketches/font-newsreader-hero.png). Szkic: `kierunek-d3.html?h=funnel|instrument|newsreader` (domyślnie newsreader).
+
+- **Nagłówki (H1, nazwy projektów): Newsreader 400** (OFL, latin-ext, variable z osią optyczną). Od [Resenda](resend.md) bierzemy zasadę „szeryf na czerni = premium dla devów”, nie ich krój (Domaine, komercyjny).
+  - Funnel Display odpada: mocny, ale „technologiczny”; premium daje dopiero kontrast szeryf ↔ sans.
+  - Instrument Serif odpada: wąski, modowy i dziś bardzo częsty w modnych landingach, więc ryzyko szablonowości.
+- **Treść i UI: Funnel Sans. Dane techniczne: Geist Mono.** Funnel Display wypada z zestawu: 2 pliki preload (Newsreader + Funnel Sans), Geist Mono bez preloadu. Zgodne z §11.
+- **Usunięte osobne pasmo „Specyfikacja”.** Wyglądało na oderwaną sekcję (Piotr nie wiedział, do czego służy). Te same fakty (Typ · Moja rola · Stack · Efekt) są teraz **paskiem faktów w każdej scenie**, pod opisem projektu, oddzielone linią 1px. Rekruter widzi konkret bez wchodzenia w case study, a pasek jednoznacznie dotyczy projektu nad nim.
+- Od Resenda również: **kolor jako składnia**. Bursztyn tylko w statusach, metadanych (kicker, „teraz buduję”), wybranym wyniku palety i jednym wypełnionym CTA. Nie bierzemy przycisków ghost jako głównych CTA ani obiektu WebGL w hero.
+
+---
+
 ## Rekomendacja
 
-**D „Premiera”, w wersji v2 albo v3** (v3 = v2 + DNA Raycasta; rekomenduję **v3**, bo paleta w hero od razu pokazuje sygnaturę strony i Twój profil „buduję narzędzia”). Jako jedyny kierunek łączy charakter programisty (okna aplikacji, terminal, ⌘K, specyfikacja) z siłą sprzedaży Apple (sceny, skala, rytm). Działa w obu trybach i domyka słabości każdego źródła. Test „podróbki”: nie da się go pomylić ani z Apple (soft zamiast sprzętu, bursztyn, Geist, okna), ani z Dovetail czy Factory (sceny, snop światła, specyfikacja).
+**D „Premiera”, w wersji v2 albo v3** (v3 = v2 + DNA Raycasta; rekomenduję **v3.1** (v3 + Newsreader + fakty w scenie), bo paleta w hero od razu pokazuje sygnaturę strony i Twój profil „buduję narzędzia”). Jako jedyny kierunek łączy charakter programisty (okna aplikacji, terminal, ⌘K, specyfikacja) z siłą sprzedaży Apple (sceny, skala, rytm). Działa w obu trybach i domyka słabości każdego źródła. Test „podróbki”: nie da się go pomylić ani z Apple (soft zamiast sprzętu, bursztyn, Geist, okna), ani z Dovetail czy Factory (sceny, snop światła, specyfikacja).
 
 Alternatywy: **A** (bezpieczny, jasny notatnik) i **C** (ciemny bursztyn bez scen, czyli prostsza wersja D).
 

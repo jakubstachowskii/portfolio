@@ -74,8 +74,9 @@ Legenda: ⬜ nie zaczęte · 🟨 w toku · ✅ zrobione · ⏸ czeka na Piotra
 - Kierunek D „Premiera” (synteza) ze szkicem desktop + mobile w obu trybach.
 - D v2 po uwagach Piotra: Funnel Display/Sans, promienie 10/18/26, domyślnie ciemny, ruch (wejście hero, premiera sceny scroll-driven, snop za kursorem) + wideo `d-motion.webm`.
 - D v3 na prośbę Piotra: + DNA Raycasta (powierzchnie „klawisza”, paleta ⌘K w hero, szklana pływająca nawigacja) + wideo `d3-motion.webm`.
+- D v3.1: ocena Resenda, porównanie 3 krojów nagłówka i wybór Newsreader; pasmo „Specyfikacja” zastąpione paskiem faktów w scenach.
 - Karty kierunków `KIERUNKI.md` (co bierzemy, co zmieniamy, kontrasty) + szkice hero i karty projektu w obu trybach (`sketches/`).
 
 **Czeka na Piotra**
 
-- Wybór kierunku A / B / C / D (rekomendacja: **D „Premiera” v3** = v2 + DNA Raycasta). Potem krok 3: `docs/DESIGN.md` + test „podróbki”.
+- Wybór kierunku A / B / C / D (rekomendacja: **D „Premiera” v3.1** = v2 + DNA Raycasta + szeryf Newsreader + fakty w scenie). Potem krok 3: `docs/DESIGN.md` + test „podróbki”.
