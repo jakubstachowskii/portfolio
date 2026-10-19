@@ -15,7 +15,7 @@ Skala 1–5. Wynik = Σ (ocena × waga). Maksimum: **115**.
 | K9 Zgodność z sygnaturami §2 (⌘K, terminal, TOC)                                                          | 1     |
 | **K10 Siła sprzedaży: przyciąga oko pracodawcy w 2026, „efekt premiery” (wymaganie Piotra z 2026-10-19)** | **3** |
 
-## Macierz (16 stylów, posortowane)
+## Macierz (17 stylów, posortowane)
 
 | #   | Styl                                   | K1  | K2  | K3  | K4  | K5  | K6  | K7  | K8  | K9  | K10 | **Wynik** |
 | --- | -------------------------------------- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --------- |
@@ -32,9 +32,10 @@ Skala 1–5. Wynik = Σ (ocena × waga). Maksimum: **115**.
 | 11  | [Firecrawl](firecrawl.md)              | 4   | 4   | 4   | 3   | 4   | 4   | 3   | 4   | 4   | 3   | 85        |
 | 12  | [Verse](verse.md)                      | 4   | 2   | 5   | 2   | 4   | 5   | 4   | 5   | 3   | 3   | 85        |
 | 13  | [Dul Zorigoo](dul-zorigoo.md)          | 3   | 4   | 5   | 3   | 4   | 5   | 3   | 5   | 2   | 2   | 84        |
-| 14  | [Raycast](raycast.md)                  | 4   | 3   | 3   | 2   | 3   | 5   | 3   | 2   | 5   | 5   | 80        |
-| 15  | [Monad](monad.md)                      | 3   | 4   | 3   | 2   | 4   | 4   | 4   | 4   | 3   | 3   | 78        |
-| 16  | [PlanetScale](planetscale.md)          | 4   | 2   | 2   | 3   | 4   | 4   | 4   | 5   | 4   | 1   | 71        |
+| 14  | [Resend](resend.md)                    | 5   | 4   | 3   | 2   | 3   | 3   | 4   | 2   | 4   | 5   | 83        |
+| 15  | [Raycast](raycast.md)                  | 4   | 3   | 3   | 2   | 3   | 5   | 3   | 2   | 5   | 5   | 80        |
+| 16  | [Monad](monad.md)                      | 3   | 4   | 3   | 2   | 4   | 4   | 4   | 4   | 3   | 3   | 78        |
+| 17  | [PlanetScale](planetscale.md)          | 4   | 2   | 2   | 3   | 4   | 4   | 4   | 5   | 4   | 1   | 71        |
 
 **Synteza D „Premiera”** (nie styl źródłowy, tylko nasza propozycja z KIERUNKI.md): 5/4/5/5/5/5/5/4/5/5 = **110**. Ocena orientacyjna, bo oceniam własny projekt. Służy tylko do pokazania, które słabości źródeł D domyka.
 
@@ -48,6 +49,7 @@ Skala 1–5. Wynik = Σ (ocena × waga). Maksimum: **115**.
 - **Vercel K7 = 2, Linear K7 = 2.** Najczęściej naśladowane style w branży, więc test „podróbki” byłby trudny.
 - **Axiom, Verse, PlanetScale K2 = 2.** Cały tekst w monospace jest za męczący dla akapitów case study.
 - **Raycast K8 = 2.** Hero oparte na dużej grafice gradientowej i backdrop-blur. **K5 = 3:** tekst `#6a6b6c` na `#040506` ma 3.82:1, poniżej AA dla zwykłego tekstu.
+- **Resend K8 = 2, K4 = 2, K6 = 3.** Hero oparte na obiekcie WebGL 3D; tylko tryb ciemny; Domaine i ABC Favorit komercyjne (zamienniki OFL istnieją: Instrument Serif, Newsreader). **K5 = 3:** kod inline `#464a4d` na `#000` ma 2.35:1. **K10 = 5:** szeryf na czerni to najmocniejsze „premium dla devów” w katalogu.
 - **Firecrawl K5 = 4.** `#ff4d00` na `#f9f9f9` = 3.16:1, za mało dla tekstu.
 
 ## Metoda przeglądu
