@@ -72,8 +72,9 @@ Legenda: ⬜ nie zaczęte · 🟨 w toku · ✅ zrobione · ⏸ czeka na Piotra
 - Macierz ocen `SCORING.md`: 16 stylów, najwyżej Convex (102), Zed (99), Dovetail (96), Factory (93).
 - Druga runda na prośbę Piotra: pełny katalog 1342 stylów, filtr Apple / kinowe / portfolia / terminale, arkusz 24 kandydatów, 4 nowe style w macierzy, kryterium K10 „siła sprzedaży”.
 - Kierunek D „Premiera” (synteza) ze szkicem desktop + mobile w obu trybach.
+- D v2 po uwagach Piotra: Funnel Display/Sans, promienie 10/18/26, domyślnie ciemny, ruch (wejście hero, premiera sceny scroll-driven, snop za kursorem) + wideo `d-motion.webm`.
 - Karty kierunków `KIERUNKI.md` (co bierzemy, co zmieniamy, kontrasty) + szkice hero i karty projektu w obu trybach (`sketches/`).
 
 **Czeka na Piotra**
 
-- Wybór kierunku A / B / C / D (rekomendacja: **D „Premiera”**). Potem krok 3: `docs/DESIGN.md` + test „podróbki”.
+- Wybór kierunku A / B / C / D (rekomendacja: **D „Premiera” v2**). Potem krok 3: `docs/DESIGN.md` + test „podróbki”.

@@ -138,4 +138,5 @@ Wszystkie z PLAN §3, bez dodatków spoza planu poza wymienionymi niżej.
 - **Zmiana kryteriów:** na prośbę Piotra (2026-10-19) do macierzy dodane K10 „siła sprzedaży / efekt premiery” z wagą 3 (maks. 115).
 - **Druga runda researchu:** pełny katalog 1342 stylów (API listy), filtr metadanych, arkusz kontaktowy 24 kandydatów i 4 nowe style w macierzy (Apple ×2, Framer, Factory).
 - **Rekomendacja:** D.
-- **Decyzja:** czeka na Piotra.
+- **Uwagi Piotra do D (2026-10-19):** domyślnie ciemny, bursztyn i hero bez zmian, typografia bardziej premium, kształty bliżej Apple, efektowne animacje bez przesady. Wprowadzone w szkicu v2: Funnel Display + Funnel Sans + Geist Mono, promienie 10/18/26, trzy momenty ruchu (KIERUNKI.md).
+- **Decyzja:** czeka na akceptację v2 przez Piotra.

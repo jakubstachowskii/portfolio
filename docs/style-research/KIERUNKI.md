@@ -66,9 +66,11 @@ Zrzuty: [ciemny](sketches/c-dark.png) · [jasny](sketches/c-light.png) · źród
 
 ---
 
-## D · „Premiera”: synteza (rekomendowana)
+## D · „Premiera”: synteza (rekomendowana, v2 po uwagach Piotra)
 
-Zrzuty: [ciemny](sketches/d-dark-desktop.png) · [jasny](sketches/d-light-desktop.png) · [mobile ciemny](sketches/d-dark-mobile.png) · [mobile jasny](sketches/d-light-mobile.png) · szkic: `sketches/kierunek-d.html?t=dark|light`
+Zrzuty: [ciemny](sketches/d-dark-desktop.png) · [jasny](sketches/d-light-desktop.png) · [mobile ciemny](sketches/d-dark-mobile.png) · [mobile jasny](sketches/d-light-mobile.png) · szkic: `sketches/kierunek-d.html?t=dark|light` · **wideo ruchu:** `sketches/d-motion.webm` · klatki: `sketches/d-motion-*.png`
+
+**Uwagi Piotra (2026-10-19) → v2:** bursztyn zostaje; hero zostaje; **domyślnie ciemny**; typografia bardziej premium; snop i siatka bez zmian; kształty **odrobinę bardziej zaokrąglone** (bliżej Apple); animacje **efektowne, ale bez przesady**.
 
 **Idea.** Portfolio programisty sprzedane tak, jak Apple sprzedaje produkty. Każdy wyróżniony projekt dostaje **własną scenę** na pełną szerokość, jak premiera produktu: ogromna nazwa, jedno zdanie efektu, zrzut aplikacji „oświetlony” na scenie, a pod spodem rzeczowa **specyfikacja techniczna**. Charakter developerski zostaje: okna aplikacji, mono w danych technicznych, linia terminala, ⌘K i status.
 
@@ -83,20 +85,26 @@ Zrzuty: [ciemny](sketches/d-dark-desktop.png) · [jasny](sketches/d-light-deskto
 
 **Co zmieniamy względem źródeł (≥ 3, wymóg §6.0):**
 
-| Źródło                             | Nasza decyzja                                                                                                               | Powód                                                                                     |
-| ---------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| Apple: render sprzętu jako bohater | **Zrzut aplikacji w oknie** na scenie                                                                                       | Sprzedajemy oprogramowanie                                                                |
-| Apple: niebieski `#0071e3`         | **Bursztyn** `#f5b23d` (CTA na ciemnym: 10:1 z ciemnym tekstem); w jasnym CTA czarne, bursztyn `#8a5a00` dla tekstu (5.6:1) | Własny akcent, ciepły, „terminalowy”                                                      |
-| Apple: SF Pro (bez licencji web)   | **Geist + Geist Mono** (OFL, latin-ext)                                                                                     | Licencja, polskie znaki, charakter dev                                                    |
-| Apple: 28px na wszystkim           | Hierarchia **8 / 14 / 22px** + pigułki tylko dla przycisków                                                                 | Mniej „sklepowo”, bardziej precyzyjnie                                                    |
-| Brak w źródłach                    | **Snop światła + siatka widoczna tylko w świetle** za oknem projektu (CSS, 0 KB JS)                                         | Nasz element sygnaturowy: „oświetlamy pracę”, odpowiednik studyjnego oświetlenia produktu |
-| Apple: specyfikacja sprzętu        | **Specyfikacja projektu**: typ, rola, stack, efekt (tylko prawdziwe liczby)                                                 | Rekruter widzi konkret w 5 sekund                                                         |
+| Źródło                             | Nasza decyzja                                                                                                                      | Powód                                                                                                                                                                                                                                             |
+| ---------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Apple: render sprzętu jako bohater | **Zrzut aplikacji w oknie** na scenie                                                                                              | Sprzedajemy oprogramowanie                                                                                                                                                                                                                        |
+| Apple: niebieski `#0071e3`         | **Bursztyn** `#f5b23d` (CTA na ciemnym: 10:1 z ciemnym tekstem); w jasnym CTA czarne, bursztyn `#8a5a00` dla tekstu (5.6:1)        | Własny akcent, ciepły, „terminalowy”                                                                                                                                                                                                              |
+| Apple: SF Pro (bez licencji web)   | **Funnel Display** (nagłówki) + **Funnel Sans** (treść, UI) + **Geist Mono** (dane techniczne); wszystkie OFL, latin-ext, variable | Licencja i polskie znaki. Funnel Display wygrał porównanie 9 krojów (Geist, Inter Tight, Host Grotesk, Onest, Schibsted, Mona Sans, Bricolage, Hanken) jako najbardziej „premium” w skali nagłówka; Funnel Sans z tej samej rodziny daje spójność |
+| Apple: 28px na wszystkim           | Hierarchia **10 / 18 / 26px** + pigułki dla przycisków                                                                             | Bliżej Apple (uwaga Piotra), ale z hierarchią: małe elementy, karty, okna i sceny                                                                                                                                                                 |
+| Brak w źródłach                    | **Snop światła + siatka widoczna tylko w świetle** za oknem projektu (CSS, 0 KB JS)                                                | Nasz element sygnaturowy: „oświetlamy pracę”, odpowiednik studyjnego oświetlenia produktu                                                                                                                                                         |
+| Apple: specyfikacja sprzętu        | **Specyfikacja projektu**: typ, rola, stack, efekt (tylko prawdziwe liczby)                                                        | Rekruter widzi konkret w 5 sekund                                                                                                                                                                                                                 |
 
 **Rytm (jak u Apple: wszędzie te same odstępy).** Jedna skala 8pt: `8 · 16 · 24 · 32 · 48 · 64 · 96 · 128`. Sekcja zawsze `128` (scena) lub `96` (pasmo), odstęp nagłówek→treść zawsze `24`, między przyciskami zawsze `16`. Żadnej innej wartości w CSS. To trafi do `tokens.css` jako jedyne dozwolone odstępy.
 
-**Tryby.** Ciemny = czarna scena `#000` + grafitowe pasma `#0f1112`. Jasny = biała scena + pasma `#f4f5f6`, jak białe galerie Apple. Te same role, ten sam rytm.
+**Tryby.** **Domyślny: ciemny** (gdy brak zapisanej preferencji i systemowej preferencji jasnej). Ciemny = czarna scena `#000` + grafitowe pasma `#0f1112`. Jasny = biała scena + pasma `#f4f5f6`, jak białe galerie Apple. Te same role, ten sam rytm.
 
-**Ruch (Faza 8).** Jedno orkiestrowane wejście na scenę: okno projektu „zapala się” (snop światła rośnie) przy wejściu w viewport, przez CSS scroll-driven animations. Reduced-motion → statycznie. Bez parallaxu i bez animacji na każdym elemencie.
+**Ruch (v2, „efektownie, ale bez przesady”).** Trzy świadome momenty, nic więcej:
+
+1. **Wejście hero (raz, przy ładowaniu, ~1.1 s):** wiersze nazwiska wyjeżdżają spod maski z rozmyciem → ostrość (stagger 90 ms), potem fade-up linii wartości i CTA, a linia terminala „wpisuje się” znak po znaku z mrugającym kursorem.
+2. **Premiera sceny (przy przewijaniu, CSS scroll-driven `view()`):** okno projektu wstaje z perspektywy (`rotateX 22° → 0`, `translateY 96 → 0`, przyciemnienie → pełna jasność), a snop światła i siatka „zapalają się” za nim. Podpis i specyfikacja dochodzą chwilę później.
+3. **Snop za kursorem (desktop, ~15 linii JS, rAF + lerp):** światło miękko podąża za myszą po scenie.
+   Mikro: przyciski unoszą się sprężyście o 2px, CTA dostaje bursztynową poświatę, link „Zobacz case study” wydłuża kreskę. Status „Otwarty na oferty” pulsuje.
+   **Reguły:** `prefers-reduced-motion` wyłącza wszystko (pełna treść widoczna statycznie, zweryfikowane zrzutami); bez `animation-timeline` (Firefox, starsze Safari) sceny są po prostu statyczne; tylko `transform`/`opacity`/`filter` (kompozytor, bez reflow). **Pułapka:** scena musi mieć `overflow: clip`, nie `hidden`, bo `hidden` tworzy scroller i `view()` przestaje działać (znalezione i naprawione w szkicu).
 
 **Wydajność.** Zero JS w scenach, gradienty i maska w CSS, LCP = nagłówek albo pierwszy zrzut (AVIF ≤ 120 KB). Mieści się w §11.
 

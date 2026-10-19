@@ -1,19 +1,21 @@
 <!doctype html>
 <!--
-  Szkic kierunku D „Premiera” (Faza 1a). NIE jest to kod produkcyjny.
-  Użycie: kierunek-d.html?t=dark|light
+  Szkic kierunku D „Premiera” v2 (Faza 1a). NIE jest to kod produkcyjny.
+  Użycie: kierunek-d.html?t=dark|light   (domyślnie dark)
   Treść: tylko TODO(content) i przykłady z docs/PLAN.md.
-  Rytm: wszystkie odstępy z jednej skali 8pt (--s-*), sekcje zawsze --s-16 / --s-12.
+  Rytm: wszystkie odstępy z jednej skali 8pt (--s-*); sekcje zawsze --s-16 (scena) / --s-12 (pasmo).
+  Ruch: 1) sekwencja wejścia hero (CSS, raz), 2) „zapalanie” sceny przy przewijaniu (scroll-driven, CSS),
+        3) snop światła za kursorem (desktop, ~15 linii JS). Wszystko wyłączone przy prefers-reduced-motion.
 -->
 <html lang="pl">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Kierunek D — Premiera</title>
+    <title>Kierunek D — Premiera v2</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap&subset=latin-ext"
+      href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&family=Funnel+Sans:wght@300..800&family=Geist+Mono:wght@400;500&display=swap&subset=latin-ext"
       rel="stylesheet"
     />
     <style>
@@ -27,55 +29,67 @@
         --s-8: 64px;
         --s-12: 96px;
         --s-16: 128px;
-        --r-sm: 8px;
-        --r-md: 14px;
-        --r-lg: 22px;
+        /* promienie: bliżej Apple, ale z hierarchią */
+        --r-sm: 10px;
+        --r-md: 18px;
+        --r-lg: 26px;
         --r-pill: 999px;
-        --sans: 'Geist', system-ui, sans-serif;
+        --display: 'Funnel Display', system-ui, sans-serif;
+        --sans: 'Funnel Sans', system-ui, sans-serif;
         --mono: 'Geist Mono', ui-monospace, monospace;
         --container: 1120px;
+        /* ruch */
+        --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+        --ease-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
+        --dur-fast: 160ms;
+        --dur-base: 240ms;
+        --dur-slow: 700ms;
+        --dur-hero: 1100ms;
       }
       [data-t='dark'] {
         --stage: #000000;
         --band: #0f1112;
         --card: #16191b;
         --line: #24292c;
+        --line-strong: #3a4246;
         --fg: #f4f5f6;
         --muted: #9aa3a9;
         --dim: #6c757b;
         --amber: #f5b23d;
         --amber-text: #f5b23d;
-        --on-amber: #111416;
-        --cta: var(--amber);
-        --cta-fg: var(--on-amber);
-        --spot: rgba(245, 178, 61, 0.22);
-        --grid: rgba(245, 178, 61, 0.3);
-        --shadow: 0 40px 80px -40px rgba(0, 0, 0, 0.8);
+        --cta: #f5b23d;
+        --cta-fg: #111416;
+        --spot: rgba(245, 178, 61, 0.24);
+        --grid: rgba(245, 178, 61, 0.32);
         --window: #0b0d0e;
         --hatch: #1b2023;
+        --shadow: 0 60px 120px -50px rgba(0, 0, 0, 0.9);
       }
       [data-t='light'] {
         --stage: #ffffff;
         --band: #f4f5f6;
         --card: #ffffff;
         --line: #e3e6e8;
+        --line-strong: #c9ced2;
         --fg: #111416;
         --muted: #575f66;
         --dim: #7a838a;
         --amber: #b77900;
         --amber-text: #8a5a00;
-        --on-amber: #ffffff;
         --cta: #111416;
         --cta-fg: #ffffff;
-        --spot: rgba(183, 121, 0, 0.12);
-        --grid: rgba(138, 90, 0, 0.2);
-        --shadow: 0 24px 48px -32px rgba(17, 20, 22, 0.25);
+        --spot: rgba(183, 121, 0, 0.13);
+        --grid: rgba(138, 90, 0, 0.22);
         --window: #f7f8f8;
         --hatch: #e6e9eb;
+        --shadow: 0 40px 80px -48px rgba(17, 20, 22, 0.35);
       }
       * {
         box-sizing: border-box;
         margin: 0;
+      }
+      html {
+        scroll-behavior: smooth;
       }
       body {
         font-family: var(--sans);
@@ -89,10 +103,15 @@
         color: inherit;
         text-decoration: none;
       }
+      :focus-visible {
+        outline: 2px solid var(--amber);
+        outline-offset: 3px;
+        border-radius: var(--r-sm);
+      }
       .container {
         max-width: var(--container);
         margin: 0 auto;
-        padding: 0 var(--s-3);
+        padding-inline: var(--s-3);
       }
       .todo {
         font-family: var(--mono);
@@ -100,13 +119,13 @@
         color: var(--dim);
       }
 
-      /* nav */
+      /* ── nav ── */
       .nav {
         position: sticky;
         top: 0;
-        z-index: 5;
-        background: color-mix(in oklab, var(--stage) 80%, transparent);
-        backdrop-filter: saturate(1.4) blur(12px);
+        z-index: 10;
+        background: color-mix(in oklab, var(--stage) 78%, transparent);
+        backdrop-filter: saturate(1.4) blur(14px);
         border-bottom: 1px solid var(--line);
       }
       .nav .container {
@@ -121,6 +140,12 @@
         gap: var(--s-3);
         align-items: center;
         color: var(--muted);
+      }
+      .nav nav a {
+        transition: color var(--dur-fast) var(--ease-out);
+      }
+      .nav nav a:hover {
+        color: var(--fg);
       }
       .kbd {
         font-family: var(--mono);
@@ -139,14 +164,33 @@
         color: var(--muted);
       }
       .status i {
+        position: relative;
         width: 8px;
         height: 8px;
         border-radius: 50%;
         background: var(--amber);
-        box-shadow: 0 0 0 4px var(--spot);
+      }
+      .status i::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        background: var(--amber);
+        animation: ping 2.4s var(--ease-out) infinite;
+      }
+      @keyframes ping {
+        0% {
+          transform: scale(1);
+          opacity: 0.6;
+        }
+        70%,
+        100% {
+          transform: scale(3);
+          opacity: 0;
+        }
       }
 
-      /* hero */
+      /* ── hero + sekwencja wejścia ── */
       .hero {
         text-align: center;
         padding-block: var(--s-16) var(--s-8);
@@ -155,18 +199,33 @@
         font-family: var(--mono);
         font-size: 14px;
         color: var(--muted);
+        display: inline-flex;
+        gap: 1ch;
       }
       .hero .line b {
         color: var(--amber-text);
         font-weight: 500;
+        overflow: hidden;
+        white-space: nowrap;
+        width: 19ch;
+        display: inline-block;
+        border-right: 2px solid var(--amber);
       }
       .hero h1 {
+        font-family: var(--display);
         font-weight: 600;
-        font-size: clamp(48px, 8vw, 104px);
-        line-height: 1;
+        font-size: clamp(40px, 10.5vw, 112px);
+        line-height: 0.98;
         letter-spacing: -0.045em;
         margin-top: var(--s-3);
-        text-wrap: balance;
+      }
+      .hero h1 .row {
+        display: block;
+        overflow: hidden;
+        padding-bottom: 0.08em;
+      }
+      .hero h1 .row > span {
+        display: inline-block;
       }
       .hero p.value {
         font-size: clamp(20px, 2.2vw, 26px);
@@ -184,42 +243,130 @@
         margin-top: var(--s-4);
       }
       .btn {
+        position: relative;
         font-size: 16px;
         font-weight: 500;
         padding: 12px var(--s-3);
         border-radius: var(--r-pill);
-        border: 1px solid var(--line);
+        border: 1px solid var(--line-strong);
+        transition:
+          transform var(--dur-base) var(--ease-spring),
+          box-shadow var(--dur-base) var(--ease-out),
+          border-color var(--dur-fast);
+      }
+      .btn:hover {
+        transform: translateY(-2px);
+        border-color: var(--fg);
+      }
+      .btn:active {
+        transform: translateY(0) scale(0.98);
       }
       .btn.primary {
         background: var(--cta);
         color: var(--cta-fg);
         border-color: var(--cta);
       }
+      .btn.primary:hover {
+        box-shadow:
+          0 0 0 6px var(--spot),
+          0 12px 32px -12px var(--amber);
+      }
 
-      /* scena projektu — nasz element sygnaturowy: snop światła + siatka tylko w świetle */
+      @media (prefers-reduced-motion: no-preference) {
+        .hero .line {
+          animation: fade var(--dur-slow) var(--ease-out) both;
+        }
+        .hero .line b {
+          animation:
+            type 1.2s steps(19) 1.1s both,
+            caret 0.9s step-end 2.3s 4;
+        }
+        .hero h1 .row > span {
+          animation: rise var(--dur-hero) var(--ease-out) both;
+        }
+        .hero h1 .row:nth-child(2) > span {
+          animation-delay: 90ms;
+        }
+        .hero p.value {
+          animation: fade-up var(--dur-slow) var(--ease-out) 350ms both;
+        }
+        .hero .ctas {
+          animation: fade-up var(--dur-slow) var(--ease-out) 480ms both;
+        }
+        .nav {
+          animation: fade var(--dur-slow) var(--ease-out) 600ms both;
+        }
+      }
+      @keyframes rise {
+        from {
+          transform: translateY(105%) rotate(2deg);
+          filter: blur(10px);
+        }
+        to {
+          transform: none;
+          filter: none;
+        }
+      }
+      @keyframes fade-up {
+        from {
+          opacity: 0;
+          transform: translateY(16px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      @keyframes fade {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      @keyframes type {
+        from {
+          width: 0;
+        }
+      }
+      @keyframes caret {
+        50% {
+          border-color: transparent;
+        }
+      }
+
+      /* ── scena projektu: snop światła + siatka w świetle + okno ── */
       .stage {
         position: relative;
-        padding: var(--s-12) 0 var(--s-16);
-        overflow: hidden;
-      }
-      .stage::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: radial-gradient(48% 60% at 50% 42%, var(--spot), transparent 70%);
-        pointer-events: none;
-      }
-      .stage::after {
-        content: '';
+        padding-block: var(--s-12) var(--s-16);
+        overflow: clip;
+        --mx: 50%;
+        --my: 40%;
+      } /* clip, nie hidden: hidden tworzy scroller i psuje view() */
+      .stage .light,
+      .stage .grid {
         position: absolute;
         inset: 0;
         pointer-events: none;
+      }
+      .stage .light {
+        background: radial-gradient(46% 58% at var(--mx) var(--my), var(--spot), transparent 70%);
+      }
+      .stage .grid {
         background-image:
           linear-gradient(var(--grid) 1px, transparent 1px),
           linear-gradient(90deg, var(--grid) 1px, transparent 1px);
         background-size: 32px 32px;
-        -webkit-mask-image: radial-gradient(40% 50% at 50% 42%, #000 0%, transparent 75%);
-        mask-image: radial-gradient(40% 50% at 50% 42%, #000 0%, transparent 75%);
+        -webkit-mask-image: radial-gradient(
+          38% 48% at var(--mx) var(--my),
+          #000 0%,
+          transparent 75%
+        );
+        mask-image: radial-gradient(38% 48% at var(--mx) var(--my), #000 0%, transparent 75%);
+      }
+      .scene {
+        perspective: 1600px;
       }
       .window {
         position: relative;
@@ -231,6 +378,10 @@
         background: var(--window);
         overflow: hidden;
         box-shadow: var(--shadow);
+        transition: border-color var(--dur-base) var(--ease-out);
+      }
+      .window:hover {
+        border-color: var(--line-strong);
       }
       .window .bar {
         display: flex;
@@ -247,14 +398,14 @@
         width: 10px;
         height: 10px;
         border-radius: 50%;
-        background: var(--line);
+        background: var(--line-strong);
       }
       .window .bar em {
         font-style: normal;
         margin-left: var(--s-1);
       }
       .window .shot {
-        height: 440px;
+        height: 460px;
         display: grid;
         place-items: center;
         background: repeating-linear-gradient(135deg, var(--hatch) 0 1px, transparent 1px 10px);
@@ -269,11 +420,22 @@
         max-width: 960px;
         margin: var(--s-6) auto 0;
       }
+      .stage.flip .caption {
+        flex-direction: row-reverse;
+        text-align: right;
+      }
+      .caption .kicker {
+        font-family: var(--mono);
+        font-size: 13px;
+        color: var(--amber-text);
+      }
       .caption h2 {
-        font-size: clamp(36px, 5vw, 56px);
+        font-family: var(--display);
+        font-size: clamp(38px, 5.2vw, 60px);
         font-weight: 600;
         letter-spacing: -0.035em;
-        line-height: 1.05;
+        line-height: 1.02;
+        margin-top: var(--s-1);
       }
       .caption p {
         color: var(--muted);
@@ -281,19 +443,88 @@
         margin-top: var(--s-1);
         max-width: 34ch;
       }
+      .stage.flip .caption p {
+        margin-left: auto;
+      }
       .caption .link {
         color: var(--amber-text);
         font-weight: 500;
         white-space: nowrap;
+        display: inline-flex;
+        gap: var(--s-1);
+        align-items: center;
+      }
+      .caption .link::after {
+        content: '';
+        width: 20px;
+        height: 1px;
+        background: currentColor;
+        transition: width var(--dur-base) var(--ease-out);
+      }
+      .caption .link:hover::after {
+        width: 36px;
       }
 
-      /* specyfikacja (jak „Tech Specs”) */
+      @supports (animation-timeline: view()) {
+        @media (prefers-reduced-motion: no-preference) {
+          .window {
+            animation: lift linear both;
+            animation-timeline: view();
+            animation-range: entry 0% cover 42%;
+            transform-origin: 50% 100%;
+          }
+          .stage .light,
+          .stage .grid {
+            animation: ignite linear both;
+            animation-timeline: --scene;
+            animation-range: entry 10% cover 50%;
+          }
+          .stage {
+            view-timeline: --scene block;
+          }
+          .caption > * {
+            animation: fade-up linear both;
+            animation-timeline: view();
+            animation-range: entry 20% cover 30%;
+          }
+          .specs div {
+            animation: fade-up linear both;
+            animation-timeline: view();
+            animation-range: entry 0% cover 25%;
+          }
+        }
+      }
+      @keyframes lift {
+        from {
+          transform: translateY(96px) rotateX(22deg) scale(0.9);
+          opacity: 0.25;
+          filter: brightness(0.5);
+        }
+        to {
+          transform: none;
+          opacity: 1;
+          filter: none;
+        }
+      }
+      @keyframes ignite {
+        from {
+          opacity: 0;
+          transform: scale(0.6);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+
+      /* ── specyfikacja ── */
       .band {
         background: var(--band);
-        padding: var(--s-12) 0;
+        padding-block: var(--s-12);
       }
       .band h3 {
-        font-size: 32px;
+        font-family: var(--display);
+        font-size: 34px;
         font-weight: 600;
         letter-spacing: -0.025em;
       }
@@ -311,7 +542,8 @@
         color: var(--muted);
       }
       .specs dd {
-        font-size: 21px;
+        font-family: var(--display);
+        font-size: 22px;
         font-weight: 500;
         letter-spacing: -0.015em;
         margin-top: var(--s-1);
@@ -324,14 +556,12 @@
       }
 
       @media (max-width: 720px) {
-        .nav nav a {
+        .nav nav a,
+        .status span {
           display: none;
         }
         .hero {
           padding-block: var(--s-12) var(--s-6);
-        }
-        .status span {
-          display: none;
         }
         .ctas {
           flex-direction: column;
@@ -340,9 +570,14 @@
         .window .shot {
           height: 220px;
         }
-        .caption {
+        .caption,
+        .stage.flip .caption {
           flex-direction: column;
           align-items: flex-start;
+          text-align: left;
+        }
+        .stage.flip .caption p {
+          margin-left: 0;
         }
         .specs {
           grid-template-columns: 1fr 1fr;
@@ -357,31 +592,39 @@
     <header class="nav">
       <div class="container">
         <strong>TODO(content): monogram</strong>
-        <nav><a>Projekty</a><a>O mnie</a><a>Kontakt</a><span class="kbd">Ctrl K</span></nav>
+        <nav>
+          <a href="#p1">Projekty</a><a>O mnie</a><a>Kontakt</a><span class="kbd">Ctrl K</span>
+        </nav>
         <span class="status"><i></i><span>Otwarty na oferty</span></span>
       </div>
     </header>
 
     <main>
       <section class="hero container">
-        <p class="line">teraz buduję <b>kalkulator-mebli v2</b></p>
-        <h1>TODO(content): Imię Nazwisko</h1>
+        <p class="line"><span>teraz buduję</span><b>kalkulator-mebli v2</b></p>
+        <h1>
+          <span class="row"><span>TODO(content):</span></span
+          ><span class="row"><span>Imię Nazwisko</span></span>
+        </h1>
         <p class="value">
           Buduję dopracowane narzędzia, które automatyzują prawdziwą pracę — od desktopu po web.
         </p>
         <div class="ctas">
-          <a class="btn primary">Zobacz projekty</a><a class="btn">Pobierz CV</a>
+          <a class="btn primary" href="#p1">Zobacz projekty</a><a class="btn">Pobierz CV</a>
         </div>
       </section>
 
       <section class="stage" aria-labelledby="p1">
-        <div class="container">
+        <div class="light"></div>
+        <div class="grid"></div>
+        <div class="scene container">
           <div class="window">
             <div class="bar"><span></span><span></span><span></span><em>kalkulator-mebli</em></div>
             <div class="shot"><span class="todo">TODO(content): zrzut ekranu ≥ 2400 px</span></div>
           </div>
           <div class="caption">
             <div>
+              <span class="kicker">web · single-page</span>
               <h2 id="p1">Kalkulator mebli</h2>
               <p>Rozkrój mebli, rysunek, lista rozkroju i PDF dla stolarni.</p>
             </div>
@@ -413,6 +656,58 @@
           </dl>
         </div>
       </section>
+
+      <section class="stage flip" aria-labelledby="p2">
+        <div class="light"></div>
+        <div class="grid"></div>
+        <div class="scene container">
+          <div class="window">
+            <div class="bar">
+              <span></span><span></span><span></span><em>awizacje — desktop</em>
+            </div>
+            <div class="shot"><span class="todo">TODO(content): zrzut ekranu ≥ 2400 px</span></div>
+          </div>
+          <div class="caption">
+            <div>
+              <span class="kicker">desktop</span>
+              <h2 id="p2">Aplikacja do awizacji</h2>
+              <p>Automatyzacja procesu awizacji pojazdów i dostaw.</p>
+            </div>
+            <a class="link">Zobacz case study</a>
+          </div>
+        </div>
+      </section>
     </main>
+
+    <script>
+      // Snop światła za kursorem: tylko desktop i bez reduced-motion. rAF + lerp, bez bibliotek.
+      if (matchMedia('(pointer: fine) and (prefers-reduced-motion: no-preference)').matches) {
+        for (const stage of document.querySelectorAll('.stage')) {
+          let tx = 50,
+            ty = 40,
+            x = 50,
+            y = 40,
+            raf = 0;
+          const tick = () => {
+            x += (tx - x) * 0.08;
+            y += (ty - y) * 0.08;
+            stage.style.setProperty('--mx', x + '%');
+            stage.style.setProperty('--my', y + '%');
+            raf = Math.abs(tx - x) + Math.abs(ty - y) > 0.1 ? requestAnimationFrame(tick) : 0;
+          };
+          stage.addEventListener('pointermove', (e) => {
+            const r = stage.getBoundingClientRect();
+            tx = ((e.clientX - r.left) / r.width) * 100;
+            ty = ((e.clientY - r.top) / r.height) * 100;
+            if (!raf) raf = requestAnimationFrame(tick);
+          });
+          stage.addEventListener('pointerleave', () => {
+            tx = 50;
+            ty = 40;
+            if (!raf) raf = requestAnimationFrame(tick);
+          });
+        }
+      }
+    </script>
   </body>
 </html>
