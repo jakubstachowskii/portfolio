@@ -5,7 +5,7 @@ Legenda: ⬜ nie zaczęte · 🟨 w toku · ✅ zrobione · ⏸ czeka na Piotra
 | Faza | Nazwa                     | Gałąź                        | Status   |
 | ---- | ------------------------- | ---------------------------- | -------- |
 | 0    | Fundament repo            | `feat/faza-0-fundament`      | ✅ PR #1 |
-| 1a   | Research stylu (Refero)   | `feat/faza-1a-styl`          | ⏸ wybór  |
+| 1a   | Research stylu (Refero)   | `feat/faza-1a-styl`          | ✅ PR    |
 | 1b   | Design system             | `feat/faza-1b-design-system` | ⬜       |
 | 2    | Layout i strona główna    | `feat/faza-2-layout-home`    | ⬜       |
 | 3    | Projekty i case studies   | `feat/faza-3-projekty`       | ⬜       |
@@ -77,6 +77,16 @@ Legenda: ⬜ nie zaczęte · 🟨 w toku · ✅ zrobione · ⏸ czeka na Piotra
 - D v3.1: ocena Resenda, porównanie 3 krojów nagłówka i wybór Newsreader; pasmo „Specyfikacja” zastąpione paskiem faktów w scenach.
 - Karty kierunków `KIERUNKI.md` (co bierzemy, co zmieniamy, kontrasty) + szkice hero i karty projektu w obu trybach (`sketches/`).
 
-**Czeka na Piotra**
+**Decyzja Piotra:** D v3.1 „Premiera” z nagłówkami Funnel Display.
 
-- Wybór kierunku A / B / C / D (rekomendacja: **D „Premiera” v3.1** = v2 + DNA Raycasta + szeryf Newsreader + fakty w scenie). Potem krok 3: `docs/DESIGN.md` + test „podróbki”.
+**Krok 3 (adaptacja):** `docs/DESIGN.md` (nastrój, inspiracja i różnice, kolory OKLCH z kontrastami, typografia, rytm 8pt, kształty, ruch, komponenty, media, czego unikamy) + test „podróbki” (`style-research/PODROBKA.md`, zaliczony). Audyt kontrastu poprawił `dim` i dodał `line-control`.
+
+**Kryteria akceptacji Fazy 1a (PLAN §14)**
+
+- [x] `docs/style-research/` z notatkami (17 stylów) i `SCORING.md`
+- [x] Piotr wybrał kierunek, zapisane w `DECISIONS.md` (#17)
+- [x] `docs/DESIGN.md` kompletny, z sekcją „Inspiracja i różnice” i ≥ 3 udokumentowanymi zmianami (4)
+- [x] Test „podróbki” zaliczony (powtórka po Fazie 2)
+- [x] Bez kodu produkcyjnego (tylko szkice w `docs/style-research/sketches/`)
+
+**Dalej:** Faza 1b (tokens.css według DESIGN.md, fonty, skrypt motywu, komponenty UI, strona `/design`), na zgodę Piotra.

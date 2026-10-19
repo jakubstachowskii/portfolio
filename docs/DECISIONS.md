@@ -132,7 +132,7 @@ Wszystkie z PLAN §3, bez dodatków spoza planu poza wymienionymi niżej.
 - **Zrzuty stron źródłowych** (`docs/style-research/screens/`) są w `.gitignore`, bo to cudze materiały, a repo jest publiczne. Notatki linkują do stron stylów na Refero.
 - **Szkice** (`docs/style-research/sketches/`) to nasz statyczny HTML poza `src/`, bez kodu produkcyjnego (§14, Faza 1a).
 
-## #17 · 2026-10-19 · Wybór kierunku wizualnego · proponowana
+## #17 · 2026-10-19 · Wybór kierunku wizualnego · przyjęta
 
 - **Kandydaci:** A „Notatnik warsztatowy” (Convex), B „Instrukcja techniczna / cyjanotypia” (Zed), C „Stół świetlny / bursztyn” (Dovetail), **D „Premiera”**: synteza Apple (sceny, rytm, specyfikacja) + Convex/Factory (okna aplikacji, Geist) + bursztyn i siatka z C. Szczegóły: `docs/style-research/KIERUNKI.md`.
 - **Zmiana kryteriów:** na prośbę Piotra (2026-10-19) do macierzy dodane K10 „siła sprzedaży / efekt premiery” z wagą 3 (maks. 115).
@@ -141,4 +141,20 @@ Wszystkie z PLAN §3, bez dodatków spoza planu poza wymienionymi niżej.
 - **Uwagi Piotra do D (2026-10-19):** domyślnie ciemny, bursztyn i hero bez zmian, typografia bardziej premium, kształty bliżej Apple, efektowne animacje bez przesady. Wprowadzone w szkicu v2: Funnel Display + Funnel Sans + Geist Mono, promienie 10/18/26, trzy momenty ruchu (KIERUNKI.md).
 - **D v3 (2026-10-19):** na prośbę Piotra ocena Raycasta. Jako cała strona odrzucony (80/115), 3 zasady wchłonięte do D: powierzchnie „klawisza”, paleta ⌘K w hero, szklana nawigacja. Rekomendacja: v3.
 - **D v3.1 (2026-10-19):** ocena Resenda (83/115): jako baza nie (WebGL w hero, tylko dark, fonty komercyjne, kod 2.35:1), wzięte zasady: szeryf na czerni (Newsreader zamiast Funnel Display w nagłówkach) i kolor jako składnia. Pasmo „Specyfikacja” zastąpione paskiem faktów w każdej scenie.
-- **Decyzja:** czeka na akceptację v3.1 przez Piotra.
+- **Decyzja (Piotr, 2026-10-19):** **D v3.1 „Premiera”**, z nagłówkami **Funnel Display** (Piotr wybrał pierwszy krój z porównania; Newsreader odpada). Design system: `docs/DESIGN.md`. Test „podróbki” zaliczony: `docs/style-research/PODROBKA.md`.
+
+## #18 · 2026-10-19 · DESIGN.md nadpisuje hipotezy PLAN §2 i §6.1–6.5 · przyjęta
+
+Zgodnie z PLAN §6.0 konkretne wartości wynikają teraz z `docs/DESIGN.md`. Najważniejsze różnice wobec hipotezy:
+
+| PLAN                                             | DESIGN.md                                                                                         | Powód                                                     |
+| ------------------------------------------------ | ------------------------------------------------------------------------------------------------- | --------------------------------------------------------- |
+| §2 „Engineering Notebook”, akcent zieleń-limonka | „Premiera”, akcent **bursztyn** `oklch(0.807 0.148 77)`                                           | Research Refero + wybór Piotra                            |
+| §6.2 Geist + JetBrains Mono                      | **Funnel Display + Funnel Sans + Geist Mono**                                                     | Bardziej „premium” (uwaga Piotra), porównanie 9 krojów    |
+| §6.3 promienie 6 / 10 / 16                       | **10 / 18 / 26** + pigułki                                                                        | Bliżej Apple (uwaga Piotra), z hierarchią                 |
+| §6.3 sekcje `py-24 md:py-32`                     | Skala 8pt; scena 96/128, pasmo 96/96                                                              | Stały rytm (wymaganie Piotra „równe paddingi”)            |
+| §6.4 wejścia sekcji fade + translateY wszędzie   | 3 momenty ruchu (hero, premiera sceny, snop za kursorem), bez fade na każdej sekcji               | „Efektownie, ale bez przesady”                            |
+| §6.5 `Section` z mono-labelem `01 — Projekty`    | Numeracja **tylko dla sekwencji** (np. oś czasu)                                                  | Numerowanie niesekwencyjnych sekcji to szablonowy wzorzec |
+| §6.1 `--color-fg-subtle`                         | `--color-dim` poprawiony do ≥ 4.5:1 (`#767f85` / `#666f76`) + nowy `--color-line-control` (≥ 3:1) | Audyt kontrastu przed zapisaniem tokenów                  |
+
+Pozostałe wymagania strukturalne PLAN §6 (role tokenów, 5 stanów, focus ring 2px + offset, reduced-motion, strona `/design`) bez zmian.
