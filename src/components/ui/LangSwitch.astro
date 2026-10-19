@@ -13,9 +13,9 @@ const href = getLocalizedPath(Astro.url.pathname, target);
 <a
   href={href}
   hreflang={target}
-  lang={target}
-  aria-label={dict.ui.lang.switchLabel}
   class="inline-grid min-h-(--size-target) min-w-(--size-target) place-items-center rounded-pill border border-line bg-surface px-1.5 font-mono text-mono-sm text-fg shadow-key transition duration-(--duration-base) ease-out is-hover:border-line-strong"
 >
-  {dict.ui.lang.short}
+  <!-- WCAG 2.5.3: nazwa dostępna zawiera widoczny tekst („EN”) -->
+  <span class="sr-only">{dict.ui.lang.switchLabel}: </span>
+  <span lang={target}>{dict.ui.lang.short}</span>
 </a>

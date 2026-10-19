@@ -33,7 +33,7 @@ describe.each([
   const results = auditContrast(colors);
 
   it('wszystkie pary są w pliku', () => {
-    expect(results.length).toBe(20);
+    expect(results.length).toBe(21);
   });
 
   it.each(results.map((r) => [`${r.fg} / ${r.bg} ≥ ${r.min}`, r] as const))('%s', (_label, r) => {

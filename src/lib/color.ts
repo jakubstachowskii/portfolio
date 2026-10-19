@@ -80,6 +80,7 @@ export const CONTRAST_PAIRS: readonly (readonly [string, string, number])[] = [
   ['dim', 'canvas', 4.5],
   ['dim', 'band', 4.5],
   ['dim', 'window', 4.5],
+  ['dim', 'surface', 4.5],
   ['accent-text', 'canvas', 4.5],
   ['accent-text', 'band', 4.5],
   ['on-cta', 'cta', 4.5],
