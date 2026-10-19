@@ -1,0 +1,117 @@
+---
+import { Icon } from 'astro-icon/components';
+import Button from '@/components/ui/Button.astro';
+import Card from '@/components/ui/Card.astro';
+import Divider from '@/components/ui/Divider.astro';
+import IconButton from '@/components/ui/IconButton.astro';
+import Kbd from '@/components/ui/Kbd.astro';
+import LangSwitch from '@/components/ui/LangSwitch.astro';
+import Link from '@/components/ui/Link.astro';
+import SectionHeading from '@/components/ui/SectionHeading.astro';
+import Skeleton from '@/components/ui/Skeleton.astro';
+import StatusDot from '@/components/ui/StatusDot.astro';
+import Tag from '@/components/ui/Tag.astro';
+import ThemeToggle from '@/components/ui/ThemeToggle.astro';
+import Toast from '@/components/ui/Toast.astro';
+import Tooltip from '@/components/ui/Tooltip.astro';
+import { STATES, type CatalogTheme } from '@/lib/design-catalog';
+
+interface Props {
+  theme: CatalogTheme;
+}
+
+const { theme } = Astro.props;
+const variants = ['primary', 'secondary', 'link'] as const;
+---
+
+<section class="flex flex-col gap-3">
+  <h2 class="text-h3">Przyciski × 5 stanów</h2>
+  <div class="grid grid-cols-[auto_1fr] items-center gap-x-3 gap-y-2">
+    {variants.map((v) => (
+      <>
+        <code class="text-mono-sm text-dim">{v}</code>
+        <div class="flex flex-wrap items-center gap-2">
+          {STATES.map(([name, state]) => (
+            <Button variant={v} state={state} disabled={state === 'disabled'}>
+              {name}
+            </Button>
+          ))}
+        </div>
+      </>
+    ))}
+    <code class="text-mono-sm text-dim">rozmiary</code>
+    <div class="flex flex-wrap items-center gap-2">
+      <Button size="sm">sm</Button>
+      <Button size="md">md</Button>
+      <Button size="lg">lg</Button>
+    </div>
+    <code class="text-mono-sm text-dim">icon</code>
+    <div class="flex flex-wrap items-center gap-2">
+      {STATES.map(([name, state]) => (
+        <IconButton label={`Przykład: ${name}`} state={state} disabled={state === 'disabled'}>
+          <Icon name="lucide:search" class="size-2.5" aria-hidden="true" />
+        </IconButton>
+      ))}
+      <IconButton label="Przykład: ghost" variant="ghost">
+        <Icon name="lucide:x" class="size-2.5" aria-hidden="true" />
+      </IconButton>
+    </div>
+  </div>
+</section>
+
+<Divider />
+
+<section class="flex flex-col gap-3">
+  <h2 class="text-h3">Drobne elementy</h2>
+  <div class="flex flex-wrap items-center gap-2">
+    <Kbd>Ctrl K</Kbd>
+    <Kbd size="sm">↵</Kbd>
+    <Kbd size="sm">Esc</Kbd>
+    <Tag>Astro</Tag>
+    <Tag status="live" />
+    <Tag status="in-progress" />
+    <Tag status="archived" />
+  </div>
+  <div class="flex flex-wrap items-center gap-3">
+    <StatusDot state="open" />
+    <StatusDot state="busy" />
+    <StatusDot state="off" />
+    <StatusDot compact />
+  </div>
+  <div class="flex flex-wrap items-center gap-3">
+    <Link href="/">Link wewnętrzny</Link>
+    <Link href="https://github.com">GitHub</Link>
+    <Link href="/" tone="accent">
+      Zobacz case study
+    </Link>
+  </div>
+  <div class="flex flex-wrap items-center gap-2 pt-4">
+    <Tooltip text="Skopiuj e-mail" id={`tip-${theme}`} open>
+      <Kbd>@</Kbd>
+    </Tooltip>
+    <ThemeToggle />
+    <LangSwitch />
+  </div>
+</section>
+
+<Divider />
+
+<section class="flex flex-col gap-3">
+  <SectionHeading kicker="sekcja" title="Nagłówek sekcji" level="h3" />
+  <div class="grid gap-2 sm:grid-cols-2">
+    <Card>
+      <p class="text-body text-muted">Karta statyczna (surface + klawisz).</p>
+    </Card>
+    <Card interactive state="hover">
+      <p class="text-body text-muted">Karta interaktywna: hover.</p>
+    </Card>
+  </div>
+  <Toast>Skopiowano adres e-mail do schowka.</Toast>
+  <Toast tone="success">Wiadomość wysłana.</Toast>
+  <Toast tone="danger">Nie udało się wysłać — sprawdź połączenie i spróbuj ponownie.</Toast>
+  <div class="flex flex-col gap-1">
+    <Skeleton class="h-2 w-32" />
+    <Skeleton class="h-2 w-24" />
+    <Skeleton class="h-8 w-full" />
+  </div>
+</section>
