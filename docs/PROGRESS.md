@@ -68,10 +68,12 @@ Legenda: ⬜ nie zaczęte · 🟨 w toku · ✅ zrobione · ⏸ czeka na Piotra
 **Zrobione** (gałąź `feat/faza-1a-styl`)
 
 - Przegląd: wszystkie 95 kolekcji + 10 fraz z §6.0, 1326 unikalnych stylów.
-- Shortlista 12 stylów z notatkami (`docs/style-research/*.md`).
-- Macierz ocen `SCORING.md`: top 3 to Convex (90), Zed (90), Dovetail (84).
+- Shortlista 16 stylów z notatkami (`docs/style-research/*.md`).
+- Macierz ocen `SCORING.md`: 16 stylów, najwyżej Convex (102), Zed (99), Dovetail (96), Factory (93).
+- Druga runda na prośbę Piotra: pełny katalog 1342 stylów, filtr Apple / kinowe / portfolia / terminale, arkusz 24 kandydatów, 4 nowe style w macierzy, kryterium K10 „siła sprzedaży”.
+- Kierunek D „Premiera” (synteza) ze szkicem desktop + mobile w obu trybach.
 - Karty kierunków `KIERUNKI.md` (co bierzemy, co zmieniamy, kontrasty) + szkice hero i karty projektu w obu trybach (`sketches/`).
 
 **Czeka na Piotra**
 
-- Wybór kierunku A / B / C (rekomendacja: B). Potem krok 3: `docs/DESIGN.md` + test „podróbki”.
+- Wybór kierunku A / B / C / D (rekomendacja: **D „Premiera”**). Potem krok 3: `docs/DESIGN.md` + test „podróbki”.

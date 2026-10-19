@@ -1,0 +1,418 @@
+<!doctype html>
+<!--
+  Szkic kierunku D „Premiera” (Faza 1a). NIE jest to kod produkcyjny.
+  Użycie: kierunek-d.html?t=dark|light
+  Treść: tylko TODO(content) i przykłady z docs/PLAN.md.
+  Rytm: wszystkie odstępy z jednej skali 8pt (--s-*), sekcje zawsze --s-16 / --s-12.
+-->
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kierunek D — Premiera</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap&subset=latin-ext"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        /* skala 8pt — jedyne dozwolone odstępy */
+        --s-1: 8px;
+        --s-2: 16px;
+        --s-3: 24px;
+        --s-4: 32px;
+        --s-6: 48px;
+        --s-8: 64px;
+        --s-12: 96px;
+        --s-16: 128px;
+        --r-sm: 8px;
+        --r-md: 14px;
+        --r-lg: 22px;
+        --r-pill: 999px;
+        --sans: 'Geist', system-ui, sans-serif;
+        --mono: 'Geist Mono', ui-monospace, monospace;
+        --container: 1120px;
+      }
+      [data-t='dark'] {
+        --stage: #000000;
+        --band: #0f1112;
+        --card: #16191b;
+        --line: #24292c;
+        --fg: #f4f5f6;
+        --muted: #9aa3a9;
+        --dim: #6c757b;
+        --amber: #f5b23d;
+        --amber-text: #f5b23d;
+        --on-amber: #111416;
+        --cta: var(--amber);
+        --cta-fg: var(--on-amber);
+        --spot: rgba(245, 178, 61, 0.22);
+        --grid: rgba(245, 178, 61, 0.3);
+        --shadow: 0 40px 80px -40px rgba(0, 0, 0, 0.8);
+        --window: #0b0d0e;
+        --hatch: #1b2023;
+      }
+      [data-t='light'] {
+        --stage: #ffffff;
+        --band: #f4f5f6;
+        --card: #ffffff;
+        --line: #e3e6e8;
+        --fg: #111416;
+        --muted: #575f66;
+        --dim: #7a838a;
+        --amber: #b77900;
+        --amber-text: #8a5a00;
+        --on-amber: #ffffff;
+        --cta: #111416;
+        --cta-fg: #ffffff;
+        --spot: rgba(183, 121, 0, 0.12);
+        --grid: rgba(138, 90, 0, 0.2);
+        --shadow: 0 24px 48px -32px rgba(17, 20, 22, 0.25);
+        --window: #f7f8f8;
+        --hatch: #e6e9eb;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+      }
+      body {
+        font-family: var(--sans);
+        background: var(--stage);
+        color: var(--fg);
+        -webkit-font-smoothing: antialiased;
+        font-size: 17px;
+        line-height: 1.5;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      .container {
+        max-width: var(--container);
+        margin: 0 auto;
+        padding: 0 var(--s-3);
+      }
+      .todo {
+        font-family: var(--mono);
+        font-size: 13px;
+        color: var(--dim);
+      }
+
+      /* nav */
+      .nav {
+        position: sticky;
+        top: 0;
+        z-index: 5;
+        background: color-mix(in oklab, var(--stage) 80%, transparent);
+        backdrop-filter: saturate(1.4) blur(12px);
+        border-bottom: 1px solid var(--line);
+      }
+      .nav .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 56px;
+        font-size: 14px;
+      }
+      .nav nav {
+        display: flex;
+        gap: var(--s-3);
+        align-items: center;
+        color: var(--muted);
+      }
+      .kbd {
+        font-family: var(--mono);
+        font-size: 12px;
+        border: 1px solid var(--line);
+        border-radius: var(--r-sm);
+        padding: 2px var(--s-1);
+        color: var(--fg);
+      }
+      .status {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--s-1);
+        font-family: var(--mono);
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .status i {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--amber);
+        box-shadow: 0 0 0 4px var(--spot);
+      }
+
+      /* hero */
+      .hero {
+        text-align: center;
+        padding-block: var(--s-16) var(--s-8);
+      }
+      .hero .line {
+        font-family: var(--mono);
+        font-size: 14px;
+        color: var(--muted);
+      }
+      .hero .line b {
+        color: var(--amber-text);
+        font-weight: 500;
+      }
+      .hero h1 {
+        font-weight: 600;
+        font-size: clamp(48px, 8vw, 104px);
+        line-height: 1;
+        letter-spacing: -0.045em;
+        margin-top: var(--s-3);
+        text-wrap: balance;
+      }
+      .hero p.value {
+        font-size: clamp(20px, 2.2vw, 26px);
+        line-height: 1.35;
+        color: var(--muted);
+        max-width: 30ch;
+        margin: var(--s-3) auto 0;
+        text-wrap: balance;
+        letter-spacing: -0.01em;
+      }
+      .ctas {
+        display: flex;
+        gap: var(--s-2);
+        justify-content: center;
+        margin-top: var(--s-4);
+      }
+      .btn {
+        font-size: 16px;
+        font-weight: 500;
+        padding: 12px var(--s-3);
+        border-radius: var(--r-pill);
+        border: 1px solid var(--line);
+      }
+      .btn.primary {
+        background: var(--cta);
+        color: var(--cta-fg);
+        border-color: var(--cta);
+      }
+
+      /* scena projektu — nasz element sygnaturowy: snop światła + siatka tylko w świetle */
+      .stage {
+        position: relative;
+        padding: var(--s-12) 0 var(--s-16);
+        overflow: hidden;
+      }
+      .stage::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(48% 60% at 50% 42%, var(--spot), transparent 70%);
+        pointer-events: none;
+      }
+      .stage::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background-image:
+          linear-gradient(var(--grid) 1px, transparent 1px),
+          linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+        background-size: 32px 32px;
+        -webkit-mask-image: radial-gradient(40% 50% at 50% 42%, #000 0%, transparent 75%);
+        mask-image: radial-gradient(40% 50% at 50% 42%, #000 0%, transparent 75%);
+      }
+      .window {
+        position: relative;
+        z-index: 1;
+        max-width: 960px;
+        margin: 0 auto;
+        border: 1px solid var(--line);
+        border-radius: var(--r-lg);
+        background: var(--window);
+        overflow: hidden;
+        box-shadow: var(--shadow);
+      }
+      .window .bar {
+        display: flex;
+        align-items: center;
+        gap: var(--s-1);
+        height: 40px;
+        padding: 0 var(--s-2);
+        border-bottom: 1px solid var(--line);
+        font-family: var(--mono);
+        font-size: 12px;
+        color: var(--dim);
+      }
+      .window .bar span {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--line);
+      }
+      .window .bar em {
+        font-style: normal;
+        margin-left: var(--s-1);
+      }
+      .window .shot {
+        height: 440px;
+        display: grid;
+        place-items: center;
+        background: repeating-linear-gradient(135deg, var(--hatch) 0 1px, transparent 1px 10px);
+      }
+      .caption {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: var(--s-4);
+        max-width: 960px;
+        margin: var(--s-6) auto 0;
+      }
+      .caption h2 {
+        font-size: clamp(36px, 5vw, 56px);
+        font-weight: 600;
+        letter-spacing: -0.035em;
+        line-height: 1.05;
+      }
+      .caption p {
+        color: var(--muted);
+        font-size: 19px;
+        margin-top: var(--s-1);
+        max-width: 34ch;
+      }
+      .caption .link {
+        color: var(--amber-text);
+        font-weight: 500;
+        white-space: nowrap;
+      }
+
+      /* specyfikacja (jak „Tech Specs”) */
+      .band {
+        background: var(--band);
+        padding: var(--s-12) 0;
+      }
+      .band h3 {
+        font-size: 32px;
+        font-weight: 600;
+        letter-spacing: -0.025em;
+      }
+      .specs {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        margin-top: var(--s-6);
+        border-top: 1px solid var(--line);
+      }
+      .specs div {
+        padding: var(--s-3) var(--s-3) 0 0;
+      }
+      .specs dt {
+        font-size: 14px;
+        color: var(--muted);
+      }
+      .specs dd {
+        font-size: 21px;
+        font-weight: 500;
+        letter-spacing: -0.015em;
+        margin-top: var(--s-1);
+      }
+      .specs dd.mono {
+        font-family: var(--mono);
+        font-size: 15px;
+        font-weight: 400;
+        letter-spacing: 0;
+      }
+
+      @media (max-width: 720px) {
+        .nav nav a {
+          display: none;
+        }
+        .hero {
+          padding-block: var(--s-12) var(--s-6);
+        }
+        .status span {
+          display: none;
+        }
+        .ctas {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .window .shot {
+          height: 220px;
+        }
+        .caption {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        .specs {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      document.documentElement.dataset.t = new URLSearchParams(location.search).get('t') || 'dark';
+    </script>
+    <header class="nav">
+      <div class="container">
+        <strong>TODO(content): monogram</strong>
+        <nav><a>Projekty</a><a>O mnie</a><a>Kontakt</a><span class="kbd">Ctrl K</span></nav>
+        <span class="status"><i></i><span>Otwarty na oferty</span></span>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero container">
+        <p class="line">teraz buduję <b>kalkulator-mebli v2</b></p>
+        <h1>TODO(content): Imię Nazwisko</h1>
+        <p class="value">
+          Buduję dopracowane narzędzia, które automatyzują prawdziwą pracę — od desktopu po web.
+        </p>
+        <div class="ctas">
+          <a class="btn primary">Zobacz projekty</a><a class="btn">Pobierz CV</a>
+        </div>
+      </section>
+
+      <section class="stage" aria-labelledby="p1">
+        <div class="container">
+          <div class="window">
+            <div class="bar"><span></span><span></span><span></span><em>kalkulator-mebli</em></div>
+            <div class="shot"><span class="todo">TODO(content): zrzut ekranu ≥ 2400 px</span></div>
+          </div>
+          <div class="caption">
+            <div>
+              <h2 id="p1">Kalkulator mebli</h2>
+              <p>Rozkrój mebli, rysunek, lista rozkroju i PDF dla stolarni.</p>
+            </div>
+            <a class="link">Zobacz case study</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="band">
+        <div class="container">
+          <h3>Specyfikacja</h3>
+          <dl class="specs">
+            <div>
+              <dt>Typ</dt>
+              <dd>Web, single-page</dd>
+            </div>
+            <div>
+              <dt>Rola</dt>
+              <dd class="mono">TODO(content)</dd>
+            </div>
+            <div>
+              <dt>Stack</dt>
+              <dd class="mono">TODO(content)</dd>
+            </div>
+            <div>
+              <dt>Efekt</dt>
+              <dd class="mono">TODO(content): liczby</dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

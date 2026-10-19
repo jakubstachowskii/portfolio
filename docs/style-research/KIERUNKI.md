@@ -1,4 +1,4 @@
-# KIERUNKI.md: top 3 (PLAN §6.0, krok 2)
+# KIERUNKI.md: kierunki A–D (PLAN §6.0, krok 2)
 
 Szkice: `sketches/kierunki.html?d=a|b|c&t=light|dark` (statyczny HTML, poza kodem produkcyjnym) i zrzuty `sketches/{a,b,c}-{light,dark}.png` (1280×800). Treść szkiców to wyłącznie `TODO(content)` i przykłady z PLAN §5.1.
 
@@ -6,7 +6,7 @@ Wspólne dla wszystkich trzech: sygnatury z §2 (⌘K, linia terminala, TOC w ca
 
 ---
 
-## A · „Notatnik warsztatowy” (inspiracja: [Convex](convex.md), 90 pkt)
+## A · „Notatnik warsztatowy” (inspiracja: [Convex](convex.md), 102 pkt)
 
 Zrzuty: [jasny](sketches/a-light.png) · [ciemny](sketches/a-dark.png) · źródło: `screens/convex.jpg`
 
@@ -26,7 +26,7 @@ Zrzuty: [jasny](sketches/a-light.png) · [ciemny](sketches/a-dark.png) · źród
 
 ---
 
-## B · „Instrukcja techniczna / cyjanotypia” (inspiracja: [Zed](zed.md), 90 pkt)
+## B · „Instrukcja techniczna / cyjanotypia” (inspiracja: [Zed](zed.md), 99 pkt)
 
 Zrzuty: [jasny](sketches/b-light.png) · [ciemny](sketches/b-dark.png) · źródło: `screens/zed.jpg`
 
@@ -46,7 +46,7 @@ Zrzuty: [jasny](sketches/b-light.png) · [ciemny](sketches/b-dark.png) · źród
 
 ---
 
-## C · „Stół świetlny / bursztyn” (inspiracja: [Dovetail](dovetail.md), 84 pkt)
+## C · „Stół świetlny / bursztyn” (inspiracja: [Dovetail](dovetail.md), 96 pkt)
 
 Zrzuty: [ciemny](sketches/c-dark.png) · [jasny](sketches/c-light.png) · źródło: `screens/dovetail.jpg`
 
@@ -66,8 +66,48 @@ Zrzuty: [ciemny](sketches/c-dark.png) · [jasny](sketches/c-light.png) · źród
 
 ---
 
+## D · „Premiera”: synteza (rekomendowana)
+
+Zrzuty: [ciemny](sketches/d-dark-desktop.png) · [jasny](sketches/d-light-desktop.png) · [mobile ciemny](sketches/d-dark-mobile.png) · [mobile jasny](sketches/d-light-mobile.png) · szkic: `sketches/kierunek-d.html?t=dark|light`
+
+**Idea.** Portfolio programisty sprzedane tak, jak Apple sprzedaje produkty. Każdy wyróżniony projekt dostaje **własną scenę** na pełną szerokość, jak premiera produktu: ogromna nazwa, jedno zdanie efektu, zrzut aplikacji „oświetlony” na scenie, a pod spodem rzeczowa **specyfikacja techniczna**. Charakter developerski zostaje: okna aplikacji, mono w danych technicznych, linia terminala, ⌘K i status.
+
+**Skąd co bierzemy (zasady, nie zasoby):**
+
+| Źródło                                                          | Bierzemy                                                                                                                                                          |
+| --------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [Apple iPhone 18 Pro](apple-iphone.md), [Apple ES](apple-es.md) | Jedna rzecz na scenę, ogromna pusta przestrzeń, nagłówek jako bohater, sceny na zmianę z pasmami detali, specyfikacja jako osobny blok, **sztywny rytm odstępów** |
+| [Convex](convex.md), [Factory](factory.md)                      | Projekt pokazany w oknie aplikacji (soft, nie sprzęt), Geist o ciasnym trackingu, akcent jako sygnał statusu                                                      |
+| [Framer](framer.md)                                             | Siatka kafli projektów na liście, akcent na krawędziach (focus ring, stany aktywne)                                                                               |
+| [Dovetail](dovetail.md) / nasz szkic C                          | Bursztyn jako jedyny akcent, siatka tła                                                                                                                           |
+
+**Co zmieniamy względem źródeł (≥ 3, wymóg §6.0):**
+
+| Źródło                             | Nasza decyzja                                                                                                               | Powód                                                                                     |
+| ---------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| Apple: render sprzętu jako bohater | **Zrzut aplikacji w oknie** na scenie                                                                                       | Sprzedajemy oprogramowanie                                                                |
+| Apple: niebieski `#0071e3`         | **Bursztyn** `#f5b23d` (CTA na ciemnym: 10:1 z ciemnym tekstem); w jasnym CTA czarne, bursztyn `#8a5a00` dla tekstu (5.6:1) | Własny akcent, ciepły, „terminalowy”                                                      |
+| Apple: SF Pro (bez licencji web)   | **Geist + Geist Mono** (OFL, latin-ext)                                                                                     | Licencja, polskie znaki, charakter dev                                                    |
+| Apple: 28px na wszystkim           | Hierarchia **8 / 14 / 22px** + pigułki tylko dla przycisków                                                                 | Mniej „sklepowo”, bardziej precyzyjnie                                                    |
+| Brak w źródłach                    | **Snop światła + siatka widoczna tylko w świetle** za oknem projektu (CSS, 0 KB JS)                                         | Nasz element sygnaturowy: „oświetlamy pracę”, odpowiednik studyjnego oświetlenia produktu |
+| Apple: specyfikacja sprzętu        | **Specyfikacja projektu**: typ, rola, stack, efekt (tylko prawdziwe liczby)                                                 | Rekruter widzi konkret w 5 sekund                                                         |
+
+**Rytm (jak u Apple: wszędzie te same odstępy).** Jedna skala 8pt: `8 · 16 · 24 · 32 · 48 · 64 · 96 · 128`. Sekcja zawsze `128` (scena) lub `96` (pasmo), odstęp nagłówek→treść zawsze `24`, między przyciskami zawsze `16`. Żadnej innej wartości w CSS. To trafi do `tokens.css` jako jedyne dozwolone odstępy.
+
+**Tryby.** Ciemny = czarna scena `#000` + grafitowe pasma `#0f1112`. Jasny = biała scena + pasma `#f4f5f6`, jak białe galerie Apple. Te same role, ten sam rytm.
+
+**Ruch (Faza 8).** Jedno orkiestrowane wejście na scenę: okno projektu „zapala się” (snop światła rośnie) przy wejściu w viewport, przez CSS scroll-driven animations. Reduced-motion → statycznie. Bez parallaxu i bez animacji na każdym elemencie.
+
+**Wydajność.** Zero JS w scenach, gradienty i maska w CSS, LCP = nagłówek albo pierwszy zrzut (AVIF ≤ 120 KB). Mieści się w §11.
+
+**Ryzyko.** Siła D stoi na **jakości zrzutów projektów**: scena bez dobrego zrzutu będzie pusta. Dlatego CONTENT-CHECKLIST (zrzuty ≥ 2400px, czyste dane) staje się krytyczny przed Fazą 3.
+
+---
+
 ## Rekomendacja
 
-**B (cyjanotypia)** jako pierwszy wybór. Najlepiej czyta się w niej długie case studies, wnosi najmocniejszy własny element (tryb ciemny jako blueprint), a test „podróbki” wobec Zed przechodzi bez trudu (inny akcent, fonty, układ z TOC i zupełnie inny tryb ciemny). Druga w kolejności jest **A**, jako bezpieczna i dwutrybowa.
+**D „Premiera”.** Jako jedyny kierunek łączy charakter programisty (okna aplikacji, terminal, ⌘K, specyfikacja) z siłą sprzedaży Apple (sceny, skala, rytm). Działa w obu trybach i domyka słabości każdego źródła. Test „podróbki”: nie da się go pomylić ani z Apple (soft zamiast sprzętu, bursztyn, Geist, okna), ani z Dovetail czy Factory (sceny, snop światła, specyfikacja).
 
-Decyzja należy do Piotra. Po wyborze powstaje `docs/DESIGN.md` (krok 3) z sekcją „Inspiracja i różnice” na bazie powyższej tabeli.
+Alternatywy: **A** (bezpieczny, jasny notatnik) i **C** (ciemny bursztyn bez scen, czyli prostsza wersja D).
+
+Decyzja należy do Piotra. Po wyborze powstaje `docs/DESIGN.md` (krok 3) z sekcją „Inspiracja i różnice” na bazie powyższych tabel.

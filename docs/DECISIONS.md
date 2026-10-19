@@ -134,6 +134,8 @@ Wszystkie z PLAN §3, bez dodatków spoza planu poza wymienionymi niżej.
 
 ## #17 · 2026-10-19 · Wybór kierunku wizualnego · proponowana
 
-- **Top 3:** A „Notatnik warsztatowy” (Convex), B „Instrukcja techniczna / cyjanotypia” (Zed), C „Stół świetlny / bursztyn” (Dovetail). Szczegóły: `docs/style-research/KIERUNKI.md`.
-- **Rekomendacja:** B.
+- **Kandydaci:** A „Notatnik warsztatowy” (Convex), B „Instrukcja techniczna / cyjanotypia” (Zed), C „Stół świetlny / bursztyn” (Dovetail), **D „Premiera”**: synteza Apple (sceny, rytm, specyfikacja) + Convex/Factory (okna aplikacji, Geist) + bursztyn i siatka z C. Szczegóły: `docs/style-research/KIERUNKI.md`.
+- **Zmiana kryteriów:** na prośbę Piotra (2026-10-19) do macierzy dodane K10 „siła sprzedaży / efekt premiery” z wagą 3 (maks. 115).
+- **Druga runda researchu:** pełny katalog 1342 stylów (API listy), filtr metadanych, arkusz kontaktowy 24 kandydatów i 4 nowe style w macierzy (Apple ×2, Framer, Factory).
+- **Rekomendacja:** D.
 - **Decyzja:** czeka na Piotra.
