@@ -1,2 +1,59 @@
 @import 'tailwindcss';
 @import './tokens.css';
+
+/* dark: = motyw ciemny ustawiony przez skrypt (docs/DESIGN.md §12) */
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+@layer base {
+  html {
+    background-color: var(--color-canvas);
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    min-height: 100dvh;
+    background-color: var(--color-canvas);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  code,
+  kbd,
+  samp,
+  pre {
+    font-family: var(--font-mono);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: var(--radius-sm);
+  }
+  ::selection {
+    background-color: var(--color-accent);
+    color: var(--color-on-cta);
+  }
+}
+
+/* Reduced motion: zostają tylko zmiany koloru/opacity (PLAN §6.4, DESIGN.md §7.3) */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-property: color, background-color, border-color, opacity !important;
+  }
+}
