@@ -56,7 +56,8 @@ Legenda: ⬜ nie zaczęte · 🟨 w toku · ✅ zrobione · ⏸ czeka na Piotra
 
 **Otwarte**
 
-- AC „zielone w CI” i „preview deploy działa” czekają na remote GitHub (URL od Piotra) + zgodę na push + podpięcie projektu w Vercel.
+- Remote: github.com/jakubstachowskii/portfolio, PR #1. CI (GitHub Actions) zielone na 0720bf8. Vercel preview zbudowany (status „Deployment has completed”), ale chroniony Vercel Authentication, więc treść sprawdza właściciel po zalogowaniu.
+- Vercel: ustawić `ENABLE_EXPERIMENTAL_COREPACK=1` (pnpm 12 z `packageManager`), jeśli jeszcze nie ustawione.
 
 **Dalej**
 
