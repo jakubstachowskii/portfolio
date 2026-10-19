@@ -18,18 +18,16 @@ test.describe('motyw', () => {
     // przechwyt stanu na DOMContentLoaded, zanim załadują się zasoby
     await page.addInitScript(() => {
       document.addEventListener('DOMContentLoaded', () => {
-        (window as unknown as { __themeAtDcl?: string }).__themeAtDcl =
-          document.documentElement.dataset['theme'];
-        (window as unknown as { __bgAtDcl?: string }).__bgAtDcl = getComputedStyle(
-          document.body,
-        ).backgroundColor;
+        const probe = window as unknown as Record<string, string | undefined>;
+        probe['__themeAtDcl'] = document.documentElement.dataset['theme'];
+        probe['__bgAtDcl'] = getComputedStyle(document.body).backgroundColor;
       });
     });
     await page.goto('/', { waitUntil: 'domcontentloaded' });
-    const snapshot = await page.evaluate(() => ({
-      theme: (window as unknown as { __themeAtDcl?: string }).__themeAtDcl,
-      bg: (window as unknown as { __bgAtDcl?: string }).__bgAtDcl,
-    }));
+    const snapshot = await page.evaluate(() => {
+      const probe = window as unknown as Record<string, string | undefined>;
+      return { theme: probe['__themeAtDcl'], bg: probe['__bgAtDcl'] };
+    });
     expect(snapshot.theme).toBe('light');
     expect(snapshot.bg).toMatch(/rgb\(255, 255, 255\)|oklch\(1 0 0\)/);
   });
