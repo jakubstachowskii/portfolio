@@ -2,19 +2,19 @@
 
 Legenda: ⬜ nie zaczęte · 🟨 w toku · ✅ zrobione · ⏸ czeka na Piotra
 
-| Faza | Nazwa                     | Gałąź                        | Status |
-| ---- | ------------------------- | ---------------------------- | ------ |
-| 0    | Fundament repo            | `feat/faza-0-fundament`      | ⏸ push |
-| 1a   | Research stylu (Refero)   | `feat/faza-1a-styl`          | ⬜     |
-| 1b   | Design system             | `feat/faza-1b-design-system` | ⬜     |
-| 2    | Layout i strona główna    | `feat/faza-2-layout-home`    | ⬜     |
-| 3    | Projekty i case studies   | `feat/faza-3-projekty`       | ⬜     |
-| 4    | O mnie, doświadczenie, CV | `feat/faza-4-o-mnie`         | ⬜     |
-| 5    | Kontakt                   | `feat/faza-5-kontakt`        | ⬜     |
-| 6    | i18n EN                   | `feat/faza-6-i18n`           | ⬜     |
-| 7    | SEO, OG, pliki techniczne | `feat/faza-7-seo`            | ⬜     |
-| 8    | Sygnatury i polish        | `feat/faza-8-sygnatury`      | ⬜     |
-| 9    | QA i launch               | `feat/faza-9-launch`         | ⬜     |
+| Faza | Nazwa                     | Gałąź                        | Status   |
+| ---- | ------------------------- | ---------------------------- | -------- |
+| 0    | Fundament repo            | `feat/faza-0-fundament`      | ✅ PR #1 |
+| 1a   | Research stylu (Refero)   | `feat/faza-1a-styl`          | ⏸ wybór  |
+| 1b   | Design system             | `feat/faza-1b-design-system` | ⬜       |
+| 2    | Layout i strona główna    | `feat/faza-2-layout-home`    | ⬜       |
+| 3    | Projekty i case studies   | `feat/faza-3-projekty`       | ⬜       |
+| 4    | O mnie, doświadczenie, CV | `feat/faza-4-o-mnie`         | ⬜       |
+| 5    | Kontakt                   | `feat/faza-5-kontakt`        | ⬜       |
+| 6    | i18n EN                   | `feat/faza-6-i18n`           | ⬜       |
+| 7    | SEO, OG, pliki techniczne | `feat/faza-7-seo`            | ⬜       |
+| 8    | Sygnatury i polish        | `feat/faza-8-sygnatury`      | ⬜       |
+| 9    | QA i launch               | `feat/faza-9-launch`         | ⬜       |
 
 ---
 
@@ -61,4 +61,17 @@ Legenda: ⬜ nie zaczęte · 🟨 w toku · ✅ zrobione · ⏸ czeka na Piotra
 
 **Dalej**
 
-- Po zamknięciu Fazy 0 → Faza 1a (research Refero), na zgodę Piotra.
+- Faza 0 zamknięta: PR #1 zmergowany 2026-10-19.
+
+## 2026-10-19 — Faza 1a: research stylu (Refero)
+
+**Zrobione** (gałąź `feat/faza-1a-styl`)
+
+- Przegląd: wszystkie 95 kolekcji + 10 fraz z §6.0, 1326 unikalnych stylów.
+- Shortlista 12 stylów z notatkami (`docs/style-research/*.md`).
+- Macierz ocen `SCORING.md`: top 3 to Convex (90), Zed (90), Dovetail (84).
+- Karty kierunków `KIERUNKI.md` (co bierzemy, co zmieniamy, kontrasty) + szkice hero i karty projektu w obu trybach (`sketches/`).
+
+**Czeka na Piotra**
+
+- Wybór kierunku A / B / C (rekomendacja: B). Potem krok 3: `docs/DESIGN.md` + test „podróbki”.

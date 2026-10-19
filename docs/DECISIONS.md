@@ -125,3 +125,15 @@ Wszystkie z PLAN §3, bez dodatków spoza planu poza wymienionymi niżej.
 - **Fakt:** `chrome-launcher` nie może uruchomić pełnego `chrome.exe` w tym środowisku (`spawn UNKNOWN`).
 - **Decyzja:** lokalnie `CHROME_PATH` → `chrome-headless-shell.exe` z Playwrighta (instrukcja w README). W CI (ubuntu) działa systemowy Chrome z runnera, bez zmian.
 - **Uwaga:** `lighthouserc.json` nie używa presetu `perf`, bo ten ogranicza audyt do kategorii Performance.
+
+## #16 · 2026-10-19 · Research Refero: metoda i zrzuty poza repo · przyjęta
+
+- **Metoda:** pełna lista 95 kolekcji (z kodu strony, bo UI rotuje 8) + 10 fraz z §6.0, przepuszczone przez wyszukiwarkę Refero (`/api/styles/search`), co dało 1326 unikalnych stylów. Na tej podstawie shortlista 12 stylów, przeczytane ich DESIGN.md i macierz w `docs/style-research/SCORING.md`.
+- **Zrzuty stron źródłowych** (`docs/style-research/screens/`) są w `.gitignore`, bo to cudze materiały, a repo jest publiczne. Notatki linkują do stron stylów na Refero.
+- **Szkice** (`docs/style-research/sketches/`) to nasz statyczny HTML poza `src/`, bez kodu produkcyjnego (§14, Faza 1a).
+
+## #17 · 2026-10-19 · Wybór kierunku wizualnego · proponowana
+
+- **Top 3:** A „Notatnik warsztatowy” (Convex), B „Instrukcja techniczna / cyjanotypia” (Zed), C „Stół świetlny / bursztyn” (Dovetail). Szczegóły: `docs/style-research/KIERUNKI.md`.
+- **Rekomendacja:** B.
+- **Decyzja:** czeka na Piotra.
