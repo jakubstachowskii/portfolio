@@ -106,7 +106,7 @@
   --c-line: oklch(0.277 0.009 234);
   --c-line-strong: oklch(0.373 0.013 229);
   --c-line-control: oklch(0.498 0.012 229);
-  --c-fg: oklch(0.97 0.002 0);
+  --c-fg: oklch(0.97 0.002 248);
   --c-muted: oklch(0.71 0.013 237);
   --c-dim: oklch(0.611 0.014 237);
   --c-accent: oklch(0.807 0.148 77);
@@ -132,9 +132,9 @@
   --toggle-sun: none;
   --toggle-moon: inline;
   --c-canvas: oklch(1 0 0);
-  --c-band: oklch(0.97 0.002 0);
+  --c-band: oklch(0.97 0.002 248);
   --c-surface: oklch(1 0 0);
-  --c-window: oklch(0.978 0.001 0);
+  --c-window: oklch(0.978 0.001 197);
   --c-line: oklch(0.923 0.004 237);
   --c-line-strong: oklch(0.849 0.008 242);
   --c-line-control: oklch(0.637 0.008 242);
@@ -165,9 +165,9 @@
     --toggle-sun: none;
     --toggle-moon: inline;
     --c-canvas: oklch(1 0 0);
-    --c-band: oklch(0.97 0.002 0);
+    --c-band: oklch(0.97 0.002 248);
     --c-surface: oklch(1 0 0);
-    --c-window: oklch(0.978 0.001 0);
+    --c-window: oklch(0.978 0.001 197);
     --c-line: oklch(0.923 0.004 237);
     --c-line-strong: oklch(0.849 0.008 242);
     --c-line-control: oklch(0.637 0.008 242);
