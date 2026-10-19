@@ -112,9 +112,27 @@ Zrzuty: [ciemny](sketches/d-dark-desktop.png) · [jasny](sketches/d-light-deskto
 
 ---
 
+### D v3: „Premiera” + DNA Raycasta (na prośbę Piotra, 2026-10-19)
+
+Zrzuty: [ciemny](sketches/d3-dark-desktop.png) · [jasny](sketches/d3-light-desktop.png) · [mobile ciemny](sketches/d3-dark-mobile.png) · [mobile jasny](sketches/d3-light-mobile.png) · [pierwszy ekran](sketches/d3-hero-dark.png) · wideo: `sketches/d3-motion.webm` · szkic: `sketches/kierunek-d3.html?t=dark|light`
+
+Ocena Raycasta jako całej strony: **nie** (80/115; ciężkie hero z grafiką, tekst 3.82:1 poniżej AA, tylko dark, styl landing page, nie dokumentacji). Jako źródło elementów: **tak**, bo produktem Raycasta jest paleta poleceń, a u nas ⌘K to główna sygnatura (PLAN §2.1), a w planie jest projekt „Command Center”.
+
+| Od Raycasta (zasada)                 | Nasza wersja                                                                                                                                                                                                                                                                                                                       | Czego nie bierzemy                                               |
+| ------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| Powierzchnie „klawisza” (key shadow) | Token `--key` (światło z góry, cień od dołu, pierścień 1px) na `Kbd`, przyciskach drugorzędnych, oknach projektów i palecie; `--key-pressed` dla `:active`                                                                                                                                                                         | Ich dokładnego stosu cieni i promieni 16–20px                    |
+| Produkt = paleta poleceń             | **Paleta ⌘K jako bohater hero**: pod CTA „żywy” podgląd z wpisanym zapytaniem, wynikami (projekty + akcje) i podpowiedziami klawiszy. Sekwencja: paleta wjeżdża → zapytanie się wpisuje → wyniki dochodzą kaskadą → pierwszy wynik zapala się bursztynem. Zastępuje osobną linię terminala („teraz buduję” jest metadanymi wyniku) | Wyglądu ich okna i ikon rozszerzeń                               |
+| Szklana pływająca nawigacja          | Pigułka z blur, max 960px, unosząca się 16px nad sceną; status „Otwarty na oferty” jako osobny klawisz                                                                                                                                                                                                                             | Ich gradientowego hero i koralowego `#ff6363` (zostaje bursztyn) |
+
+**Uwaga do Fazy 2/8:** w szkicu paleta w hero jest statycznym podglądem. W produkcji to ten sam komponent co prawdziwa paleta: kliknięcie lub `Ctrl K` otwiera ją w dialogu (wyspa `client:idle`), a podgląd w hero renderuje się jako HTML bez JS.
+
+**Do decyzji przy DESIGN.md:** paleta zaczyna się ok. 700px od góry, więc na laptopie 800px widać tylko pole wyszukiwania. To celowy „teaser”, który zachęca do przewinięcia. Alternatywa: mniejszy H1 (~88px) i cała paleta na pierwszym ekranie.
+
+---
+
 ## Rekomendacja
 
-**D „Premiera”.** Jako jedyny kierunek łączy charakter programisty (okna aplikacji, terminal, ⌘K, specyfikacja) z siłą sprzedaży Apple (sceny, skala, rytm). Działa w obu trybach i domyka słabości każdego źródła. Test „podróbki”: nie da się go pomylić ani z Apple (soft zamiast sprzętu, bursztyn, Geist, okna), ani z Dovetail czy Factory (sceny, snop światła, specyfikacja).
+**D „Premiera”, w wersji v2 albo v3** (v3 = v2 + DNA Raycasta; rekomenduję **v3**, bo paleta w hero od razu pokazuje sygnaturę strony i Twój profil „buduję narzędzia”). Jako jedyny kierunek łączy charakter programisty (okna aplikacji, terminal, ⌘K, specyfikacja) z siłą sprzedaży Apple (sceny, skala, rytm). Działa w obu trybach i domyka słabości każdego źródła. Test „podróbki”: nie da się go pomylić ani z Apple (soft zamiast sprzętu, bursztyn, Geist, okna), ani z Dovetail czy Factory (sceny, snop światła, specyfikacja).
 
 Alternatywy: **A** (bezpieczny, jasny notatnik) i **C** (ciemny bursztyn bez scen, czyli prostsza wersja D).
 
