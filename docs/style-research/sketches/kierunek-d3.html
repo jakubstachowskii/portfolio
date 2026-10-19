@@ -1,0 +1,1119 @@
+<!doctype html>
+<!--
+  Szkic kierunku D „Premiera” v3 = v2 + DNA Raycasta (Faza 1a). NIE jest to kod produkcyjny.
+  Nowe w v3: (1) powierzchnie „klawisza” (wewnętrzne highlighty), (2) paleta ⌘K jako bohater hero,
+  (3) pływająca szklana nawigacja w pigułce. Warstwa v3 jest na końcu <style> (sekcja „v3”).
+  Użycie: kierunek-d3.html?t=dark|light   (domyślnie dark)
+  Treść: tylko TODO(content) i przykłady z docs/PLAN.md.
+  Rytm: wszystkie odstępy z jednej skali 8pt (--s-*); sekcje zawsze --s-16 (scena) / --s-12 (pasmo).
+  Ruch: 1) sekwencja wejścia hero (CSS, raz), 2) „zapalanie” sceny przy przewijaniu (scroll-driven, CSS),
+        3) snop światła za kursorem (desktop, ~15 linii JS). Wszystko wyłączone przy prefers-reduced-motion.
+-->
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kierunek D — Premiera v3</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&family=Instrument+Serif:ital@0;1&family=Newsreader:opsz,wght@6..72,300..600&family=Funnel+Sans:wght@300..800&family=Geist+Mono:wght@400;500&display=swap&subset=latin-ext"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        /* skala 8pt — jedyne dozwolone odstępy */
+        --s-1: 8px;
+        --s-2: 16px;
+        --s-3: 24px;
+        --s-4: 32px;
+        --s-6: 48px;
+        --s-8: 64px;
+        --s-12: 96px;
+        --s-16: 128px;
+        /* promienie: bliżej Apple, ale z hierarchią */
+        --r-sm: 10px;
+        --r-md: 18px;
+        --r-lg: 26px;
+        --r-pill: 999px;
+        --display: 'Funnel Display', system-ui, sans-serif;
+        --sans: 'Funnel Sans', system-ui, sans-serif;
+        --mono: 'Geist Mono', ui-monospace, monospace;
+        --container: 1120px;
+        /* ruch */
+        --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+        --ease-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
+        --dur-fast: 160ms;
+        --dur-base: 240ms;
+        --dur-slow: 700ms;
+        --dur-hero: 1100ms;
+      }
+      [data-t='dark'] {
+        --stage: #000000;
+        --band: #0f1112;
+        --card: #16191b;
+        --line: #24292c;
+        --line-strong: #3a4246;
+        --fg: #f4f5f6;
+        --muted: #9aa3a9;
+        --dim: #767f85;
+        --amber: #f5b23d;
+        --amber-text: #f5b23d;
+        --cta: #f5b23d;
+        --cta-fg: #111416;
+        --spot: rgba(245, 178, 61, 0.24);
+        --grid: rgba(245, 178, 61, 0.32);
+        --window: #0b0d0e;
+        --hatch: #1b2023;
+        --shadow: 0 60px 120px -50px rgba(0, 0, 0, 0.9);
+      }
+      [data-t='light'] {
+        --stage: #ffffff;
+        --band: #f4f5f6;
+        --card: #ffffff;
+        --line: #e3e6e8;
+        --line-strong: #c9ced2;
+        --fg: #111416;
+        --muted: #575f66;
+        --dim: #666f76;
+        --amber: #b77900;
+        --amber-text: #8a5a00;
+        --cta: #111416;
+        --cta-fg: #ffffff;
+        --spot: rgba(183, 121, 0, 0.13);
+        --grid: rgba(138, 90, 0, 0.22);
+        --window: #f7f8f8;
+        --hatch: #e6e9eb;
+        --shadow: 0 40px 80px -48px rgba(17, 20, 22, 0.35);
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: var(--sans);
+        background: var(--stage);
+        color: var(--fg);
+        -webkit-font-smoothing: antialiased;
+        font-size: 17px;
+        line-height: 1.5;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      :focus-visible {
+        outline: 2px solid var(--amber);
+        outline-offset: 3px;
+        border-radius: var(--r-sm);
+      }
+      .container {
+        max-width: var(--container);
+        margin: 0 auto;
+        padding-inline: var(--s-3);
+      }
+      .todo {
+        font-family: var(--mono);
+        font-size: 13px;
+        color: var(--dim);
+      }
+
+      /* ── nav ── */
+      .nav {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background: color-mix(in oklab, var(--stage) 78%, transparent);
+        backdrop-filter: saturate(1.4) blur(14px);
+        border-bottom: 1px solid var(--line);
+      }
+      .nav .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 56px;
+        font-size: 14px;
+      }
+      .nav nav {
+        display: flex;
+        gap: var(--s-3);
+        align-items: center;
+        color: var(--muted);
+      }
+      .nav nav a {
+        transition: color var(--dur-fast) var(--ease-out);
+      }
+      .nav nav a:hover {
+        color: var(--fg);
+      }
+      .kbd {
+        font-family: var(--mono);
+        font-size: 12px;
+        border: 1px solid var(--line);
+        border-radius: var(--r-sm);
+        padding: 2px var(--s-1);
+        color: var(--fg);
+      }
+      .status {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--s-1);
+        font-family: var(--mono);
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .status i {
+        position: relative;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--amber);
+      }
+      .status i::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        background: var(--amber);
+        animation: ping 2.4s var(--ease-out) infinite;
+      }
+      @keyframes ping {
+        0% {
+          transform: scale(1);
+          opacity: 0.6;
+        }
+        70%,
+        100% {
+          transform: scale(3);
+          opacity: 0;
+        }
+      }
+
+      /* ── hero + sekwencja wejścia ── */
+      .hero {
+        text-align: center;
+        padding-block: var(--s-16) var(--s-8);
+      }
+      .hero .line {
+        font-family: var(--mono);
+        font-size: 14px;
+        color: var(--muted);
+        display: inline-flex;
+        gap: 1ch;
+      }
+      .hero .line b {
+        color: var(--amber-text);
+        font-weight: 500;
+        overflow: hidden;
+        white-space: nowrap;
+        width: 19ch;
+        display: inline-block;
+        border-right: 2px solid var(--amber);
+      }
+      .hero h1 {
+        font-family: var(--display);
+        font-weight: 600;
+        font-size: clamp(40px, 10.5vw, 112px);
+        line-height: 0.98;
+        letter-spacing: -0.045em;
+        margin-top: var(--s-3);
+      }
+      .hero h1 .row {
+        display: block;
+        overflow: hidden;
+        padding-bottom: 0.08em;
+      }
+      .hero h1 .row > span {
+        display: inline-block;
+      }
+      .hero p.value {
+        font-size: clamp(20px, 2.2vw, 26px);
+        line-height: 1.35;
+        color: var(--muted);
+        max-width: 30ch;
+        margin: var(--s-3) auto 0;
+        text-wrap: balance;
+        letter-spacing: -0.01em;
+      }
+      .ctas {
+        display: flex;
+        gap: var(--s-2);
+        justify-content: center;
+        margin-top: var(--s-4);
+      }
+      .btn {
+        position: relative;
+        font-size: 16px;
+        font-weight: 500;
+        padding: 12px var(--s-3);
+        border-radius: var(--r-pill);
+        border: 1px solid var(--line-strong);
+        transition:
+          transform var(--dur-base) var(--ease-spring),
+          box-shadow var(--dur-base) var(--ease-out),
+          border-color var(--dur-fast);
+      }
+      .btn:hover {
+        transform: translateY(-2px);
+        border-color: var(--fg);
+      }
+      .btn:active {
+        transform: translateY(0) scale(0.98);
+      }
+      .btn.primary {
+        background: var(--cta);
+        color: var(--cta-fg);
+        border-color: var(--cta);
+      }
+      .btn.primary:hover {
+        box-shadow:
+          0 0 0 6px var(--spot),
+          0 12px 32px -12px var(--amber);
+      }
+
+      @media (prefers-reduced-motion: no-preference) {
+        .hero .line {
+          animation: fade var(--dur-slow) var(--ease-out) both;
+        }
+        .hero .line b {
+          animation:
+            type 1.2s steps(19) 1.1s both,
+            caret 0.9s step-end 2.3s 4;
+        }
+        .hero h1 .row > span {
+          animation: rise var(--dur-hero) var(--ease-out) both;
+        }
+        .hero h1 .row:nth-child(2) > span {
+          animation-delay: 90ms;
+        }
+        .hero p.value {
+          animation: fade-up var(--dur-slow) var(--ease-out) 350ms both;
+        }
+        .hero .ctas {
+          animation: fade-up var(--dur-slow) var(--ease-out) 480ms both;
+        }
+        .nav {
+          animation: fade var(--dur-slow) var(--ease-out) 600ms both;
+        }
+      }
+      @keyframes rise {
+        from {
+          transform: translateY(105%) rotate(2deg);
+          filter: blur(10px);
+        }
+        to {
+          transform: none;
+          filter: none;
+        }
+      }
+      @keyframes fade-up {
+        from {
+          opacity: 0;
+          transform: translateY(16px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      @keyframes fade {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      @keyframes type {
+        from {
+          width: 0;
+        }
+      }
+      @keyframes caret {
+        50% {
+          border-color: transparent;
+        }
+      }
+
+      /* ── scena projektu: snop światła + siatka w świetle + okno ── */
+      .stage {
+        position: relative;
+        padding-block: var(--s-12) var(--s-16);
+        overflow: clip;
+        --mx: 50%;
+        --my: 40%;
+      } /* clip, nie hidden: hidden tworzy scroller i psuje view() */
+      .stage .light,
+      .stage .grid {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+      }
+      .stage .light {
+        background: radial-gradient(46% 58% at var(--mx) var(--my), var(--spot), transparent 70%);
+      }
+      .stage .grid {
+        background-image:
+          linear-gradient(var(--grid) 1px, transparent 1px),
+          linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+        background-size: 32px 32px;
+        -webkit-mask-image: radial-gradient(
+          38% 48% at var(--mx) var(--my),
+          #000 0%,
+          transparent 75%
+        );
+        mask-image: radial-gradient(38% 48% at var(--mx) var(--my), #000 0%, transparent 75%);
+      }
+      .scene {
+        perspective: 1600px;
+      }
+      .window {
+        position: relative;
+        z-index: 1;
+        max-width: 960px;
+        margin: 0 auto;
+        border: 1px solid var(--line);
+        border-radius: var(--r-lg);
+        background: var(--window);
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        transition: border-color var(--dur-base) var(--ease-out);
+      }
+      .window:hover {
+        border-color: var(--line-strong);
+      }
+      .window .bar {
+        display: flex;
+        align-items: center;
+        gap: var(--s-1);
+        height: 40px;
+        padding: 0 var(--s-2);
+        border-bottom: 1px solid var(--line);
+        font-family: var(--mono);
+        font-size: 12px;
+        color: var(--dim);
+      }
+      .window .bar span {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--line-strong);
+      }
+      .window .bar em {
+        font-style: normal;
+        margin-left: var(--s-1);
+      }
+      .window .shot {
+        height: 460px;
+        display: grid;
+        place-items: center;
+        background: repeating-linear-gradient(135deg, var(--hatch) 0 1px, transparent 1px 10px);
+      }
+      .caption {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: var(--s-4);
+        max-width: 960px;
+        margin: var(--s-6) auto 0;
+      }
+      .stage.flip .caption {
+        flex-direction: row-reverse;
+        text-align: right;
+      }
+      .caption .kicker {
+        font-family: var(--mono);
+        font-size: 13px;
+        color: var(--amber-text);
+      }
+      .caption h2 {
+        font-family: var(--display);
+        font-size: clamp(38px, 5.2vw, 60px);
+        font-weight: 600;
+        letter-spacing: -0.035em;
+        line-height: 1.02;
+        margin-top: var(--s-1);
+      }
+      .caption p {
+        color: var(--muted);
+        font-size: 19px;
+        margin-top: var(--s-1);
+        max-width: 34ch;
+      }
+      .stage.flip .caption p {
+        margin-left: auto;
+      }
+      .caption .link {
+        color: var(--amber-text);
+        font-weight: 500;
+        white-space: nowrap;
+        display: inline-flex;
+        gap: var(--s-1);
+        align-items: center;
+      }
+      .caption .link::after {
+        content: '';
+        width: 20px;
+        height: 1px;
+        background: currentColor;
+        transition: width var(--dur-base) var(--ease-out);
+      }
+      .caption .link:hover::after {
+        width: 36px;
+      }
+
+      @supports (animation-timeline: view()) {
+        @media (prefers-reduced-motion: no-preference) {
+          .window {
+            animation: lift linear both;
+            animation-timeline: view();
+            animation-range: entry 0% cover 42%;
+            transform-origin: 50% 100%;
+          }
+          .stage .light,
+          .stage .grid {
+            animation: ignite linear both;
+            animation-timeline: --scene;
+            animation-range: entry 10% cover 50%;
+          }
+          .stage {
+            view-timeline: --scene block;
+          }
+          .caption > * {
+            animation: fade-up linear both;
+            animation-timeline: view();
+            animation-range: entry 20% cover 30%;
+          }
+          .specs div {
+            animation: fade-up linear both;
+            animation-timeline: view();
+            animation-range: entry 0% cover 25%;
+          }
+        }
+      }
+      @keyframes lift {
+        from {
+          transform: translateY(96px) rotateX(22deg) scale(0.9);
+          opacity: 0.25;
+          filter: brightness(0.5);
+        }
+        to {
+          transform: none;
+          opacity: 1;
+          filter: none;
+        }
+      }
+      @keyframes ignite {
+        from {
+          opacity: 0;
+          transform: scale(0.6);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+
+      /* ── specyfikacja ── */
+      .band {
+        background: var(--band);
+        padding-block: var(--s-12);
+      }
+      .band h3 {
+        font-family: var(--display);
+        font-size: 34px;
+        font-weight: 600;
+        letter-spacing: -0.025em;
+      }
+      .specs {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        margin-top: var(--s-6);
+        border-top: 1px solid var(--line);
+      }
+      .specs div {
+        padding: var(--s-3) var(--s-3) 0 0;
+      }
+      .specs dt {
+        font-size: 14px;
+        color: var(--muted);
+      }
+      .specs dd {
+        font-family: var(--display);
+        font-size: 22px;
+        font-weight: 500;
+        letter-spacing: -0.015em;
+        margin-top: var(--s-1);
+      }
+      .specs dd.mono {
+        font-family: var(--mono);
+        font-size: 15px;
+        font-weight: 400;
+        letter-spacing: 0;
+      }
+
+      @media (max-width: 720px) {
+        .nav nav a,
+        .status span {
+          display: none;
+        }
+        .hero {
+          padding-block: var(--s-12) var(--s-6);
+        }
+        .ctas {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .window .shot {
+          height: 220px;
+        }
+        .caption,
+        .stage.flip .caption {
+          flex-direction: column;
+          align-items: flex-start;
+          text-align: left;
+        }
+        .stage.flip .caption p {
+          margin-left: 0;
+        }
+        .specs {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      /* ═══════════ v3: DNA Raycasta (zasady, nie zasoby) ═══════════ */
+      [data-t='dark'] {
+        /* powierzchnia „klawisza”: światło z góry, cień od dołu, delikatny pierścień */
+        --key:
+          inset 0 1px 0 rgba(255, 255, 255, 0.07), inset 0 -1px 0 rgba(0, 0, 0, 0.6),
+          0 0 0 1px rgba(255, 255, 255, 0.03);
+        --key-pressed:
+          inset 0 1px 2px rgba(0, 0, 0, 0.6), inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+        --glass: rgba(14, 16, 17, 0.62);
+        --row-active: rgba(245, 178, 61, 0.1);
+        --palette: #0c0e0f;
+      }
+      [data-t='light'] {
+        --key:
+          inset 0 1px 0 #ffffff, inset 0 -1px 0 rgba(17, 20, 22, 0.08),
+          0 1px 2px rgba(17, 20, 22, 0.06);
+        --key-pressed: inset 0 1px 2px rgba(17, 20, 22, 0.12);
+        --glass: rgba(255, 255, 255, 0.7);
+        --row-active: rgba(183, 121, 0, 0.1);
+        --palette: #ffffff;
+      }
+
+      /* (3) pływająca szklana nawigacja */
+      .nav {
+        background: none;
+        backdrop-filter: none;
+        border-bottom: 0;
+        top: var(--s-2);
+        padding-inline: var(--s-2);
+      }
+      .nav .container {
+        max-width: 960px;
+        height: 52px;
+        margin-top: var(--s-2);
+        padding-inline: var(--s-3) var(--s-1);
+        border: 1px solid var(--line);
+        border-radius: var(--r-pill);
+        background: var(--glass);
+        backdrop-filter: saturate(1.6) blur(18px);
+        box-shadow: var(--key);
+      }
+      .nav .status {
+        padding: var(--s-1) var(--s-2);
+        border-radius: var(--r-pill);
+        background: var(--band);
+        box-shadow: var(--key);
+      }
+
+      /* (1) klawisze: kbd, przyciski, okna */
+      .kbd {
+        background: var(--card);
+        border-color: var(--line);
+        box-shadow: var(--key);
+        min-width: 24px;
+        text-align: center;
+        display: inline-block;
+      }
+      .btn:not(.primary) {
+        background: var(--card);
+        box-shadow: var(--key);
+        border-color: var(--line);
+      }
+      .btn:not(.primary):active {
+        box-shadow: var(--key-pressed);
+      }
+      .window {
+        box-shadow: var(--key), var(--shadow);
+      }
+
+      /* (2) paleta ⌘K jako bohater hero */
+      .hero {
+        padding-block: var(--s-12) var(--s-8);
+      }
+      .palette {
+        position: relative;
+        max-width: 640px;
+        margin: var(--s-8) auto 0;
+        text-align: left;
+        border: 1px solid var(--line);
+        border-radius: var(--r-md);
+        background: var(--palette);
+        box-shadow: var(--key), var(--shadow);
+        overflow: hidden;
+      }
+      .palette::before {
+        /* bursztynowa poświata pod paletą — ten sam snop co w scenach */
+        content: '';
+        position: absolute;
+        inset: -40% -20% auto;
+        height: 120%;
+        background: radial-gradient(50% 50% at 50% 0%, var(--spot), transparent 70%);
+        pointer-events: none;
+      }
+      .palette .input {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: var(--s-2);
+        height: 56px;
+        padding-inline: var(--s-3) var(--s-2);
+        border-bottom: 1px solid var(--line);
+        font-size: 18px;
+      }
+      .palette .input svg {
+        flex: none;
+        color: var(--dim);
+      }
+      .palette .query {
+        flex: 1;
+        display: inline-flex;
+        align-items: center;
+      }
+      .palette .query b {
+        font-weight: 400;
+        overflow: hidden;
+        white-space: nowrap;
+        width: var(--qw, auto);
+        display: inline-block;
+      }
+      .palette .query i {
+        width: 2px;
+        height: 22px;
+        background: var(--amber);
+        margin-left: 1px;
+      }
+      .palette ul {
+        list-style: none;
+        padding: var(--s-1);
+        margin: 0;
+      }
+      .palette .group {
+        font-size: 13px;
+        color: var(--dim);
+        padding: var(--s-1) var(--s-2) 4px;
+      }
+      .palette li.item {
+        display: flex;
+        align-items: center;
+        gap: var(--s-2);
+        height: 48px;
+        padding-inline: var(--s-2);
+        border-radius: var(--r-sm);
+        color: var(--muted);
+        transition:
+          background var(--dur-fast) var(--ease-out),
+          color var(--dur-fast);
+      }
+      .palette li.item:hover {
+        background: var(--band);
+        color: var(--fg);
+      }
+      .palette li.item .ico {
+        width: 28px;
+        height: 28px;
+        border-radius: 8px;
+        display: grid;
+        place-items: center;
+        background: var(--band);
+        box-shadow: var(--key);
+        font-family: var(--mono);
+        font-size: 12px;
+        color: var(--fg);
+      }
+      .palette li.item .name {
+        flex: 1;
+        color: var(--fg);
+      }
+      .palette li.item .meta {
+        font-family: var(--mono);
+        font-size: 12px;
+        color: var(--dim);
+      }
+      .palette li.item[aria-selected='true'] {
+        background: var(--row-active);
+        box-shadow: inset 2px 0 0 var(--amber);
+      }
+      .palette li.item[aria-selected='true'] .ico {
+        color: var(--amber-text);
+      }
+      .palette .foot {
+        display: flex;
+        gap: var(--s-3);
+        justify-content: flex-end;
+        padding: 12px var(--s-3);
+        border-top: 1px solid var(--line);
+        font-size: 13px;
+        color: var(--dim);
+      }
+      .palette .foot span {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--s-1);
+      }
+      .palette .foot .kbd {
+        font-size: 11px;
+        padding: 1px 6px;
+      }
+
+      @media (prefers-reduced-motion: no-preference) {
+        .palette {
+          animation: palette-in 900ms var(--ease-out) 650ms both;
+        }
+        .palette .query b {
+          animation: type 900ms steps(10) 1500ms both;
+        }
+        .palette .query i {
+          animation: caret 0.9s step-end 2400ms 5;
+        }
+        .palette li.item {
+          animation: fade-up 500ms var(--ease-out) both;
+        }
+        .palette li.item:nth-of-type(1) {
+          animation-delay: 1700ms;
+        }
+        .palette li.item:nth-of-type(2) {
+          animation-delay: 1780ms;
+        }
+        .palette li.item:nth-of-type(3) {
+          animation-delay: 1860ms;
+        }
+        .palette li.item:nth-of-type(4) {
+          animation-delay: 1940ms;
+        }
+        .palette li.item:nth-of-type(5) {
+          animation-delay: 2020ms;
+        }
+        .palette li.item[aria-selected='true'] {
+          animation:
+            fade-up 500ms var(--ease-out) 1700ms both,
+            select 600ms var(--ease-out) 2400ms both;
+        }
+      }
+      @keyframes palette-in {
+        from {
+          opacity: 0;
+          transform: translateY(32px) scale(0.96);
+          filter: blur(6px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+          filter: none;
+        }
+      }
+      @keyframes select {
+        from {
+          background: transparent;
+          box-shadow: inset 0 0 0 var(--amber);
+        }
+      }
+      /* ślad: hero z paletą nie potrzebuje już osobnej linii terminala — status idzie do palety */
+      .hero .line {
+        display: none;
+      }
+
+      @media (max-width: 720px) {
+        .nav {
+          padding-inline: var(--s-1);
+        }
+        .nav .container {
+          padding-inline: var(--s-2) var(--s-1);
+        }
+        .palette .foot,
+        .palette li.item .meta {
+          display: none;
+        }
+        .palette {
+          margin-top: var(--s-6);
+        }
+      }
+
+      /* ═══ v3.1: fakty projektu w scenie (zastępują osobne pasmo „Specyfikacja”) ═══ */
+      .facts {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        max-width: 960px;
+        margin: var(--s-4) auto 0;
+        border-top: 1px solid var(--line);
+      }
+      .facts div {
+        padding: var(--s-2) var(--s-3) 0 0;
+      }
+      .facts dt {
+        font-size: 13px;
+        color: var(--dim);
+      }
+      .facts dd {
+        font-family: var(--mono);
+        font-size: 14px;
+        color: var(--fg);
+        margin-top: 4px;
+      }
+      @supports (animation-timeline: view()) {
+        @media (prefers-reduced-motion: no-preference) {
+          .facts div {
+            animation: fade-up linear both;
+            animation-timeline: view();
+            animation-range: entry 10% cover 25%;
+          }
+        }
+      }
+      @media (max-width: 720px) {
+        .facts {
+          grid-template-columns: 1fr 1fr;
+          row-gap: var(--s-2);
+        }
+      }
+
+      /* ═══ v3.1: przełącznik kroju nagłówków (porównanie) ═══ */
+      [data-h='instrument'] {
+        --display: 'Instrument Serif', Georgia, serif;
+      }
+      [data-h='newsreader'] {
+        --display: 'Newsreader', Georgia, serif;
+      }
+      [data-h='instrument'] .hero h1,
+      [data-h='instrument'] .caption h2 {
+        font-weight: 400;
+        letter-spacing: -0.02em;
+        line-height: 1;
+      }
+      [data-h='newsreader'] .hero h1,
+      [data-h='newsreader'] .caption h2 {
+        font-weight: 400;
+        letter-spacing: -0.03em;
+        line-height: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      document.documentElement.dataset.t = new URLSearchParams(location.search).get('t') || 'dark';
+      document.documentElement.dataset.h =
+        new URLSearchParams(location.search).get('h') || 'funnel';
+    </script>
+    <header class="nav">
+      <div class="container">
+        <strong>TODO(content): monogram</strong>
+        <nav>
+          <a href="#p1">Projekty</a><a>O mnie</a><a>Kontakt</a><span class="kbd">Ctrl K</span>
+        </nav>
+        <span class="status"><i></i><span>Otwarty na oferty</span></span>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero container">
+        <p class="line"><span>teraz buduję</span><b>kalkulator-mebli v2</b></p>
+        <h1>
+          <span class="row"><span>TODO(content):</span></span
+          ><span class="row"><span>Imię Nazwisko</span></span>
+        </h1>
+        <p class="value">
+          Buduję dopracowane narzędzia, które automatyzują prawdziwą pracę — od desktopu po web.
+        </p>
+        <div class="ctas">
+          <a class="btn primary" href="#p1">Zobacz projekty</a><a class="btn">Pobierz CV</a>
+        </div>
+
+        <!-- Demo palety ⌘K (statyczne w szkicu; prawdziwa paleta = wyspa w Fazie 8) -->
+        <div class="palette" role="group" aria-label="Podgląd palety poleceń">
+          <div class="input">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              aria-hidden="true"
+            >
+              <circle cx="11" cy="11" r="7" />
+              <path d="m20 20-3.5-3.5" />
+            </svg>
+            <span class="query"><b>kalkulator</b><i></i></span>
+            <span class="kbd">Ctrl K</span>
+          </div>
+          <ul role="listbox" aria-label="Wyniki">
+            <li class="group" role="presentation">Projekty</li>
+            <li class="item" role="option" aria-selected="true">
+              <span class="ico">KM</span><span class="name">Kalkulator mebli</span
+              ><span class="meta">teraz buduję v2</span>
+            </li>
+            <li class="item" role="option" aria-selected="false">
+              <span class="ico">AW</span><span class="name">Aplikacja do awizacji</span
+              ><span class="meta">desktop</span>
+            </li>
+            <li class="item" role="option" aria-selected="false">
+              <span class="ico">CC</span><span class="name">Command Center</span
+              ><span class="meta">desktop</span>
+            </li>
+            <li class="group" role="presentation">Akcje</li>
+            <li class="item" role="option" aria-selected="false">
+              <span class="ico">CV</span><span class="name">Pobierz CV</span
+              ><span class="meta">PDF</span>
+            </li>
+            <li class="item" role="option" aria-selected="false">
+              <span class="ico">@</span><span class="name">Kopiuj e-mail</span
+              ><span class="meta">schowek</span>
+            </li>
+          </ul>
+          <div class="foot">
+            <span><span class="kbd">↑</span><span class="kbd">↓</span> wybierz</span>
+            <span><span class="kbd">↵</span> otwórz</span>
+            <span><span class="kbd">Esc</span> zamknij</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="stage" aria-labelledby="p1">
+        <div class="light"></div>
+        <div class="grid"></div>
+        <div class="scene container">
+          <div class="window">
+            <div class="bar"><span></span><span></span><span></span><em>kalkulator-mebli</em></div>
+            <div class="shot"><span class="todo">TODO(content): zrzut ekranu ≥ 2400 px</span></div>
+          </div>
+          <div class="caption">
+            <div>
+              <span class="kicker">web · single-page</span>
+              <h2 id="p1">Kalkulator mebli</h2>
+              <p>Rozkrój mebli, rysunek, lista rozkroju i PDF dla stolarni.</p>
+            </div>
+            <a class="link">Zobacz case study</a>
+          </div>
+          <dl class="facts">
+            <div>
+              <dt>Typ</dt>
+              <dd>Web, single-page</dd>
+            </div>
+            <div>
+              <dt>Moja rola</dt>
+              <dd>TODO(content)</dd>
+            </div>
+            <div>
+              <dt>Stack</dt>
+              <dd>TODO(content)</dd>
+            </div>
+            <div>
+              <dt>Efekt</dt>
+              <dd>TODO(content): liczby</dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+
+      <section class="stage flip" aria-labelledby="p2">
+        <div class="light"></div>
+        <div class="grid"></div>
+        <div class="scene container">
+          <div class="window">
+            <div class="bar">
+              <span></span><span></span><span></span><em>awizacje — desktop</em>
+            </div>
+            <div class="shot"><span class="todo">TODO(content): zrzut ekranu ≥ 2400 px</span></div>
+          </div>
+          <div class="caption">
+            <div>
+              <span class="kicker">desktop</span>
+              <h2 id="p2">Aplikacja do awizacji</h2>
+              <p>Automatyzacja procesu awizacji pojazdów i dostaw.</p>
+            </div>
+            <a class="link">Zobacz case study</a>
+          </div>
+          <dl class="facts">
+            <div>
+              <dt>Typ</dt>
+              <dd>Desktop</dd>
+            </div>
+            <div>
+              <dt>Moja rola</dt>
+              <dd>TODO(content)</dd>
+            </div>
+            <div>
+              <dt>Stack</dt>
+              <dd>TODO(content)</dd>
+            </div>
+            <div>
+              <dt>Efekt</dt>
+              <dd>TODO(content): liczby</dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      // Szerokość wpisywanego zapytania w px (font proporcjonalny, więc ch nie pasuje)
+      for (const b of document.querySelectorAll('.palette .query b'))
+        b.style.setProperty('--qw', b.scrollWidth + 'px');
+      document.fonts.ready.then(() => {
+        for (const b of document.querySelectorAll('.palette .query b')) {
+          b.style.removeProperty('--qw');
+          b.style.setProperty('--qw', b.scrollWidth + 'px');
+        }
+      });
+    </script>
+    <script>
+      // Snop światła za kursorem: tylko desktop i bez reduced-motion. rAF + lerp, bez bibliotek.
+      if (matchMedia('(pointer: fine) and (prefers-reduced-motion: no-preference)').matches) {
+        for (const stage of document.querySelectorAll('.stage')) {
+          let tx = 50,
+            ty = 40,
+            x = 50,
+            y = 40,
+            raf = 0;
+          const tick = () => {
+            x += (tx - x) * 0.08;
+            y += (ty - y) * 0.08;
+            stage.style.setProperty('--mx', x + '%');
+            stage.style.setProperty('--my', y + '%');
+            raf = Math.abs(tx - x) + Math.abs(ty - y) > 0.1 ? requestAnimationFrame(tick) : 0;
+          };
+          stage.addEventListener('pointermove', (e) => {
+            const r = stage.getBoundingClientRect();
+            tx = ((e.clientX - r.left) / r.width) * 100;
+            ty = ((e.clientY - r.top) / r.height) * 100;
+            if (!raf) raf = requestAnimationFrame(tick);
+          });
+          stage.addEventListener('pointerleave', () => {
+            tx = 50;
+            ty = 40;
+            if (!raf) raf = requestAnimationFrame(tick);
+          });
+        }
+      }
+    </script>
+  </body>
+</html>

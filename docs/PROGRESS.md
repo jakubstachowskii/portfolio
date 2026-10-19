@@ -2,19 +2,19 @@
 
 Legenda: ⬜ nie zaczęte · 🟨 w toku · ✅ zrobione · ⏸ czeka na Piotra
 
-| Faza | Nazwa                     | Gałąź                        | Status |
-| ---- | ------------------------- | ---------------------------- | ------ |
-| 0    | Fundament repo            | `feat/faza-0-fundament`      | ⏸ push |
-| 1a   | Research stylu (Refero)   | `feat/faza-1a-styl`          | ⬜     |
-| 1b   | Design system             | `feat/faza-1b-design-system` | ⬜     |
-| 2    | Layout i strona główna    | `feat/faza-2-layout-home`    | ⬜     |
-| 3    | Projekty i case studies   | `feat/faza-3-projekty`       | ⬜     |
-| 4    | O mnie, doświadczenie, CV | `feat/faza-4-o-mnie`         | ⬜     |
-| 5    | Kontakt                   | `feat/faza-5-kontakt`        | ⬜     |
-| 6    | i18n EN                   | `feat/faza-6-i18n`           | ⬜     |
-| 7    | SEO, OG, pliki techniczne | `feat/faza-7-seo`            | ⬜     |
-| 8    | Sygnatury i polish        | `feat/faza-8-sygnatury`      | ⬜     |
-| 9    | QA i launch               | `feat/faza-9-launch`         | ⬜     |
+| Faza | Nazwa                     | Gałąź                        | Status   |
+| ---- | ------------------------- | ---------------------------- | -------- |
+| 0    | Fundament repo            | `feat/faza-0-fundament`      | ✅ PR #1 |
+| 1a   | Research stylu (Refero)   | `feat/faza-1a-styl`          | ✅ PR    |
+| 1b   | Design system             | `feat/faza-1b-design-system` | ⬜       |
+| 2    | Layout i strona główna    | `feat/faza-2-layout-home`    | ⬜       |
+| 3    | Projekty i case studies   | `feat/faza-3-projekty`       | ⬜       |
+| 4    | O mnie, doświadczenie, CV | `feat/faza-4-o-mnie`         | ⬜       |
+| 5    | Kontakt                   | `feat/faza-5-kontakt`        | ⬜       |
+| 6    | i18n EN                   | `feat/faza-6-i18n`           | ⬜       |
+| 7    | SEO, OG, pliki techniczne | `feat/faza-7-seo`            | ⬜       |
+| 8    | Sygnatury i polish        | `feat/faza-8-sygnatury`      | ⬜       |
+| 9    | QA i launch               | `feat/faza-9-launch`         | ⬜       |
 
 ---
 
@@ -61,4 +61,32 @@ Legenda: ⬜ nie zaczęte · 🟨 w toku · ✅ zrobione · ⏸ czeka na Piotra
 
 **Dalej**
 
-- Po zamknięciu Fazy 0 → Faza 1a (research Refero), na zgodę Piotra.
+- Faza 0 zamknięta: PR #1 zmergowany 2026-10-19.
+
+## 2026-10-19 — Faza 1a: research stylu (Refero)
+
+**Zrobione** (gałąź `feat/faza-1a-styl`)
+
+- Przegląd: wszystkie 95 kolekcji + 10 fraz z §6.0, 1326 unikalnych stylów.
+- Shortlista 16 stylów z notatkami (`docs/style-research/*.md`).
+- Macierz ocen `SCORING.md`: 16 stylów, najwyżej Convex (102), Zed (99), Dovetail (96), Factory (93).
+- Druga runda na prośbę Piotra: pełny katalog 1342 stylów, filtr Apple / kinowe / portfolia / terminale, arkusz 24 kandydatów, 4 nowe style w macierzy, kryterium K10 „siła sprzedaży”.
+- Kierunek D „Premiera” (synteza) ze szkicem desktop + mobile w obu trybach.
+- D v2 po uwagach Piotra: Funnel Display/Sans, promienie 10/18/26, domyślnie ciemny, ruch (wejście hero, premiera sceny scroll-driven, snop za kursorem) + wideo `d-motion.webm`.
+- D v3 na prośbę Piotra: + DNA Raycasta (powierzchnie „klawisza”, paleta ⌘K w hero, szklana pływająca nawigacja) + wideo `d3-motion.webm`.
+- D v3.1: ocena Resenda, porównanie 3 krojów nagłówka i wybór Newsreader; pasmo „Specyfikacja” zastąpione paskiem faktów w scenach.
+- Karty kierunków `KIERUNKI.md` (co bierzemy, co zmieniamy, kontrasty) + szkice hero i karty projektu w obu trybach (`sketches/`).
+
+**Decyzja Piotra:** D v3.1 „Premiera” z nagłówkami Funnel Display.
+
+**Krok 3 (adaptacja):** `docs/DESIGN.md` (nastrój, inspiracja i różnice, kolory OKLCH z kontrastami, typografia, rytm 8pt, kształty, ruch, komponenty, media, czego unikamy) + test „podróbki” (`style-research/PODROBKA.md`, zaliczony). Audyt kontrastu poprawił `dim` i dodał `line-control`.
+
+**Kryteria akceptacji Fazy 1a (PLAN §14)**
+
+- [x] `docs/style-research/` z notatkami (17 stylów) i `SCORING.md`
+- [x] Piotr wybrał kierunek, zapisane w `DECISIONS.md` (#17)
+- [x] `docs/DESIGN.md` kompletny, z sekcją „Inspiracja i różnice” i ≥ 3 udokumentowanymi zmianami (4)
+- [x] Test „podróbki” zaliczony (powtórka po Fazie 2)
+- [x] Bez kodu produkcyjnego (tylko szkice w `docs/style-research/sketches/`)
+
+**Dalej:** Faza 1b (tokens.css według DESIGN.md, fonty, skrypt motywu, komponenty UI, strona `/design`), na zgodę Piotra.
