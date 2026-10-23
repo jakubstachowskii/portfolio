@@ -18,9 +18,8 @@ interface Props {
 }
 
 const { locale, title, description, onHome = false, noindex = false } = Astro.props;
-// Preload tylko krojów pierwszego ekranu (≤ 2 rodziny), mono ładuje się z font-display: swap.
-const preloadText = [{ style: 'normal', subset: 'latin' }];
-// latin-ext (polskie znaki) dociąga się przez unicode-range — małe pliki, DECISIONS #21
+// Preload tylko krojów pierwszego ekranu (≤ 2 rodziny): łacina + polskie litery (~3 KB), DECISIONS #29.
+// Mono ładuje się z font-display: swap.
 ---
 
 <!doctype html>
@@ -36,8 +35,8 @@ const preloadText = [{ style: 'normal', subset: 'latin' }];
     {noindex && <meta name="robots" content="noindex, nofollow" />}
     <!-- Favicon dochodzi w Etapie 7; pusty data URI zapobiega 404 na /favicon.ico -->
     <link rel="icon" href="data:," />
-    <Font cssVariable="--font-archivo" preload={preloadText} />
-    <Font cssVariable="--font-inter" preload={preloadText} />
+    <Font cssVariable="--font-archivo" preload />
+    <Font cssVariable="--font-inter" preload />
     <Font cssVariable="--font-jetbrains-mono" />
     <meta name="description" content={description} />
     <title>{`${title} — ${site.name}`}</title>
