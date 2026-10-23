@@ -36,6 +36,8 @@
   --shadow-card: 0 24px 50px -24px rgba(0, 0, 0, 0.6);
   --shadow-deck: rgba(0, 0, 0, 0.5);
   --sheen: rgba(255, 255, 255, 0.55);
+  --sheen-soft: rgba(255, 255, 255, 0.35);
+  --press: rgba(0, 0, 0, 0.08);
 }
 
 /* ── Motyw jasny ── */
@@ -65,6 +67,8 @@
   --shadow-card: 0 24px 50px -24px rgba(0, 0, 0, 0.6);
   --shadow-deck: rgba(0, 0, 0, 0.5);
   --sheen: rgba(255, 255, 255, 0.55);
+  --sheen-soft: rgba(255, 255, 255, 0.35);
+  --press: rgba(0, 0, 0, 0.08);
 }
 
 /* Bez JS: jasny, gdy system tego chce, a skrypt nie ustawił motywu (te same wartości co wyżej) */
@@ -118,6 +122,7 @@
   --t-fast: 0.2s;
   --t-base: 0.25s;
   --t-mid: 0.3s;
+  --t-edge: 0.35s;
   --t-bar: 0.45s;
   --t-row: 0.55s;
   --t-up: 0.9s;
@@ -126,6 +131,16 @@
   --t-ping: 2s;
   --t-sheen: 4s;
   --t-tape: 28s;
+  /* pętle i ruch talii kart / szkiców projektów */
+  --t-fade: 0.45s;
+  --t-card: 0.75s;
+  --t-spin: 0.8s;
+  --t-bob: 2.4s;
+  --t-wave: 3.2s;
+  --t-sweep: 3.6s;
+  --t-route: 4s;
+  --t-piece: 6s;
+  --t-float: 7s;
 }
 
 /* Mapowanie na utility Tailwinda (bg-surface, text-text2, border-line…) */

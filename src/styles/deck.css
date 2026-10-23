@@ -1,0 +1,251 @@
+/*
+ * Talia kart w hero 1:1 ze wzorca. Globalnie (nie scoped), bo klasy stanu
+ * (.peek, .flat, .active, .live, .dragging, .show, .on) dokłada skrypt z Etapu 4.
+ * Na .deck nie animujemy opacity/filter (spłaszcza 3D) — wejście robi .deck-scene.
+ */
+.deck-scene {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+  padding-top: 20px;
+  animation: fadeIso var(--t-line) ease both;
+  animation-delay: 0.3s;
+  user-select: none;
+  -webkit-user-select: none;
+  outline: none;
+}
+.deck-scene:focus-visible .deck-stage {
+  outline: 2px solid var(--acc);
+  outline-offset: 3px;
+}
+@keyframes fadeIso {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.deck-stage {
+  position: relative;
+  width: 330px;
+  max-width: 86vw;
+  height: 340px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+.deck-stage.active {
+  cursor: default;
+}
+.deck-shadow {
+  position: absolute;
+  left: 14%;
+  right: 14%;
+  bottom: -16px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--shadow-deck);
+  filter: blur(18px);
+  transition:
+    left var(--t-up) var(--ease-deck),
+    right var(--t-up) var(--ease-deck),
+    opacity var(--t-up) ease;
+}
+.deck-stage.active .deck-shadow {
+  left: 4%;
+  right: 4%;
+  opacity: 0.65;
+}
+.deck-float {
+  position: absolute;
+  inset: 0;
+  perspective: 1500px;
+  animation: deckFloat var(--t-float) ease-in-out infinite;
+}
+.deck-stage.active .deck-float {
+  animation-play-state: paused;
+}
+@keyframes deckFloat {
+  50% {
+    transform: translateY(-8px);
+  }
+}
+.deck {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 250px;
+  transform-style: preserve-3d;
+  transform: rotateX(10deg) rotateY(-9deg);
+  transition: transform var(--t-line) var(--ease-deck);
+}
+.deck.peek {
+  transform: rotateX(7deg) rotateY(-5deg);
+}
+.deck.flat {
+  transform: none;
+  transform-style: flat;
+}
+.dk {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--line2);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  transition:
+    transform var(--t-card) var(--ease-deck),
+    filter var(--t-fade) ease,
+    border-color var(--t-edge) ease,
+    box-shadow var(--t-edge) ease;
+  touch-action: pan-y;
+}
+.dk.front {
+  border-color: var(--acc);
+  box-shadow:
+    0 0 60px -16px var(--acc),
+    var(--shadow-card);
+}
+.dk.front.live {
+  cursor: grab;
+}
+.dk.dragging {
+  transition: none;
+  cursor: grabbing;
+}
+.dk-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--line);
+  font-size: 11px;
+}
+.dk-pos {
+  color: var(--text2);
+}
+.dk-tag {
+  padding: 3px 8px;
+  font-weight: 700;
+  background: var(--surface2);
+  color: var(--text2);
+  border: 1px solid var(--line2);
+}
+.dk.front .dk-tag {
+  background: var(--acc);
+  color: var(--acc-ink);
+  border-color: var(--acc);
+}
+.dk-body {
+  flex: 1;
+  min-height: 0;
+  padding: 12px;
+  display: flex;
+}
+.dk-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+  padding: 10px 12px;
+  border-top: 1px solid var(--line);
+}
+.dk-title {
+  font-size: 15px;
+}
+.dk-sub {
+  color: var(--text2);
+  font-size: 11px;
+}
+.dk-ctrl {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  opacity: 0;
+  translate: 0 8px;
+  pointer-events: none;
+  transition:
+    opacity var(--t-fade) ease,
+    translate var(--t-fade) ease;
+}
+.dk-ctrl.show {
+  opacity: 1;
+  translate: 0 0;
+  pointer-events: auto;
+}
+@media (hover: none) {
+  .dk-ctrl {
+    opacity: 1;
+    translate: 0 0;
+    pointer-events: auto;
+  }
+}
+.dk-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.dk-ind {
+  width: 40px;
+  height: 44px;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.dk-ind::before {
+  content: '';
+  width: 16px;
+  height: 3px;
+  background: var(--line2);
+  transition:
+    width var(--t-bar) var(--ease-spring),
+    background-color var(--t-mid) ease;
+}
+.dk-ind.on::before {
+  width: 30px;
+  background: var(--acc);
+}
+.dk-btn {
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--line2);
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-size: 16px;
+  cursor: pointer;
+  transition: border-color var(--t-fast) ease;
+}
+.dk-btn:hover {
+  border-color: var(--acc);
+}
+.dk-hint {
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  color: var(--text2);
+}
+.sweep {
+  position: relative;
+  overflow: hidden;
+}
+.sweep::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, transparent 30%, var(--sheen-soft) 50%, transparent 70%);
+  translate: -100% 0;
+  animation: sheen var(--t-sweep) ease-in-out infinite;
+  animation-delay: 2s;
+}

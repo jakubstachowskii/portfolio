@@ -76,6 +76,34 @@
     padding-right: var(--gutter);
   }
 
+  .split {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 48px;
+  }
+
+  /* taśma (pętla przesuwu) */
+  .tape {
+    display: flex;
+    width: max-content;
+    animation: mq var(--t-tape) linear infinite;
+  }
+  .tape.rev {
+    animation-direction: reverse;
+  }
+
+  /* link z podkreśleniem na hover */
+  .mail {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 5px;
+    text-decoration-color: transparent;
+    transition: text-decoration-color var(--t-base) ease;
+  }
+  .mail:hover {
+    text-decoration-color: currentColor;
+  }
+
   /* przyciski */
   .btn {
     position: relative;
@@ -131,6 +159,19 @@
     }
   }
 
+  /* podgląd projektu: dwie identyczne animacje na zmianę — zmiana nazwy restartuje wejście (Etap 4) */
+  .pv {
+    animation-duration: var(--t-row);
+    animation-timing-function: var(--ease-line);
+    animation-fill-mode: both;
+  }
+  .pva {
+    animation-name: pvA;
+  }
+  .pvb {
+    animation-name: pvB;
+  }
+
   /* kropka „na żywo” */
   .dotlive {
     position: relative;
@@ -183,6 +224,35 @@
   }
   to {
     clip-path: inset(0 0 0 0);
+  }
+}
+@keyframes pvA {
+  from {
+    opacity: 0;
+    translate: 0 18px;
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+    filter: blur(0);
+  }
+}
+@keyframes pvB {
+  from {
+    opacity: 0;
+    translate: 0 18px;
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+    filter: blur(0);
+  }
+}
+@keyframes mq {
+  to {
+    transform: translateX(-50%);
   }
 }
 @keyframes sheen {
