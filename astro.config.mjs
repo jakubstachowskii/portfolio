@@ -8,6 +8,28 @@ import vercel from '@astrojs/vercel';
 import tailwindcss from '@tailwindcss/vite';
 import expressiveCode from 'astro-expressive-code';
 import icon from 'astro-icon';
+import { LATIN, POLISH } from './src/lib/font-ranges.mjs';
+
+/**
+ * Dwa pliki na krój: łacina i polskie litery (dociągane przez unicode-range tylko gdy potrzebne).
+ * @param {string} file
+ * @param {string} weight
+ * @param {string} [stretch]
+ */
+function variants(file, weight, stretch) {
+  /** @param {string} part @param {string[]} range */
+  const variant = (part, range) => ({
+    src: /** @type {[string]} */ ([`./src/assets/fonts/${file}-${part}.woff2`]),
+    weight,
+    style: /** @type {'normal'} */ ('normal'),
+    stretch,
+    unicodeRange: /** @type {[string, ...string[]]} */ (range),
+  });
+  return /** @type {[ReturnType<typeof variant>, ReturnType<typeof variant>]} */ ([
+    variant('latin', LATIN),
+    variant('pl', POLISH),
+  ]);
+}
 
 // https://astro.build/config
 export default defineConfig({
@@ -25,36 +47,30 @@ export default defineConfig({
   markdown: {
     processor: unified(),
   },
-  // Fonty: OFL, latin-ext, variable (DESIGN.md §4.1). Preload tylko Display + Sans w BaseLayout.
+  // Fonty OFL, variable, własne podzbiory: łacina + polskie litery, osie przycięte do użycia
+  // (DECISIONS #29, pliki z `pnpm fonts:subset`). Preload tylko łaciny Archivo + Inter w BaseLayout.
   fonts: [
     {
       name: 'Archivo',
       cssVariable: '--font-archivo',
-      provider: fontProviders.fontsource(),
-      weights: ['100 900'],
-      // oś szerokości wdth (62–125%): nagłówki używają font-stretch: 125%
-      stretch: '62% 125%',
-      styles: ['normal'],
-      subsets: ['latin', 'latin-ext'],
+      provider: fontProviders.local(),
       fallbacks: ['sans-serif'],
+      // nagłówki .disp: waga 800, szerokość 125% (100% w wąskich tytułach projektów)
+      options: { variants: variants('archivo', '800', '100% 125%') },
     },
     {
       name: 'Inter',
       cssVariable: '--font-inter',
-      provider: fontProviders.fontsource(),
-      weights: ['400 600'],
-      styles: ['normal'],
-      subsets: ['latin', 'latin-ext'],
+      provider: fontProviders.local(),
       fallbacks: ['sans-serif'],
+      options: { variants: variants('inter', '400 600') },
     },
     {
       name: 'JetBrains Mono',
       cssVariable: '--font-jetbrains-mono',
-      provider: fontProviders.fontsource(),
-      weights: ['400 700'],
-      styles: ['normal'],
-      subsets: ['latin', 'latin-ext'],
+      provider: fontProviders.local(),
       fallbacks: ['monospace'],
+      options: { variants: variants('jetbrains-mono', '400 700') },
     },
   ],
   // expressiveCode musi być przed mdx()
