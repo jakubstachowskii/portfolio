@@ -1,0 +1,208 @@
+---
+import type { DeckId } from '@/lib/deck';
+
+interface Props {
+  kind: DeckId;
+}
+
+const { kind } = Astro.props;
+// Szkice platform na kartach talii (dekoracja, 1:1 ze wzorca)
+---
+
+{kind === 'web' && (
+  <div class="web">
+    <div class="bar">
+      <span class="led" />
+      <span class="url" />
+    </div>
+    <div class="page">
+      <span class="sweep banner" />
+      <div class="tiles">
+        <span />
+        <span />
+        <span />
+      </div>
+    </div>
+  </div>
+)}
+{kind === 'mobile' && (
+  <div class="mob">
+    <span class="phone">
+      <span class="notch" />
+      <span class="box" />
+      <span class="box" />
+    </span>
+    <span class="phone">
+      <span class="notch" />
+      <span class="fill" />
+      <span class="chip" />
+    </span>
+    <span class="phone">
+      <span class="notch" />
+      <span class="hero" />
+      <span class="ln w70" />
+    </span>
+  </div>
+)}
+{kind === 'desktop' && (
+  <div class="desk">
+    <div class="dots">
+      <span />
+      <span />
+      <span />
+    </div>
+    <div class="win">
+      <div class="side">
+        <span class="ln hue" />
+        <span class="ln w70" />
+        <span class="ln w80" />
+      </div>
+      <div class="main">
+        <span class="ln h9" />
+        <span class="ln" />
+        <span class="ln w85" />
+        <span class="ln w70" />
+      </div>
+    </div>
+  </div>
+)}
+
+<style>
+  .web,
+  .desk {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--line);
+  }
+  .web {
+    gap: 10px;
+  }
+  .bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 9px;
+    border-bottom: 1px solid var(--line);
+  }
+  .led {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--acc);
+  }
+  .url {
+    flex: 1;
+    height: 10px;
+    border: 1px solid var(--line2);
+  }
+  .page {
+    flex: 1;
+    padding: 0 10px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .banner {
+    height: 44px;
+    background: var(--acc-soft);
+    border: 1px solid var(--acc);
+  }
+  .tiles {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+  .tiles span {
+    border: 1px solid var(--line2);
+  }
+  .mob {
+    flex: 1;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    gap: 14px;
+  }
+  .phone {
+    width: 54px;
+    border-radius: 12px;
+    border: 1px solid var(--line2);
+    background: var(--surface2);
+    padding: 10px 7px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .notch {
+    height: 6px;
+    background: var(--line2);
+  }
+  .box {
+    height: 22px;
+    border: 1px solid var(--line);
+  }
+  .fill {
+    flex: 1;
+    border: 1px solid var(--line);
+  }
+  .chip {
+    height: 12px;
+    background: var(--hue3);
+  }
+  .hero {
+    height: 40px;
+    background: var(--line);
+  }
+  .dots {
+    display: flex;
+    gap: 5px;
+    padding: 8px 9px;
+    border-bottom: 1px solid var(--line);
+  }
+  .dots span {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--line2);
+  }
+  .win {
+    flex: 1;
+    display: flex;
+  }
+  .side,
+  .main {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .side {
+    width: 28%;
+    border-right: 1px solid var(--line);
+  }
+  .main {
+    flex: 1;
+  }
+  .ln {
+    height: 6px;
+    background: var(--line);
+  }
+  .hue {
+    background: var(--hue1);
+  }
+  .h9 {
+    height: 9px;
+    width: 50%;
+    background: var(--line2);
+  }
+  .w70 {
+    width: 70%;
+  }
+  .w80 {
+    width: 80%;
+  }
+  .w85 {
+    width: 85%;
+  }
+</style>

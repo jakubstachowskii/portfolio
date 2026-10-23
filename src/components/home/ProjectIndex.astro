@@ -1,0 +1,154 @@
+---
+import type { Project } from '@/data/projects';
+
+interface Props {
+  projects: Project[];
+  selected: string;
+}
+
+const { projects, selected } = Astro.props;
+const rows = projects.map((p, i) => ({ ...p, num: String(i + 1).padStart(2, '0') }));
+// Wiersz ma dwie identyczne warstwy: zwykłą i miętową na wierzchu, odsłanianą clip-pathem.
+// Wybór projektu (hover / klik / focus) = Etap 4 (data-project).
+---
+
+<div class="reveal list" role="list">
+  {rows.map((p) => (
+    <div role="listitem">
+      <button
+        type="button"
+        class:list={['row', p.id === selected && 'on']}
+        aria-pressed={p.id === selected ? 'true' : 'false'}
+        data-project={p.id}
+      >
+        {[false, true].map((fill) => {
+          const inner = (
+            <span class="row-in">
+              <span class="mono num">{p.num}</span>
+              <span class="tx">
+                <span class="disp ttl">{p.title}</span>
+                <span class="mono plat">{p.platforms}</span>
+              </span>
+              <svg
+                class="arr"
+                aria-hidden="true"
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.2"
+                stroke-linecap="square"
+              >
+                <path d="M5 12h14" />
+                <path d="m13 6 6 6-6 6" />
+              </svg>
+            </span>
+          );
+          return fill ? (
+            <span class="row-fill" aria-hidden="true">
+              {inner}
+            </span>
+          ) : (
+            inner
+          );
+        })}
+      </button>
+    </div>
+  ))}
+</div>
+
+<style>
+  .list {
+    flex: 1 1 520px;
+    min-width: 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .row {
+    position: relative;
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    border-top: 1px solid var(--line);
+    background: transparent;
+    color: var(--text);
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+  }
+  .row-in {
+    display: grid;
+    grid-template-columns: 44px minmax(0, 1fr) 28px;
+    align-items: center;
+    column-gap: 18px;
+    padding: 20px 16px;
+  }
+  .row-fill {
+    position: absolute;
+    inset: 0;
+    background: var(--acc);
+    color: var(--acc-ink);
+    clip-path: inset(0 100% 0 0);
+    transition: clip-path var(--t-row) var(--ease-fill);
+    pointer-events: none;
+  }
+  .row:hover .row-fill,
+  .row.on .row-fill {
+    clip-path: inset(0 0 0 0);
+  }
+  .num {
+    align-self: start;
+    padding-top: 5px;
+    font-size: 13px;
+    color: var(--text2);
+  }
+  .tx {
+    min-width: 0;
+  }
+  .ttl {
+    display: block;
+    font-size: clamp(18px, 1.9vw, 26px);
+    line-height: 1.12;
+    overflow-wrap: anywhere;
+    transition: translate var(--t-row) cubic-bezier(0.3, 1.2, 0.5, 1);
+  }
+  .plat {
+    display: block;
+    margin-top: 6px;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: var(--text2);
+    transition: translate var(--t-row) cubic-bezier(0.3, 1.2, 0.5, 1);
+  }
+  .row-fill .num,
+  .row-fill .plat {
+    color: var(--acc-ink);
+  }
+  .arr {
+    justify-self: end;
+    transition: transform var(--t-row) var(--ease-spring);
+  }
+  .row:hover .arr,
+  .row.on .arr {
+    transform: rotate(-45deg);
+  }
+  .row:hover .ttl,
+  .row.on .ttl,
+  .row:hover .plat,
+  .row.on .plat {
+    translate: 8px 0;
+  }
+  @media (max-width: 520px) {
+    .row-in {
+      grid-template-columns: 28px minmax(0, 1fr) 22px;
+      column-gap: 12px;
+      padding: 18px 8px;
+    }
+    .ttl {
+      font-size: 16px;
+      font-stretch: 100%;
+      overflow-wrap: normal;
+    }
+  }
+</style>

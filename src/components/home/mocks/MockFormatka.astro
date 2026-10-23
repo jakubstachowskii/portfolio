@@ -1,0 +1,81 @@
+---
+// Szkic: rozkrój płyty, formatki pojawiają się po kolei (dekoracja, 1:1 ze wzorca)
+---
+
+<div class="board">
+  <span class="piece a"></span>
+  <span class="piece b p2"></span>
+  <span class="piece c p3"></span>
+  <span class="piece d p4"></span>
+  <span class="piece e p5"></span>
+  <span class="waste"></span>
+</div>
+
+<style>
+  .board {
+    position: relative;
+    width: 74%;
+    background: var(--surface);
+    border: 1px solid var(--line2);
+    padding: 10px;
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-template-rows: 44px 44px 44px;
+    gap: 4px;
+  }
+  .piece {
+    background: var(--acc-soft);
+    border: 1px solid var(--hue2);
+    animation: piece var(--t-piece) var(--ease-line) infinite both;
+  }
+  .a {
+    grid-column: span 3;
+    grid-row: span 2;
+  }
+  .b {
+    grid-column: span 2;
+  }
+  .c {
+    grid-column: span 1;
+    grid-row: span 3;
+    border-color: var(--hue5);
+  }
+  .d {
+    grid-column: span 2;
+    border-color: var(--hue5);
+  }
+  .e {
+    grid-column: span 4;
+  }
+  .p2 {
+    animation-delay: 0.15s;
+  }
+  .p3 {
+    animation-delay: 0.3s;
+  }
+  .p4 {
+    animation-delay: 0.45s;
+  }
+  .p5 {
+    animation-delay: 0.6s;
+  }
+  .waste {
+    grid-column: span 1;
+    background: repeating-linear-gradient(45deg, var(--surface) 0 4px, var(--line) 4px 8px);
+  }
+  @keyframes piece {
+    0% {
+      opacity: 0;
+      scale: 0.6;
+    }
+    12%,
+    82% {
+      opacity: 1;
+      scale: 1;
+    }
+    94%,
+    100% {
+      opacity: 0;
+    }
+  }
+</style>

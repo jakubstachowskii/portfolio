@@ -1,0 +1,79 @@
+---
+import type { Dictionary } from '@/i18n/utils';
+
+interface Props {
+  m: Dictionary['home']['mocks'];
+}
+
+const { m } = Astro.props;
+// Szkic: tablica wyników gry w kości (dekoracja, 1:1 ze wzorca)
+const pips = [1, 0, 1, 0, 1, 0, 1, 0, 1];
+---
+
+<div class="board mono">
+  <div class="player me">
+    <span class="who">{`${m.player} 1`}</span>
+    <span class="disp score">43</span>
+  </div>
+  <div class="die bob">
+    {pips.map((on) => (
+      <span class:list={[on && 'pip']} />
+    ))}
+  </div>
+  <div class="player">
+    <span class="who">{`${m.player} 2`}</span>
+    <span class="disp score">27</span>
+  </div>
+</div>
+
+<style>
+  .board {
+    position: relative;
+    width: 78%;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 14px;
+    font-size: 11px;
+  }
+  .player {
+    border: 1px solid var(--line2);
+    background: var(--surface);
+    padding: 14px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .me {
+    border-color: var(--acc);
+    background: var(--acc-soft);
+  }
+  .who {
+    color: var(--text2);
+  }
+  .score {
+    font-size: 26px;
+  }
+  .die {
+    width: 54px;
+    height: 54px;
+    border: 1px solid var(--line2);
+    background: var(--surface);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    padding: 8px;
+    gap: 2px;
+    animation: bob var(--t-bob) ease-in-out infinite;
+  }
+  .pip {
+    border-radius: 50%;
+    background: var(--text);
+  }
+  @keyframes bob {
+    40% {
+      translate: 0 -8px;
+    }
+  }
+</style>

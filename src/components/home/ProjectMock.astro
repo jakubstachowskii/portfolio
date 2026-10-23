@@ -1,0 +1,22 @@
+---
+import MockAwizacja from './mocks/MockAwizacja.astro';
+import MockFormatka from './mocks/MockFormatka.astro';
+import MockGeneric from './mocks/MockGeneric.astro';
+import MockLotto from './mocks/MockLotto.astro';
+import MockPig from './mocks/MockPig.astro';
+import type { Project } from '@/data/projects';
+import type { Dictionary } from '@/i18n/utils';
+
+interface Props {
+  project: Project;
+  m: Dictionary['home']['mocks'];
+}
+
+const { project, m } = Astro.props;
+---
+
+{project.mock === 'awizacja' && <MockAwizacja m={m} />}
+{project.mock === 'formatka' && <MockFormatka />}
+{project.mock === 'lotto' && <MockLotto m={m} />}
+{project.mock === 'pig' && <MockPig m={m} />}
+{project.mock === 'generic' && <MockGeneric title={project.title} tags={project.tags} />}

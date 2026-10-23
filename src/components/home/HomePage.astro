@@ -1,0 +1,42 @@
+---
+import About from './About.astro';
+import Contact from './Contact.astro';
+import GithubActivity from './GithubActivity.astro';
+import Hero from './Hero.astro';
+import Projects from './Projects.astro';
+import Stack from './Stack.astro';
+import Tape from './Tape.astro';
+import type { Locale } from '@/config/site';
+import { staticProjects } from '@/data/projects';
+import { t } from '@/i18n/utils';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const home = t(locale).home;
+---
+
+<Hero locale={locale} />
+<div id="tasma" class="tasma" aria-hidden="true">
+  <Tape words={home.tape} class="small" />
+</div>
+<Projects locale={locale} projects={staticProjects} />
+<GithubActivity locale={locale} />
+<About locale={locale} />
+<Stack locale={locale} />
+<Contact locale={locale} />
+
+<style>
+  .tasma {
+    overflow: hidden;
+    background: var(--acc);
+    color: var(--acc-ink);
+    border-bottom: 1px solid var(--line);
+  }
+  .tasma :global(.small) {
+    font-size: 22px;
+    padding: 14px 0;
+  }
+</style>

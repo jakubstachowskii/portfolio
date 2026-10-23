@@ -1,0 +1,113 @@
+---
+import type { Locale } from '@/config/site';
+import { t } from '@/i18n/utils';
+
+interface Props {
+  locale: Locale;
+}
+
+const d = t(Astro.props.locale).home.gh;
+// Siatka „aktywności”: tylko dekoracja/szkielet, bez wymyślonych danych (Etap 6 = GitHub API).
+const cells = Array.from({ length: 44 * 7 }, (_, i) => {
+  const c = Math.floor(i / 7);
+  const r = i % 7;
+  return (c * 0.06 + r * 0.03).toFixed(2);
+});
+---
+
+<section id="gh" class="gh" aria-label={d.label}>
+  <div class="wrap reveal row">
+    <div class="copy">
+      <span class="mono kicker">{d.kicker}</span>
+      <h2 class="disp ttl">
+        {d.title[0]}
+        <br />
+        {d.title[1]}
+      </h2>
+      <p class="lead">{d.lead}</p>
+    </div>
+    <div class="cal" aria-hidden="true">
+      <div class="grid">
+        {cells.map((delay) => (
+          <span class="wave" style={`animation-delay: ${delay}s`} />
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .gh {
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    background: var(--bg2);
+    padding: 80px 0;
+  }
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    align-items: center;
+  }
+  .copy {
+    flex: 1 1 280px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .kicker {
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: var(--acc-text);
+  }
+  .ttl {
+    margin: 0;
+    font-size: 34px;
+    line-height: 1.02;
+  }
+  .lead {
+    margin: 0;
+    color: var(--text2);
+    font-size: 15px;
+  }
+  .cal {
+    flex: 2 1 560px;
+    min-width: 0;
+    overflow: hidden;
+  }
+  .grid {
+    display: grid;
+    grid-template-rows: repeat(7, 12px);
+    grid-auto-flow: column;
+    grid-auto-columns: 12px;
+    gap: 4px;
+  }
+  /* fala: animujemy przezroczystość nakładki (GPU), nie kolor tła ~300 komórek */
+  .wave {
+    position: relative;
+    background: var(--cell);
+  }
+  .wave::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--cell-hi);
+    opacity: 0;
+    animation: wave var(--t-wave) ease-in-out infinite;
+    animation-delay: inherit;
+  }
+  :global(.off) .wave::after {
+    animation-play-state: paused;
+  }
+  @keyframes wave {
+    0%,
+    30%,
+    100% {
+      opacity: 0;
+    }
+    12% {
+      opacity: 1;
+    }
+  }
+</style>

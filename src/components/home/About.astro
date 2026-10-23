@@ -1,0 +1,120 @@
+---
+import AboutSteps from './AboutSteps.astro';
+import SectionHead from './SectionHead.astro';
+import { site, type Locale } from '@/config/site';
+import { t } from '@/i18n/utils';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const d = t(locale).home.about;
+const facts = Object.entries(d.facts).map(([key, [label, value]]) => ({
+  key,
+  label,
+  value: key === 'city' ? site.city : value,
+}));
+---
+
+<section id="o-mnie" class="sec">
+  <div class="wrap col">
+    <div class="reveal">
+      <SectionHead kicker={d.kicker} title={d.title} />
+    </div>
+    <div class="split">
+      <div class="reveal text">
+        <p class="lead">{d.lead}</p>
+        <p class="body">{d.body}</p>
+        <div class="me">
+          <div class="mono photo">{d.photo}</div>
+          <span class="mono note">
+            {d.photoNote[0]}
+            <br />
+            {d.photoNote[1]}
+          </span>
+        </div>
+      </div>
+      <dl class="reveal mono facts">
+        {facts.map((f) => (
+          <div class="fact">
+            <dt>{f.label}</dt>
+            <dd class:list={[f.key === 'rule' && 'acc']}>{f.value}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+    <AboutSteps steps={d.steps} />
+  </div>
+</section>
+
+<style>
+  .sec {
+    padding: 112px 0;
+  }
+  .col {
+    display: flex;
+    flex-direction: column;
+    gap: 56px;
+  }
+  .text {
+    flex: 1 1 420px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .lead {
+    margin: 0;
+    font-size: 20px;
+    line-height: 1.5;
+  }
+  .body {
+    margin: 0;
+    color: var(--text2);
+  }
+  .me {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    margin-top: 8px;
+  }
+  .photo {
+    width: 96px;
+    height: 96px;
+    background: var(--surface2);
+    border: 1px solid var(--line2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    color: var(--text2);
+    text-align: center;
+  }
+  .note {
+    font-size: 12px;
+    color: var(--text2);
+  }
+  .facts {
+    flex: 1 1 420px;
+    min-width: 0;
+    margin: 0;
+    border-top: 2px solid var(--text);
+    font-size: 14px;
+  }
+  .fact {
+    display: grid;
+    grid-template-columns: 150px minmax(0, 1fr);
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  dt {
+    color: var(--text2);
+  }
+  dd {
+    margin: 0;
+  }
+  .acc {
+    color: var(--acc-text);
+  }
+</style>

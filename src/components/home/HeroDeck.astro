@@ -1,0 +1,90 @@
+---
+import '@/styles/deck.css';
+import DeckSketch from './DeckSketch.astro';
+import type { Locale } from '@/config/site';
+import { t } from '@/i18n/utils';
+import { DECK_IDS, cardStyle, cardView, initialDeck } from '@/lib/deck';
+
+interface Props {
+  locale: Locale;
+}
+
+const d = t(Astro.props.locale).home.deck;
+const total = `0${DECK_IDS.length}`;
+const cards = DECK_IDS.map((id, i) => {
+  const view = cardView(id, initialDeck);
+  return { id, ...d.cards[id], pos: `0${i + 1} / ${total}`, view, style: cardStyle(view) };
+});
+// Etap 2: stan spoczynku. Przeglądanie (klik, przeciąganie, klawiatura) = Etap 4 (data-deck*).
+---
+
+{/* talia to własny widżet: Tab ją aktywuje, strzałki zmieniają kartę, Esc kończy (Etap 4) */}
+{/* eslint-disable-next-line astro/jsx-a11y/no-noninteractive-tabindex */}
+<figure class="deck-scene" tabindex="0" aria-label={d.label} data-deck>
+  <div class="deck-stage" data-deck-stage>
+    <div class="deck-shadow" aria-hidden="true"></div>
+    <div class="deck-float">
+      <div class="deck" data-deck-cards>
+        {cards.map((c) => (
+          <div
+            class:list={['dk', c.view.front && 'front']}
+            style={c.style}
+            aria-hidden={c.view.front ? 'false' : 'true'}
+            data-card={c.id}
+          >
+            <div class="dk-head mono">
+              <span class="dk-tag">{c.label}</span>
+              <span class="dk-pos">{c.pos}</span>
+            </div>
+            <div class="dk-body">
+              <DeckSketch kind={c.id} />
+            </div>
+            <div class="dk-foot">
+              <span class="disp dk-title">{c.title}</span>
+              <span class="mono dk-sub">{c.sub}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+  <figcaption class="deck-cap">
+    <div class="dk-ctrl" data-deck-ctrl>
+      <button type="button" class="dk-btn" aria-label={d.prev} data-deck-prev>
+        ←
+      </button>
+      <div class="dk-row">
+        {cards.map((c) => (
+          <button
+            type="button"
+            class:list={['dk-ind', c.view.front && 'on']}
+            aria-label={`${d.show} ${c.label}`}
+            aria-pressed={c.view.front ? 'true' : 'false'}
+            data-deck-ind={c.id}
+          />
+        ))}
+      </div>
+      <button type="button" class="dk-btn" aria-label={d.next} data-deck-next>
+        →
+      </button>
+    </div>
+    <span
+      class="dk-hint mono"
+      aria-live="polite"
+      data-deck-hint
+      data-idle={d.hintIdle}
+      data-active={d.hintActive}
+    >
+      {d.hintIdle}
+    </span>
+  </figcaption>
+</figure>
+
+<style>
+  .deck-cap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+</style>

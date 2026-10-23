@@ -1,0 +1,91 @@
+---
+import SectionHead from './SectionHead.astro';
+import { stack, type Locale } from '@/config/site';
+import { t } from '@/i18n/utils';
+
+interface Props {
+  locale: Locale;
+}
+
+const d = t(Astro.props.locale).home.stack;
+// numeracja w obrębie kategorii: WEB / 01, WEB / 02, UI / 01…
+const seen: Record<string, number> = {};
+const tools = stack.map((s) => {
+  seen[s.cat] = (seen[s.cat] ?? 0) + 1;
+  return { ...s, key: `${d.cats[s.cat]} / ${String(seen[s.cat]).padStart(2, '0')}` };
+});
+---
+
+<section id="stack" class="sec">
+  <div class="wrap col">
+    <div class="reveal">
+      <SectionHead kicker={d.kicker} title={d.title} />
+    </div>
+    <ul class="stack reveal">
+      {tools.map((tool) => (
+        <li class="tool">
+          <span class="mono tk">{tool.key}</span>
+          <span class="disp name">{tool.name}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .sec {
+    border-top: 1px solid var(--line);
+    padding: 112px 0;
+  }
+  .col {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+  .stack {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+  }
+  .tool {
+    border: 1px solid var(--line);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    min-height: 130px;
+    transition:
+      background-color var(--t-base) ease,
+      border-color var(--t-base) ease,
+      transform var(--t-mid) var(--ease-spring);
+  }
+  .tool:hover {
+    border-color: var(--acc);
+    transform: translateY(-3px);
+  }
+  .tk {
+    font-size: 11px;
+    color: var(--text2);
+  }
+  .tool:hover .tk {
+    color: var(--acc-text);
+  }
+  .name {
+    font-size: clamp(16px, 1.6vw, 20px);
+    line-height: 1.15;
+    overflow-wrap: anywhere;
+  }
+  @media (max-width: 900px) {
+    .stack {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 520px) {
+    .stack {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>
