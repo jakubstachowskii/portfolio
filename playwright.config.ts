@@ -26,7 +26,5 @@ export default defineConfig({
     url: baseURL,
     timeout: 180_000,
     reuseExistingServer: !process.env['CI'],
-    // build testowy zawiera katalog /design (produkcyjny nie) — src/integrations/design-page.ts
-    env: { DESIGN_PAGE: '1' },
   },
 });
