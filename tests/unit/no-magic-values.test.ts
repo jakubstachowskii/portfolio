@@ -3,8 +3,9 @@ import { join, relative } from 'node:path';
 import { describe, expect, it } from 'vitest';
 
 /**
- * Strażnik reguły z CLAUDE.md: kolory, odstępy, promienie i czasy tylko z tokenów (src/styles/tokens.css).
- * Sprawdza komponenty i layouty (nie tokens.css i nie katalog /design).
+ * Strażnik reguły z CLAUDE.md: kolory i czasy animacji tylko z tokenów (src/styles/tokens.css).
+ * Geometria (px) jest przenoszona 1:1 ze wzorca docs/design-reference.html i nie jest tu sprawdzana
+ * (DECISIONS #24). Sprawdza komponenty i layouty.
  */
 const ROOT = new URL('../../src/', import.meta.url).pathname.replace(/^\/(\w:)/, '$1');
 const DIRS = ['components', 'layouts'];
@@ -27,7 +28,6 @@ const RULES: [string, RegExp][] = [
   // klasy Tailwinda nie mają spacji w środku — to odróżnia je od sygnatur indeksu TS
   ['arbitrary property Tailwinda', /\[[a-z-]+:[^\]\s]+\]/],
   ['surowy czas animacji', /\b\d+m?s\b(?!\w)/],
-  ['odstęp/wymiar w px (poza 1px linią)', /\b(?:[2-9]|\d{2,})px\b/],
 ];
 
 // Dozwolone wyjątki: meta theme-color musi być literałem (przeglądarka nie czyta zmiennych CSS).
@@ -37,7 +37,7 @@ describe('zero magicznych wartości w komponentach i layoutach', () => {
   const all = DIRS.flatMap((d) => files(join(ROOT, d)));
 
   it('są pliki do sprawdzenia', () => {
-    expect(all.length).toBeGreaterThan(10);
+    expect(all.length).toBeGreaterThan(5);
   });
 
   it.each(all.map((f) => [relative(ROOT, f), f]))('%s', (_name, file) => {

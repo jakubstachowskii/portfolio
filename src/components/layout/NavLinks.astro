@@ -1,0 +1,82 @@
+---
+import type { Locale } from '@/config/site';
+import { t } from '@/i18n/utils';
+import { sectionHref } from '@/lib/sections';
+
+interface Props {
+  locale: Locale;
+  onHome: boolean;
+}
+
+const { locale, onHome } = Astro.props;
+const dict = t(locale);
+const links = (['projekty', 'o-mnie', 'stack'] as const).map((id, i) => ({
+  id,
+  n: `0${i + 1}`,
+  label: dict.nav.links[id],
+  href: sectionHref(id, locale, onHome),
+}));
+---
+
+<div class="navlinks mono">
+  {links.map((l) => (
+    <a class="nl" href={l.href} data-section={l.id}>
+      <span class="n">{l.n}</span>
+      {l.label}
+      <span class="bar" aria-hidden="true" />
+    </a>
+  ))}
+</div>
+
+<style>
+  .navlinks {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    font-size: 13px;
+  }
+  .nl {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: var(--target);
+    color: var(--text2);
+    transition: color var(--t-fast);
+  }
+  .nl:hover,
+  .nl.on {
+    color: var(--text);
+  }
+  .n {
+    color: var(--text2);
+    transition: color var(--t-fast);
+  }
+  .nl.on .n {
+    color: var(--acc-text);
+  }
+  .bar {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 8px;
+    height: 2px;
+    background: var(--acc);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--t-bar) var(--ease-bar);
+  }
+  .nl.on .bar {
+    transform: scaleX(1);
+  }
+  @media (max-width: 900px) {
+    .navlinks {
+      order: 3;
+      width: 100%;
+      overflow-x: auto;
+      gap: 24px;
+      scrollbar-width: none;
+      border-top: 1px solid var(--line);
+    }
+  }
+</style>

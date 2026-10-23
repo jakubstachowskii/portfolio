@@ -1,0 +1,150 @@
+---
+import NavLinks from './NavLinks.astro';
+import ThemeToggle from './ThemeToggle.astro';
+import { site, type Locale } from '@/config/site';
+import { t } from '@/i18n/utils';
+import { sectionHref } from '@/lib/sections';
+
+interface Props {
+  locale: Locale;
+  onHome?: boolean;
+}
+
+const { locale, onHome = true } = Astro.props;
+const dict = t(locale);
+---
+
+<header class="hdr">
+  <a class="skip" href="#main">
+    {dict.nav.skip}
+  </a>
+  <nav class="wrap navbar" aria-label={dict.nav.label}>
+    <a class="brand" href={sectionHref('top', locale, onHome)}>
+      <span class="disp brand-name">{site.firstName}</span>
+      <span class="mono brand-sub">{`${dict.nav.brandSub} / ${site.lastName.toLowerCase()}`}</span>
+    </a>
+    <NavLinks locale={locale} onHome={onHome} />
+    <div class="actions">
+      <ThemeToggle locale={locale} />
+      <a class="btn btn-acc mono cta" href={sectionHref('kontakt', locale, onHome)}>
+        {dict.nav.contact}
+        <svg
+          aria-hidden="true"
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="square"
+        >
+          <path d="M7 17 17 7"></path>
+          <path d="M7 7h10v10"></path>
+        </svg>
+      </a>
+    </div>
+  </nav>
+  <div class="progress" aria-hidden="true"></div>
+</header>
+
+<style>
+  .hdr {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    background: var(--nav-bg);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line);
+  }
+  .navbar {
+    min-height: var(--nav-h);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  .brand {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+  }
+  .brand-name {
+    font-size: 15px;
+  }
+  .brand-sub {
+    font-size: 11px;
+    color: var(--text2);
+  }
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: var(--target);
+    padding: 0 16px;
+    background: var(--acc);
+    color: var(--acc-ink);
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .skip {
+    position: absolute;
+    left: 12px;
+    top: -60px;
+    z-index: 20;
+    padding: 10px 16px;
+    background: var(--acc);
+    color: var(--acc-ink);
+    font-size: 14px;
+    transition: top var(--t-fast);
+  }
+  .skip:focus {
+    top: 8px;
+  }
+  .progress {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 2px;
+    transform-origin: 0 50%;
+    transform: scaleX(0);
+    background: var(--acc);
+  }
+  @supports (animation-timeline: scroll()) {
+    .progress {
+      animation: prog linear both;
+      animation-timeline: scroll(root);
+    }
+  }
+  @keyframes prog {
+    to {
+      transform: scaleX(1);
+    }
+  }
+  @media (max-width: 900px) {
+    .navbar {
+      flex-wrap: wrap;
+      row-gap: 0;
+      padding-top: 8px;
+    }
+  }
+  @media (max-width: 520px) {
+    .brand-sub {
+      display: none;
+    }
+    .navbar {
+      column-gap: 12px;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .progress {
+      display: none;
+    }
+  }
+</style>

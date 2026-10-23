@@ -1,6 +1,9 @@
 ---
 import { Font } from 'astro:assets';
 import '@/styles/global.css';
+import Footer from '@/components/layout/Footer.astro';
+import Nav from '@/components/layout/Nav.astro';
+import SectionDots from '@/components/layout/SectionDots.astro';
 import ThemeScript from '@/components/layout/ThemeScript.astro';
 import type { Locale } from '@/config/site';
 import { site } from '@/config/site';
@@ -9,11 +12,13 @@ interface Props {
   locale: Locale;
   title: string;
   description: string;
+  /** Strona główna: kotwice sekcji bez adresu + boczne kreski sekcji. */
+  onHome?: boolean;
   noindex?: boolean;
 }
 
-const { locale, title, description, noindex = false } = Astro.props;
-// Preload tylko krojów pierwszego ekranu (PLAN §11: ≤ 2 rodziny), mono ładuje się z font-display: swap.
+const { locale, title, description, onHome = false, noindex = false } = Astro.props;
+// Preload tylko krojów pierwszego ekranu (≤ 2 rodziny), mono ładuje się z font-display: swap.
 const preloadText = [{ style: 'normal', subset: 'latin' }];
 // latin-ext (polskie znaki) dociąga się przez unicode-range — małe pliki, DECISIONS #21
 ---
@@ -25,19 +30,24 @@ const preloadText = [{ style: 'normal', subset: 'latin' }];
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <ThemeScript />
     <meta name="color-scheme" content="dark light" />
-    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
-    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0d0e10" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f1efe9" media="(prefers-color-scheme: light)" />
     <meta name="generator" content={Astro.generator} />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
-    <!-- Favicon dochodzi w Fazie 7; pusty data URI zapobiega 404 na /favicon.ico -->
+    <!-- Favicon dochodzi w Etapie 7; pusty data URI zapobiega 404 na /favicon.ico -->
     <link rel="icon" href="data:," />
-    <Font cssVariable="--font-funnel-display" preload={preloadText} />
-    <Font cssVariable="--font-funnel-sans" preload={preloadText} />
-    <Font cssVariable="--font-geist-mono" />
+    <Font cssVariable="--font-archivo" preload={preloadText} />
+    <Font cssVariable="--font-inter" preload={preloadText} />
+    <Font cssVariable="--font-jetbrains-mono" />
     <meta name="description" content={description} />
     <title>{`${title} — ${site.name}`}</title>
   </head>
   <body>
-    <slot />
+    <Nav locale={locale} onHome={onHome} />
+    {onHome && <SectionDots locale={locale} />}
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+    <Footer locale={locale} onHome={onHome} />
   </body>
 </html>

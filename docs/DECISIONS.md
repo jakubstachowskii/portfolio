@@ -180,3 +180,24 @@ Pozostałe wymagania strukturalne PLAN §6 (role tokenów, 5 stanów, focus ring
 
 - **Problem:** `astro-icon` renderuje SVG bez atrybutu scope Astro, a reguła „ukryj wg motywu przodka” myli się w zagnieżdżonych panelach (`<html>` też ma `data-theme`).
 - **Decyzja:** `--toggle-sun` / `--toggle-moon` w blokach motywu (`tokens.css`): wartość dziedziczy się od najbliższego `[data-theme]`.
+
+## #23 · 2026-10-23 · Akcent tekstowy w jasnym motywie `#06725d` · przyjęta
+
+- **Fakt:** wzorzec ma `--acc-text: #0a7a65` w jasnym motywie, co daje 4.23:1 na `--bg2` (`#e9e6de`), poniżej WCAG AA 4.5:1.
+- **Decyzja:** `#06725d`, najbliższy odcień tej samej mięty z ≥ 4.71:1 na każdym jasnym tle. To jedyne odstępstwo kolorystyczne od wzorca.
+
+## #24 · 2026-10-23 · Geometria 1:1 ze wzorca zamiast skali 8pt · przyjęta
+
+- **Problem:** reguła „zero magicznych wartości” i skala 8pt (#20) kłócą się z wymaganiem „wygląd 1:1 ze wzorca”, który używa wartości jak 26px, 18px, 15px.
+- **Decyzja:** kolory i czasy animacji nadal tylko z tokenów (test `no-magic-values` to sprawdza). Odstępy, rozmiary i fonty w px przenosimy wprost ze wzorca do stylów komponentów. Wzorzec jest tu „skalą”. Skala Tailwinda: `--spacing: 4px`. Zastępuje #20.
+
+## #25 · 2026-10-23 · Nowy kierunek: `docs/design-reference.html` 1:1 · przyjęta
+
+- **Decyzja Jakuba:** strona powstaje 1:1 według `docs/design-reference.html` (`heroArt = warstwy`, akcent `mint`), etapami z `docs/PROMPT-dla-Claude-Code.md`. Kierunek D v3.1 („Premiera”), komponenty `src/components/ui/*`, katalog `/design` i raport tokenów są usunięte. Niezmergowana praca Fazy 2 w starym stylu porzucona.
+- **Etapy:** 1 szkielet · 2 statyczna strona główna · 3 projekty z GitHub API · 4 interakcje · 5 podstrony i 404 · 6 kontrybucje GitHub · 7 SEO/a11y/wydajność · 8 deploy i README. Jeden etap = jedna gałąź `feat/etap-N-nazwa` = jeden PR.
+- **Stack bez zmian:** reguły repo (Astro, TS strict, Tailwind v4, pnpm, testy) mają pierwszeństwo przed §1 promptu. Runtime podglądu ze wzorca (`x-dc`, `DCLogic`) nie jest przenoszony; logika powstaje jako małe skrypty w `src/scripts/`.
+- Zastępuje #18 i #22.
+
+## #26 · 2026-10-23 · Pliki wzorca poza Prettierem · przyjęta
+
+- `docs/design-reference.html` i `docs/PROMPT-dla-Claude-Code.md` są w `.prettierignore`: to dokumenty źródłowe, nie formatujemy ich.

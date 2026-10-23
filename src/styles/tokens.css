@@ -1,230 +1,155 @@
 /*
- * Tokeny design systemu „Premiera”: jedyne źródło wartości w CSS.
- * Każda wartość ma odpowiednik w docs/DESIGN.md (§3 kolory, §4 typografia, §5 odstępy, §6 kształty, §7 ruch).
- * Kontrasty: docs/DESIGN-TOKENS.md (pnpm tokens:report), pilnowane testem tests/unit/color.test.ts.
+ * Tokeny 1:1 ze wzorca docs/design-reference.html (.t-dark / .t-light + akcent „mint” z palettes.mint).
+ * Jedyne odstępstwo: --acc-text w jasnym motywie #0a7a65 → #06725d (4.23:1 → 4.71:1 na --bg2; DECISIONS #23).
+ * Kontrasty pilnuje test tests/unit/color.test.ts.
  *
- * Budowa:
- *  1. @theme: tokeny stałe (nie zależą od motywu). Tailwind tworzy z nich utility i zmienne na :root.
- *  2. Surowe zmienne motywu --c-* / --sh-*: dark domyślny, light przez [data-theme='light'] lub system bez JS.
- *  3. @theme inline: mapuje surowe zmienne na utility (bg-canvas, text-muted, shadow-key...).
- *     „inline” = utility czyta zmienną w miejscu użycia, więc przełączanie motywu działa też w panelach /design.
+ * Motyw: ciemny domyślny, jasny przez [data-theme='light'] (skrypt motywu) albo system bez JS.
  */
 
-/* ── 1. Tokeny stałe ── */
-@theme {
-  /* czyścimy domyślne przestrzenie Tailwinda: poza tokenami nie ma żadnych wartości */
-  --color-*: initial;
-  --font-*: initial;
-  --text-*: initial;
-  --radius-*: initial;
-  --shadow-*: initial;
-  --inset-shadow-*: initial;
-  --drop-shadow-*: initial;
-  --ease-*: initial;
-  --animate-*: initial;
-  --blur-*: initial;
-  --tracking-*: initial;
-  --leading-*: initial;
-  --container-*: initial;
-
-  /* odstępy: skala 8pt (§5.1) → p-1=8px, p-2=16px, p-3=24px, p-4=32px, p-6=48px, p-8=64px, p-12=96px, p-16=128px; p-0.5=4px */
-  --spacing: 8px;
-
-  /* kontenery (§5.3) → max-w-content / max-w-stage / max-w-palette */
-  --container-content: 1120px;
-  --container-stage: 960px;
-  --container-palette: 640px;
-
-  /* promienie (§6.1) */
-  --radius-xs: 8px;
-  --radius-sm: 10px;
-  --radius-md: 18px;
-  --radius-lg: 26px;
-  --radius-pill: 999px;
-
-  /* typografia: skala (§4.2) */
-  --text-display: clamp(40px, 10.5vw, 112px);
-  --text-display--line-height: 0.98;
-  --text-display--letter-spacing: -0.045em;
-  --text-h2: clamp(38px, 5.2vw, 60px);
-  --text-h2--line-height: 1.02;
-  --text-h2--letter-spacing: -0.035em;
-  --text-h3: 34px;
-  --text-h3--line-height: 1.1;
-  --text-h3--letter-spacing: -0.025em;
-  --text-lead: clamp(20px, 2.2vw, 26px);
-  --text-lead--line-height: 1.35;
-  --text-lead--letter-spacing: -0.01em;
-  --text-body-lg: 19px;
-  --text-body-lg--line-height: 1.5;
-  --text-body: 17px;
-  --text-body--line-height: 1.5;
-  --text-ui: 16px;
-  --text-ui--line-height: 1.4;
-  --text-ui-sm: 14px;
-  --text-ui-sm--line-height: 1.4;
-  --text-caption: 13px;
-  --text-caption--line-height: 1.4;
-  --text-mono: 14px;
-  --text-mono--line-height: 1.4;
-  --text-mono-sm: 12px;
-  --text-mono-sm--line-height: 1.3;
-
-  /* ruch (§7.1) */
-  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
-  --ease-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
-  --blur-glass: 18px;
-}
-
-/* czasy i wymiary stałe (nie są przestrzeniami Tailwinda) */
-:root {
-  --duration-fast: 160ms;
-  --duration-base: 240ms;
-  --duration-slow: 700ms;
-  --duration-hero: 1100ms;
-  --duration-pulse: 2400ms;
-  --stage-perspective: 1600px;
-  --stage-tilt: 22deg;
-  --size-nav: 52px;
-  --size-window-bar: 40px;
-  --size-target: 44px;
-  --size-dot: 8px;
-  --measure-prose: 68ch;
-  --measure-caption: 34ch;
-}
-
-/* ── 2. Motyw ciemny (domyślny) ── */
+/* ── Motyw ciemny (domyślny) ── */
 :root,
 [data-theme='dark'] {
   color-scheme: dark;
-  --toggle-sun: inline;
-  --toggle-moon: none;
-  --c-canvas: oklch(0 0 0);
-  --c-band: oklch(0.176 0.004 229);
-  --c-surface: oklch(0.211 0.006 237);
-  --c-window: oklch(0.157 0.004 229);
-  --c-line: oklch(0.277 0.009 234);
-  --c-line-strong: oklch(0.373 0.013 229);
-  --c-line-control: oklch(0.498 0.012 229);
-  --c-fg: oklch(0.97 0.002 248);
-  --c-muted: oklch(0.71 0.013 237);
-  --c-dim: oklch(0.611 0.014 237);
-  --c-accent: oklch(0.807 0.148 77);
-  --c-accent-text: oklch(0.807 0.148 77);
-  --c-cta: oklch(0.807 0.148 77);
-  --c-on-cta: oklch(0.189 0.006 237);
-  --c-success: oklch(0.751 0.142 158);
-  --c-danger: oklch(0.743 0.156 26);
-  --c-spot: oklch(0.807 0.148 77 / 0.24);
-  --c-grid: oklch(0.807 0.148 77 / 0.32);
-  --c-row-active: oklch(0.807 0.148 77 / 0.1);
-  --c-glass: oklch(0.176 0.004 229 / 0.62);
-  --sh-key:
-    inset 0 1px 0 oklch(1 0 0 / 0.07), inset 0 -1px 0 oklch(0 0 0 / 0.6),
-    0 0 0 1px oklch(1 0 0 / 0.03);
-  --sh-key-pressed: inset 0 1px 2px oklch(0 0 0 / 0.6), inset 0 0 0 1px oklch(1 0 0 / 0.04);
-  --sh-stage: 0 60px 120px -50px oklch(0 0 0 / 0.9);
+  --bg: #0d0e10;
+  --bg2: #111316;
+  --surface: #15171a;
+  --surface2: #1c1f23;
+  --line: #2a2e33;
+  --line2: #3a3f45;
+  --text: #eceae4;
+  --text2: #9a9ca1;
+  --text3: #c9c7c1;
+  --acc: #3ee6c1;
+  --acc-ink: #0d0e10;
+  --acc-text: #5ff0d0;
+  --acc-soft: rgba(62, 230, 193, 0.14);
+  --nav-bg: rgba(13, 14, 16, 0.78);
+  --cell: #1c1f23;
+  --cell-hi: rgba(62, 230, 193, 0.55);
+  /* tylko szkice projektów */
+  --hue1: #5ac8fa;
+  --hue2: #ff8a5c;
+  --hue3: #b69cff;
+  --hue4: #62e08f;
+  --hue5: #ffb224;
+  /* cienie: tylko karty w hero i talia */
+  --shadow-card: 0 24px 50px -24px rgba(0, 0, 0, 0.6);
+  --shadow-deck: rgba(0, 0, 0, 0.5);
+  --sheen: rgba(255, 255, 255, 0.55);
 }
 
-/* ── 2b. Motyw jasny ── */
+/* ── Motyw jasny ── */
 [data-theme='light'] {
   color-scheme: light;
-  --toggle-sun: none;
-  --toggle-moon: inline;
-  --c-canvas: oklch(1 0 0);
-  --c-band: oklch(0.97 0.002 248);
-  --c-surface: oklch(1 0 0);
-  --c-window: oklch(0.978 0.001 197);
-  --c-line: oklch(0.923 0.004 237);
-  --c-line-strong: oklch(0.849 0.008 242);
-  --c-line-control: oklch(0.637 0.008 242);
-  --c-fg: oklch(0.189 0.006 237);
-  --c-muted: oklch(0.481 0.015 245);
-  --c-dim: oklch(0.536 0.016 241);
-  --c-accent: oklch(0.625 0.133 73);
-  --c-accent-text: oklch(0.508 0.108 73);
-  --c-cta: oklch(0.189 0.006 237);
-  --c-on-cta: oklch(1 0 0);
-  --c-success: oklch(0.513 0.119 153);
-  --c-danger: oklch(0.544 0.178 28);
-  --c-spot: oklch(0.625 0.133 73 / 0.13);
-  --c-grid: oklch(0.508 0.108 73 / 0.22);
-  --c-row-active: oklch(0.625 0.133 73 / 0.1);
-  --c-glass: oklch(1 0 0 / 0.7);
-  --sh-key:
-    inset 0 1px 0 oklch(1 0 0), inset 0 -1px 0 oklch(0.189 0.006 237 / 0.08),
-    0 1px 2px oklch(0.189 0.006 237 / 0.06);
-  --sh-key-pressed: inset 0 1px 2px oklch(0.189 0.006 237 / 0.12);
-  --sh-stage: 0 40px 80px -48px oklch(0.189 0.006 237 / 0.35);
+  --bg: #f1efe9;
+  --bg2: #e9e6de;
+  --surface: #fbfaf7;
+  --surface2: #f4f2ec;
+  --line: #d9d5cc;
+  --line2: #c4bfb3;
+  --text: #141414;
+  --text2: #5f5d58;
+  --text3: #33322f;
+  --acc: #3ee6c1;
+  --acc-ink: #141414;
+  --acc-text: #06725d;
+  --acc-soft: rgba(62, 230, 193, 0.14);
+  --nav-bg: rgba(241, 239, 233, 0.82);
+  --cell: #e3dfd5;
+  --cell-hi: rgba(62, 230, 193, 0.55);
+  --hue1: #0a7cae;
+  --hue2: #c2410c;
+  --hue3: #6d4fd6;
+  --hue4: #16803c;
+  --hue5: #a86400;
+  --shadow-card: 0 24px 50px -24px rgba(0, 0, 0, 0.6);
+  --shadow-deck: rgba(0, 0, 0, 0.5);
+  --sheen: rgba(255, 255, 255, 0.55);
 }
 
-/* Bez JS: jasny, jeśli system tego chce, a skrypt nie ustawił motywu (te same wartości co 2b) */
+/* Bez JS: jasny, gdy system tego chce, a skrypt nie ustawił motywu (te same wartości co wyżej) */
 @media (prefers-color-scheme: light) {
   :root:not([data-theme]) {
     color-scheme: light;
-    --toggle-sun: none;
-    --toggle-moon: inline;
-    --c-canvas: oklch(1 0 0);
-    --c-band: oklch(0.97 0.002 248);
-    --c-surface: oklch(1 0 0);
-    --c-window: oklch(0.978 0.001 197);
-    --c-line: oklch(0.923 0.004 237);
-    --c-line-strong: oklch(0.849 0.008 242);
-    --c-line-control: oklch(0.637 0.008 242);
-    --c-fg: oklch(0.189 0.006 237);
-    --c-muted: oklch(0.481 0.015 245);
-    --c-dim: oklch(0.536 0.016 241);
-    --c-accent: oklch(0.625 0.133 73);
-    --c-accent-text: oklch(0.508 0.108 73);
-    --c-cta: oklch(0.189 0.006 237);
-    --c-on-cta: oklch(1 0 0);
-    --c-success: oklch(0.513 0.119 153);
-    --c-danger: oklch(0.544 0.178 28);
-    --c-spot: oklch(0.625 0.133 73 / 0.13);
-    --c-grid: oklch(0.508 0.108 73 / 0.22);
-    --c-row-active: oklch(0.625 0.133 73 / 0.1);
-    --c-glass: oklch(1 0 0 / 0.7);
-    --sh-key:
-      inset 0 1px 0 oklch(1 0 0), inset 0 -1px 0 oklch(0.189 0.006 237 / 0.08),
-      0 1px 2px oklch(0.189 0.006 237 / 0.06);
-    --sh-key-pressed: inset 0 1px 2px oklch(0.189 0.006 237 / 0.12);
-    --sh-stage: 0 40px 80px -48px oklch(0.189 0.006 237 / 0.35);
+    --bg: #f1efe9;
+    --bg2: #e9e6de;
+    --surface: #fbfaf7;
+    --surface2: #f4f2ec;
+    --line: #d9d5cc;
+    --line2: #c4bfb3;
+    --text: #141414;
+    --text2: #5f5d58;
+    --text3: #33322f;
+    --acc: #3ee6c1;
+    --acc-ink: #141414;
+    --acc-text: #06725d;
+    --acc-soft: rgba(62, 230, 193, 0.14);
+    --nav-bg: rgba(241, 239, 233, 0.82);
+    --cell: #e3dfd5;
+    --cell-hi: rgba(62, 230, 193, 0.55);
+    --hue1: #0a7cae;
+    --hue2: #c2410c;
+    --hue3: #6d4fd6;
+    --hue4: #16803c;
+    --hue5: #a86400;
   }
 }
 
-/* ── 3. Mapowanie motywu na utility ── */
+/* ── Wartości wspólne (ze wzorca) ── */
+:root {
+  --font-disp: var(--font-archivo), sans-serif;
+  --font-body: var(--font-inter), system-ui, sans-serif;
+  --font-code: var(--font-jetbrains-mono), ui-monospace, monospace;
+
+  --wrap: 1200px;
+  --gutter: 24px;
+  --nav-h: 64px;
+  --target: 44px;
+
+  /* krzywe ruchu z wzorca */
+  --ease-up: cubic-bezier(0.2, 0.75, 0.2, 1);
+  --ease-line: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-spring: cubic-bezier(0.3, 1.4, 0.5, 1);
+  --ease-bar: cubic-bezier(0.3, 1.25, 0.5, 1);
+  --ease-fill: cubic-bezier(0.65, 0, 0.25, 1);
+  --ease-deck: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* czasy z wzorca */
+  --t-fast: 0.2s;
+  --t-base: 0.25s;
+  --t-mid: 0.3s;
+  --t-bar: 0.45s;
+  --t-row: 0.55s;
+  --t-up: 0.9s;
+  --t-line: 1s;
+  --t-theme: 0.5s;
+  --t-ping: 2s;
+  --t-sheen: 4s;
+  --t-tape: 28s;
+}
+
+/* Mapowanie na utility Tailwinda (bg-surface, text-text2, border-line…) */
 @theme inline {
-  --color-canvas: var(--c-canvas);
-  --color-band: var(--c-band);
-  --color-surface: var(--c-surface);
-  --color-window: var(--c-window);
-  --color-line: var(--c-line);
-  --color-line-strong: var(--c-line-strong);
-  --color-line-control: var(--c-line-control);
-  --color-fg: var(--c-fg);
-  --color-muted: var(--c-muted);
-  --color-dim: var(--c-dim);
-  --color-accent: var(--c-accent);
-  --color-accent-text: var(--c-accent-text);
-  --color-cta: var(--c-cta);
-  --color-on-cta: var(--c-on-cta);
-  --color-success: var(--c-success);
-  --color-danger: var(--c-danger);
-  --color-spot: var(--c-spot);
-  --color-grid: var(--c-grid);
-  --color-row-active: var(--c-row-active);
-  --color-glass: var(--c-glass);
+  --color-*: initial;
+  --color-bg: var(--bg);
+  --color-bg2: var(--bg2);
+  --color-surface: var(--surface);
+  --color-surface2: var(--surface2);
+  --color-line: var(--line);
+  --color-line2: var(--line2);
+  --color-text: var(--text);
+  --color-text2: var(--text2);
+  --color-text3: var(--text3);
+  --color-acc: var(--acc);
+  --color-acc-ink: var(--acc-ink);
+  --color-acc-text: var(--acc-text);
+  --color-acc-soft: var(--acc-soft);
   --color-transparent: transparent;
   --color-current: currentColor;
-
-  --shadow-key: var(--sh-key);
-  --shadow-key-pressed: var(--sh-key-pressed);
-  --shadow-stage: var(--sh-stage);
-  --shadow-key-stage: var(--sh-key), var(--sh-stage);
-  --shadow-cta-glow: 0 0 0 6px var(--c-spot), 0 12px 32px -12px var(--c-accent);
-
-  /* rodziny fontów: zmienne tworzy Astro Fonts API (<Font cssVariable>) */
-  --font-display: var(--font-funnel-display), sans-serif;
-  --font-sans: var(--font-funnel-sans), sans-serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-*: initial;
+  --font-disp: var(--font-disp);
+  --font-body: var(--font-body);
+  --font-code: var(--font-code);
+  --radius-*: initial;
+  --spacing: 4px;
 }

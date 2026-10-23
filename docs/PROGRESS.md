@@ -1,20 +1,19 @@
 # PROGRESS.md — log postępu
 
-Legenda: ⬜ nie zaczęte · 🟨 w toku · ✅ zrobione · ⏸ czeka na Piotra
+Legenda: ⬜ nie zaczęte · 🟨 w toku · ✅ zrobione · ⏸ czeka na Jakuba
 
-| Faza | Nazwa                     | Gałąź                        | Status   |
-| ---- | ------------------------- | ---------------------------- | -------- |
-| 0    | Fundament repo            | `feat/faza-0-fundament`      | ✅ PR #1 |
-| 1a   | Research stylu (Refero)   | `feat/faza-1a-styl`          | ✅ PR    |
-| 1b   | Design system             | `feat/faza-1b-design-system` | 🟨 PR    |
-| 2    | Layout i strona główna    | `feat/faza-2-layout-home`    | ⬜       |
-| 3    | Projekty i case studies   | `feat/faza-3-projekty`       | ⬜       |
-| 4    | O mnie, doświadczenie, CV | `feat/faza-4-o-mnie`         | ⬜       |
-| 5    | Kontakt                   | `feat/faza-5-kontakt`        | ⬜       |
-| 6    | i18n EN                   | `feat/faza-6-i18n`           | ⬜       |
-| 7    | SEO, OG, pliki techniczne | `feat/faza-7-seo`            | ⬜       |
-| 8    | Sygnatury i polish        | `feat/faza-8-sygnatury`      | ⬜       |
-| 9    | QA i launch               | `feat/faza-9-launch`         | ⬜       |
+Fazy 0–1b (fundament, research stylu, design system) zmergowane w PR #1–#3. Od 2026-10-23 praca idzie etapami z `docs/PROMPT-dla-Claude-Code.md` (DECISIONS #25):
+
+| Etap | Nazwa                                 | Gałąź                       | Status |
+| ---- | ------------------------------------- | --------------------------- | ------ |
+| 1    | Szkielet (tokeny, fonty, nav, stopka) | `feat/etap-1-szkielet`      | ⏸      |
+| 2    | Statyczna strona główna               | `feat/etap-2-strona-glowna` | ⬜     |
+| 3    | Projekty z GitHub API                 | `feat/etap-3-projekty`      | ⬜     |
+| 4    | Interakcje                            | `feat/etap-4-interakcje`    | ⬜     |
+| 5    | Podstrony projektów i 404             | `feat/etap-5-podstrony`     | ⬜     |
+| 6    | Kontrybucje GitHub + codzienny build  | `feat/etap-6-kontrybucje`   | ⬜     |
+| 7    | SEO, dostępność, wydajność            | `feat/etap-7-seo-a11y`      | ⬜     |
+| 8    | Deploy na Vercel + README             | `feat/etap-8-deploy`        | ⬜     |
 
 ---
 
@@ -109,7 +108,31 @@ Legenda: ⬜ nie zaczęte · 🟨 w toku · ✅ zrobione · ⏸ czeka na Piotra
 - [x] Wszystkie komponenty w 5 stanach w obu motywach na `/design`
 - [x] Kontrasty zmierzone w `DESIGN-TOKENS.md` (i pilnowane testem)
 - [x] Brak FOUC przy twardym odświeżeniu (test e2e)
-- [ ] Snapshot `/design` w Playwrighcie: test gotowy; baseline powstaje po uruchomieniu workflow „Aktualizuj snapshoty” na gałęzi (Linux)
+- [x] Snapshot `/design` w Playwrighcie: baseline (desktop + mobile, Linux) wygenerowany workflow „Aktualizuj snapshoty” i zacommitowany na `main` (8b8ade2)
 - [x] Każda wartość w `tokens.css` ma odpowiednik w DESIGN.md (§3–§7, §12)
 
+**Zamknięte:** PR #2 (1a) i PR #3 (1b) zmergowane 2026-10-19; CI zielone, preview Vercel OK.
+
+**Do odnotowania:** `pnpm/action-setup@v4` działa na przestarzałym Node 20 (ostrzeżenie GitHub Actions); podbić w Fazie 2 albo przez Renovate.
+
 **Dalej:** Faza 2 (layout i strona główna), na zgodę Piotra.
+
+## 2026-10-23 — Etap 1: szkielet (nowy kierunek)
+
+**Zrobione** (gałąź `feat/etap-1-szkielet`)
+
+- Usunięty kierunek D v3.1: `src/components/ui/*`, katalog `/design`, raport tokenów, `docs/DESIGN-TOKENS.md` (DECISIONS #25).
+- `tokens.css`: kolory obu motywów 1:1 ze wzorca + mięta, krzywe i czasy ruchu; jedyne odstępstwo `--acc-text` w jasnym (#23).
+- Fonty: Archivo (oś `wdth` 62–125%), Inter, JetBrains Mono przez Fonts API; preload tylko `latin`.
+- `global.css`: `.disp`, `.mono`, `.wrap`, `.btn`, `.btn-acc` (połysk), `.in`/`.d1–5`, `.reveal`/`.wipe`, `.dotlive`, focus, reduced motion.
+- Layout: `Nav` (logo, linki 01–03, przełącznik motywu, KONTAKT, pasek postępu, drugi rząd ≤ 900, skip link), `SectionDots` (≥ 1281), `Footer`. Strona główna = puste sekcje z docelowymi id.
+- `site.ts`: dane Jakuba z placeholderami (`[Nazwisko]`, `[twoj@email.pl]`, `[miasto]`, `[link-linkedin]`, `[link-do-CV]`), GitHub `jakubstachowskii`, `hiddenRepos`.
+- Testy: kontrast hex (17 par × 2 motywy), `sectionHref`, e2e motywu na `/`; reguła px zdjęta (#24).
+
+**Dalej**
+
+- Etap 2: statyczna strona główna, wszystkie sekcje 1:1.
+
+**Czeka na Jakuba**
+
+- OK dla Etapu 1.

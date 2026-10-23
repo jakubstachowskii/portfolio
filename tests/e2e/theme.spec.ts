@@ -29,13 +29,13 @@ test.describe('motyw', () => {
       return { theme: probe['__themeAtDcl'], bg: probe['__bgAtDcl'] };
     });
     expect(snapshot.theme).toBe('light');
-    expect(snapshot.bg).toMatch(/rgb\(255, 255, 255\)|oklch\(1 0 0\)/);
+    expect(snapshot.bg).toBe('rgb(241, 239, 233)');
   });
 
   test('przełącznik: klawiatura, zapis i odświeżenie', async ({ page }) => {
     await page.emulateMedia({ colorScheme: 'dark' });
-    await page.goto('/design');
-    const toggle = page.locator('[data-catalog-panel="dark"] [data-theme-toggle]');
+    await page.goto('/');
+    const toggle = page.locator('[data-theme-toggle]');
     await expect(toggle).toHaveAttribute('aria-label', 'Włącz jasny motyw');
     await toggle.focus();
     await page.keyboard.press('Enter');

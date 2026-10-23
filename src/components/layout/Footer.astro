@@ -1,0 +1,43 @@
+---
+import { site, type Locale } from '@/config/site';
+import { t } from '@/i18n/utils';
+import { sectionHref } from '@/lib/sections';
+
+interface Props {
+  locale: Locale;
+  onHome?: boolean;
+}
+
+const { locale, onHome = true } = Astro.props;
+const dict = t(locale);
+---
+
+<footer class="ftr mono">
+  <div class="wrap row">
+    <span>{`© ${site.year} ${site.name.toUpperCase()}`}</span>
+    <span>{dict.footer.made}</span>
+    <a class="top" href={sectionHref('top', locale, onHome)}>
+      {dict.footer.top}
+    </a>
+  </div>
+</footer>
+
+<style>
+  .ftr {
+    background: var(--bg);
+    border-top: 1px solid var(--line);
+    font-size: 12px;
+    color: var(--text2);
+  }
+  .row {
+    padding-top: 26px;
+    padding-bottom: 26px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .top {
+    color: var(--text);
+  }
+</style>

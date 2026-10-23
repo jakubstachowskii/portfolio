@@ -12,3 +12,7 @@ docs/CONTENT-CHECKLIST.md
 CLAUDE.md
 KICKOFF-PROMPT.md
 .claude/
+
+# wzorzec 1:1 — nie formatujemy
+docs/design-reference.html
+docs/PROMPT-dla-Claude-Code.md

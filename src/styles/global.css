@@ -1,67 +1,216 @@
 @import 'tailwindcss';
 @import './tokens.css';
 
-/* dark: = motyw ciemny ustawiony przez skrypt (docs/DESIGN.md §12) */
+/* dark: = motyw ciemny ustawiony przez skrypt */
 @custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
 
 /*
- * Stany komponentów (DESIGN.md §8): prawdziwy stan LUB data-state (tylko katalog /design,
- * żeby pokazać wszystkie 5 stanów statycznie). Komponenty używają is-*: zamiast hover:/active:.
+ * Klasy wspólne 1:1 ze wzorca (docs/design-reference.html, blok <style>).
+ * Style pojedynczych sekcji siedzą w ich komponentach (<style> w .astro).
  */
-@custom-variant is-hover (&:where(:hover, [data-state='hover']):not([aria-disabled='true'], :disabled));
-@custom-variant is-active (&:where(:active, [data-state='active']):not([aria-disabled='true'], :disabled));
-@custom-variant is-disabled (&:where([aria-disabled='true'], :disabled, [data-state='disabled']));
 
 @layer base {
   html {
-    background-color: var(--color-canvas);
+    background-color: var(--bg);
+    scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
   }
   body {
+    margin: 0;
     min-height: 100dvh;
-    background-color: var(--color-canvas);
-    color: var(--color-fg);
-    font-family: var(--font-sans);
-    font-size: var(--text-body);
-    line-height: var(--text-body--line-height);
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.55;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    transition:
+      background-color var(--t-theme) ease,
+      color var(--t-theme) ease;
   }
-  h1,
-  h2,
-  h3 {
-    font-family: var(--font-display);
-    font-weight: 600;
-    text-wrap: balance;
+  a {
+    color: inherit;
+    text-decoration: none;
   }
-  p {
-    text-wrap: pretty;
-  }
-  code,
-  kbd,
-  samp,
-  pre {
-    font-family: var(--font-mono);
-  }
-  :focus-visible,
-  [data-state='focus'] {
-    outline: 2px solid var(--color-accent);
+  a:focus-visible,
+  button:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 2px solid var(--acc);
     outline-offset: 3px;
+    border-radius: 4px;
+  }
+  /* cel skip linku: focus programowy bez ramki */
+  main:focus {
+    outline: none;
   }
   ::selection {
-    background-color: var(--color-accent);
-    color: var(--color-on-cta);
+    background-color: var(--acc);
+    color: var(--acc-ink);
+  }
+  section[id] {
+    scroll-margin-top: var(--nav-h);
+  }
+  @media (max-width: 900px) {
+    section[id] {
+      scroll-margin-top: 116px;
+    }
   }
 }
 
-/* Reduced motion: zostają tylko zmiany koloru/opacity (PLAN §6.4, DESIGN.md §7.3) */
+@layer components {
+  .disp {
+    font-family: var(--font-disp);
+    font-stretch: 125%;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+  }
+  .mono {
+    font-family: var(--font-code);
+  }
+  .wrap {
+    max-width: var(--wrap);
+    margin: 0 auto;
+    padding-left: var(--gutter);
+    padding-right: var(--gutter);
+  }
+
+  /* przyciski */
+  .btn {
+    position: relative;
+    overflow: hidden;
+    transition: transform var(--t-base) var(--ease-spring);
+  }
+  .btn:hover {
+    transform: translateY(-2px);
+  }
+  .btn:active {
+    transform: translateY(0) scale(0.97);
+  }
+  .btn-acc::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(110deg, transparent 35%, var(--sheen) 50%, transparent 65%);
+    translate: -120% 0;
+    animation: sheen var(--t-sheen) ease-in-out 1.5s infinite;
+  }
+
+  /* wejście przy załadowaniu */
+  .in {
+    animation: up var(--t-up) var(--ease-up) both;
+  }
+  .d1 {
+    animation-delay: 0.05s;
+  }
+  .d2 {
+    animation-delay: 0.15s;
+  }
+  .d3 {
+    animation-delay: 0.25s;
+  }
+  .d4 {
+    animation-delay: 0.4s;
+  }
+  .d5 {
+    animation-delay: 0.6s;
+  }
+
+  /* odsłanianie przy scrollu */
+  @supports (animation-timeline: view()) {
+    .reveal {
+      animation: reveal linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 90%;
+    }
+    .wipe {
+      animation: wipe linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 35%;
+    }
+  }
+
+  /* kropka „na żywo” */
+  .dotlive {
+    position: relative;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: currentColor;
+    color: var(--acc);
+  }
+  .dotlive::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 2px solid currentColor;
+    animation: ping var(--t-ping) cubic-bezier(0, 0.6, 0.4, 1) infinite;
+  }
+
+  /* animacje w pętli stoją, gdy sekcja jest poza ekranem (klasa .off z src/scripts/offscreen.ts) */
+  .off :is(.dotlive, .tape, .deck-float, .sweep)::after,
+  .off :is(.tape, .deck-float),
+  .off .btn-acc::after {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes up {
+  from {
+    opacity: 0;
+    translate: 0 32px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+@keyframes reveal {
+  from {
+    opacity: 0;
+    translate: 0 60px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+@keyframes wipe {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+@keyframes sheen {
+  55%,
+  100% {
+    translate: 120% 0;
+  }
+}
+@keyframes ping {
+  from {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  to {
+    transform: scale(3.2);
+    opacity: 0;
+  }
+}
+
+/* Reduced motion: jak we wzorcu — bez animacji i przejść, bez paska postępu */
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
   *,
   *::before,
   *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    scroll-behavior: auto !important;
-    transition-property: color, background-color, border-color, opacity !important;
+    animation: none !important;
+    transition: none !important;
   }
 }
