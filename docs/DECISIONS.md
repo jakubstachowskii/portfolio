@@ -201,3 +201,12 @@ Pozostałe wymagania strukturalne PLAN §6 (role tokenów, 5 stanów, focus ring
 ## #26 · 2026-10-23 · Pliki wzorca poza Prettierem · przyjęta
 
 - `docs/design-reference.html` i `docs/PROMPT-dla-Claude-Code.md` są w `.prettierignore`: to dokumenty źródłowe, nie formatujemy ich.
+
+## #29 · 2026-10-23 · Własne podzbiory fontów (LCP) · przyjęta
+
+- **Problem:** Lighthouse w CI padał na `main` po Etapie 1: LCP 2.1–3.0 s (budżet 1.8 s), wydajność 0.93 (próg 0.95). Pliki z Fontsource były duże (Inter latin-ext 133 KB, Archivo latin 90 KB). Na stronie PL wszystkie ładowały się przed pierwszym malowaniem, a `h1` czekał na Archivo.
+- **Decyzja:** `scripts/subset-fonts.mjs` (`pnpm fonts:subset`) tnie zmienne fonty Fontsource do znaków i zakresów osi, których strona używa: łacina + typografia + strzałki oraz osobny plik z polskimi literami (unicode-range). Archivo: waga 800, szerokość 100–125%. Inter: 400–600. JetBrains Mono: 400–700. Wynik jest commitowany w `src/assets/fonts/`, Astro serwuje go przez `fontProviders.local()`. Zakresy znaków są w jednym miejscu: `src/lib/font-ranges.mjs`.
+- **Efekt:** fonty ~440 KB → ~85 KB. Lighthouse: wydajność 1.0, LCP 1.5 s, FCP 1.2 s, CLS 0 (`/` i `/en/`).
+- **Zależności (dev, 0 KB w przeglądarce):** `subset-font` (harfbuzz wasm), `@fontsource-variable/archivo`, `@fontsource-variable/inter`, `@fontsource-variable/jetbrains-mono` (źródła fontów).
+- **Alternatywy:** `font-display: optional` (font mógłby się w ogóle nie pokazać na pierwszej wizycie), rezygnacja z preloadu (dłuższy LCP), Google Fonts z parametrem `text=` (zewnętrzny host, gorsza prywatność).
+- **Koszt utrzymania:** znak spoza zakresów renderuje się fontem zapasowym. Dodanie znaku wymaga zmiany `font-ranges.mjs` i `pnpm fonts:subset`. Zastępuje #21.
