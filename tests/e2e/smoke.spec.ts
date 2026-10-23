@@ -16,12 +16,16 @@ for (const { path, lang } of routes) {
       await expect(page.locator('h1')).toHaveCount(1);
     });
 
-    test('nie ma naruszeń axe (WCAG 2.2 AA)', async ({ page }) => {
-      await page.goto(path);
-      const results = await new AxeBuilder({ page })
-        .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'])
-        .analyze();
-      expect(results.violations).toEqual([]);
-    });
+    for (const theme of ['dark', 'light'] as const) {
+      // reduced motion: axe mierzy kontrast stanu końcowego, nie klatki wejścia (opacity 0 → 1)
+      test(`nie ma naruszeń axe (WCAG 2.2 AA), motyw ${theme}`, async ({ page }) => {
+        await page.emulateMedia({ colorScheme: theme, reducedMotion: 'reduce' });
+        await page.goto(path);
+        const results = await new AxeBuilder({ page })
+          .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'])
+          .analyze();
+        expect(results.violations).toEqual([]);
+      });
+    }
   });
 }
