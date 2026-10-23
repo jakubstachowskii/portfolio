@@ -202,6 +202,16 @@ Pozostałe wymagania strukturalne PLAN §6 (role tokenów, 5 stanów, focus ring
 
 - `docs/design-reference.html` i `docs/PROMPT-dla-Claude-Code.md` są w `.prettierignore`: to dokumenty źródłowe, nie formatujemy ich.
 
+## #27 · 2026-10-23 · Opóźnienia animacji jako literały · przyjęta
+
+- **Decyzja:** czasy trwania animacji i przejść tylko z tokenów (`--t-*`). Opóźnienia (`animation-delay`, `transition-delay`) zostają literałami ze wzorca: to kolejność wejść (choreografia), nie skala czasu. Test `no-magic-values` dopuszcza linie `*-delay:`.
+
+## #28 · 2026-10-23 · Etap 2: projekty statycznie w `src/data/projects.ts` · przyjęta
+
+- **Decyzja:** do czasu Etapu 3 lista projektów (4 repozytoria z `jakubstachowskii`, opisy z wzorca) siedzi w `src/data/projects.ts`. Etap 3 zastępuje ją danymi z GitHub API i nadpisaniami w `src/content/projects/`.
+- Wszystkie podglądy są renderowane, widoczny tylko wybrany (`hidden`), więc Etap 4 tylko przełącza atrybut.
+- Axe w e2e działa z `reducedMotion: 'reduce'`: inaczej mierzy kontrast klatki wejścia (`opacity: 0`).
+
 ## #29 · 2026-10-23 · Własne podzbiory fontów (LCP) · przyjęta
 
 - **Problem:** Lighthouse w CI padał na `main` po Etapie 1: LCP 2.1–3.0 s (budżet 1.8 s), wydajność 0.93 (próg 0.95). Pliki z Fontsource były duże (Inter latin-ext 133 KB, Archivo latin 90 KB). Na stronie PL wszystkie ładowały się przed pierwszym malowaniem, a `h1` czekał na Archivo.
