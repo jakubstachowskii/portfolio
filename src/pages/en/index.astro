@@ -1,4 +1,5 @@
 ---
+import HomeSkeleton from '@/components/home/HomeSkeleton.astro';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { t } from '@/i18n/utils';
 
@@ -6,8 +7,6 @@ const locale = 'en';
 const dict = t(locale);
 ---
 
-<BaseLayout locale={locale} title={dict.meta.title} description={dict.meta.description}>
-  <main>
-    <h1>{dict.home.heading}</h1>
-  </main>
+<BaseLayout locale={locale} title={dict.meta.title} description={dict.meta.description} onHome>
+  <HomeSkeleton locale={locale} />
 </BaseLayout>

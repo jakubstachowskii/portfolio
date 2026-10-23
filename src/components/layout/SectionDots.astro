@@ -1,0 +1,103 @@
+---
+import { sections, type Locale } from '@/config/site';
+import { t } from '@/i18n/utils';
+import { sectionHref } from '@/lib/sections';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const dict = t(locale);
+// Tylko na stronie głównej, od 1281 px (jak we wzorcu). Aktywna kreska = Etap 4.
+---
+
+<nav class="dots" aria-label={dict.dots.label} data-dots>
+  {sections.map((id) => (
+    <a
+      class="dot"
+      href={sectionHref(id, locale, true)}
+      aria-label={dict.dots.items[id]}
+      data-section={id}
+    >
+      <span class="dl mono" aria-hidden="true">
+        {dict.dots.items[id]}
+      </span>
+    </a>
+  ))}
+</nav>
+
+<style>
+  .dots {
+    position: fixed;
+    right: 20px;
+    top: 50%;
+    translate: 0 -50%;
+    z-index: 6;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .dot {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: var(--target);
+    height: 30px;
+  }
+  .dot::before {
+    content: '';
+    width: 10px;
+    height: 2px;
+    background: var(--text2);
+    opacity: 0.6;
+    transition:
+      width var(--t-bar) var(--ease-spring),
+      background-color var(--t-mid),
+      opacity var(--t-mid);
+  }
+  .dot.on::before {
+    width: 28px;
+    background: var(--acc);
+    opacity: 1;
+  }
+  .dl {
+    position: absolute;
+    right: 40px;
+    white-space: nowrap;
+    font-size: 11px;
+    padding: 4px 8px;
+    background: var(--acc);
+    color: var(--acc-ink);
+    opacity: 0;
+    translate: 8px 0;
+    transition:
+      opacity var(--t-fast),
+      translate var(--t-mid) var(--ease-spring);
+    pointer-events: none;
+  }
+  .dot:hover .dl,
+  .dot:focus-visible .dl {
+    opacity: 1;
+    translate: 0 0;
+  }
+  /* na miętowym tle sekcji Kontakt kreski przechodzą w ciemny kolor */
+  .dots.inv .dot::before {
+    background: var(--acc-ink);
+    opacity: 0.35;
+  }
+  .dots.inv .dot.on::before {
+    background: var(--acc-ink);
+    opacity: 1;
+  }
+  .dots.inv .dl {
+    background: var(--acc-ink);
+    color: var(--acc);
+  }
+  @media (max-width: 1280px) {
+    .dots {
+      display: none;
+    }
+  }
+</style>
