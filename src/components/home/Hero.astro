@@ -22,8 +22,10 @@ const statusHead = statusWords.length ? `${statusWords.join(' ')} ` : '';
     <div class="copy">
       <div class="in d1 mono status">
         <span class="dotlive" aria-hidden="true"></span>
-        {statusHead}
-        <span class="nowrap">{`${statusTail} · ${site.year}`}</span>
+        <span>
+          {statusHead}
+          <span class="nowrap">{`${statusTail} · ${site.year}`}</span>
+        </span>
       </div>
       <h1 class="disp title">
         {h.lines.map((line, i) => (

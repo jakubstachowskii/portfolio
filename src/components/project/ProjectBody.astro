@@ -81,6 +81,19 @@ const d = t(locale).project;
   .prose :global(ol) {
     padding-left: 1.2em;
   }
+  /* reset Tailwinda zdejmuje znaczniki list — w treści muszą być widoczne */
+  .prose :global(ul) {
+    list-style: square;
+  }
+  .prose :global(ol) {
+    list-style: decimal;
+  }
+  .prose :global(li::marker) {
+    color: var(--acc-text);
+  }
+  .prose :global(li + li) {
+    margin-top: 0.3em;
+  }
   .prose :global(a) {
     color: var(--acc-text);
     text-decoration: underline;
