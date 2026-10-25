@@ -28,8 +28,10 @@ export interface Override {
 }
 
 export interface Project {
-  /** nazwa repo = slug podstrony */
+  /** nazwa repo (klucz nadpisania) */
   id: string;
+  /** adres podstrony: `AwizacjaApp` → `awizacja-app` */
+  slug: string;
   num: string;
   title: string;
   /** np. „DESKTOP” albo „DESKTOP · WEB” */
@@ -43,6 +45,18 @@ export interface Project {
   mock: MockKind;
   cover?: ImageMetadata | undefined;
   featured: boolean;
+}
+
+/** `AwizacjaApp` → `awizacja-app`, `Pig-Game` → `pig-game` (ASCII, małe litery, myślniki). */
+export function toSlug(name: string): string {
+  return prettifyName(name)
+    .replace(/ł/g, 'l')
+    .replace(/Ł/g, 'L')
+    .normalize('NFD')
+    .replace(/\p{Diacritic}/gu, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
 }
 
 function platformsOf(repo: Repo, o?: Override): Platform[] {
@@ -77,6 +91,7 @@ export function buildProjects(
     const fallback = repo.description || repo.readme || '';
     return {
       id: repo.name,
+      slug: toSlug(repo.name),
       num: String(i + 1).padStart(2, '0'),
       title: o?.title ?? prettifyName(repo.name),
       platforms: platformsOf(repo, o)
@@ -96,4 +111,17 @@ export function buildProjects(
       featured: o?.featured ?? false,
     };
   });
+}
+
+/** Poprzedni i następny projekt na liście (w kółko); przy jednym projekcie brak obu. */
+export function neighbours(
+  list: Project[],
+  id: string,
+): { prev?: Project | undefined; next?: Project | undefined } {
+  const i = list.findIndex((p) => p.id === id);
+  if (i === -1 || list.length < 2) return {};
+  return {
+    prev: list[(i - 1 + list.length) % list.length],
+    next: list[(i + 1) % list.length],
+  };
 }

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { buildProjects } from '@/lib/projects';
+import { buildProjects, neighbours, toSlug } from '@/lib/projects';
 import { repo } from './fixtures';
 
 describe('buildProjects', () => {
@@ -63,5 +63,31 @@ describe('buildProjects', () => {
     const [p] = buildProjects([repo('Web', { homepage: 'https://x.dev' })], {});
     expect(p?.demo).toBe('https://x.dev');
     expect(out[0]?.demo).toBeUndefined();
+  });
+});
+
+describe('toSlug', () => {
+  it.each([
+    ['AwizacjaApp', 'awizacja-app'],
+    ['Pig-Game', 'pig-game'],
+    ['Żółta-Łódź', 'zolta-lodz'],
+    ['my_tool.v2', 'my-tool-v2'],
+  ])('%s → %s', (name, slug) => {
+    expect(toSlug(name)).toBe(slug);
+  });
+});
+
+describe('neighbours', () => {
+  const list = buildProjects([repo('A'), repo('B'), repo('C')], {});
+  const ids = (n: ReturnType<typeof neighbours>) => [n.prev?.id, n.next?.id];
+
+  it('środek listy i zawijanie na końcach', () => {
+    expect(ids(neighbours(list, list[1]!.id))).toEqual([list[0]!.id, list[2]!.id]);
+    expect(ids(neighbours(list, list[0]!.id))).toEqual([list[2]!.id, list[1]!.id]);
+  });
+
+  it('jeden projekt albo nieznane id → brak', () => {
+    expect(neighbours(list.slice(0, 1), list[0]!.id)).toEqual({});
+    expect(neighbours(list, 'nie-ma')).toEqual({});
   });
 });
