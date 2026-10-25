@@ -8,9 +8,10 @@ import { sectionHref } from '@/lib/sections';
 interface Props {
   locale: Locale;
   onHome?: boolean;
+  langHref: string;
 }
 
-const { locale, onHome = true } = Astro.props;
+const { locale, onHome = true, langHref } = Astro.props;
 const dict = t(locale);
 ---
 
@@ -23,7 +24,7 @@ const dict = t(locale);
       <span class="disp brand-name">{site.firstName}</span>
       <span class="mono brand-sub">{`${dict.nav.brandSub} / ${site.lastName.toLowerCase()}`}</span>
     </a>
-    <NavLinks locale={locale} onHome={onHome} />
+    <NavLinks locale={locale} onHome={onHome} langHref={langHref} />
     <div class="actions">
       <ThemeToggle locale={locale} />
       <a class="btn btn-acc mono cta" href={sectionHref('kontakt', locale, onHome)}>

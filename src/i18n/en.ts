@@ -4,13 +4,15 @@ export const en = {
   meta: {
     title: 'Developer: web, mobile and desktop apps',
     // TODO(content): opis strony do meta description
-    description: 'Jakub — developer. Web, mobile and desktop apps.',
+    description:
+      'Developer. Desktop, mobile and web apps that take over manual work — from delivery bookings to furniture cutting plans.',
   },
   nav: {
     skip: 'Skip to content',
     label: 'Main',
     brandSub: 'dev',
     contact: 'CONTACT',
+    lang: { short: 'PL', label: 'Wersja polska', code: 'pl' },
     links: {
       projekty: 'Projects',
       'o-mnie': 'About',
@@ -29,7 +31,7 @@ export const en = {
   },
   footer: {
     made: 'DESIGNED AND BUILT BY HAND',
-    top: 'BACK TO TOP ↑',
+    top: 'BACK TO TOP ↑',
   },
   home: {
     hero: {
@@ -38,13 +40,13 @@ export const en = {
       lead: 'I’m a developer. I build desktop, mobile and web apps that take over what people still do by hand — from delivery bookings to furniture cutting plans.',
       ctaProjects: 'SEE PROJECTS',
       ctaGithub: 'GITHUB',
-      ctaCv: 'CV.PDF ↓',
+      ctaCv: 'CV.PDF ↓',
     },
     deck: {
       label:
         'Card stack: web, mobile and desktop apps. Press Enter to browse; arrow keys change the card; Esc exits.',
       hintIdle: 'click to browse',
-      hintActive: 'drag the card or use ← →',
+      hintActive: 'drag the card or use ← →',
       prev: 'Previous card',
       next: 'Next card',
       show: 'Show card',
@@ -59,10 +61,10 @@ export const en = {
       kicker: '01 — PROJECT INDEX',
       title: ['Things that', 'work.'],
       lead: 'Projects straight from my GitHub. Hover or click to see a preview.',
-      all: 'All repositories ↗',
+      all: 'All repositories ↗',
       preview: 'PREVIEW',
       tech: 'Technologies',
-      demo: 'VIEW ↗',
+      demo: 'VIEW ↗',
       code: 'CODE ON GITHUB ‹/›',
     },
     mocks: {
@@ -92,7 +94,7 @@ export const en = {
     about: {
       kicker: '02 — ABOUT',
       title: ['I start with', 'what hurts.'],
-      lead: 'Delivery bookings and grain purchases kept on paper, furniture cuts worked out on a scrap of paper. I take a problem like that and build a tool that does it for people.',
+      lead: 'Delivery bookings and grain purchases kept on paper, furniture cuts worked out by hand. I take a problem like that and build a tool that does it for people.',
       body: 'I study computer science with a cybersecurity specialisation, so I think about security from the first line of code, not after launch.',
       facts: {
         role: ['ROLE', 'Developer'],
@@ -127,15 +129,15 @@ export const en = {
       title: ['Write', 'to me.'],
       copy: 'COPY',
       copied: 'COPIED',
-      github: 'GITHUB ↗',
-      linkedin: 'LINKEDIN ↗',
+      github: 'GITHUB ↗',
+      linkedin: 'LINKEDIN ↗',
       tape: 'Let’s talk',
     },
   },
   project: {
     back: '← Projects',
-    details: 'Details →',
-    demo: 'DEMO ↗',
+    details: 'Details →',
+    demo: 'DEMO ↗',
     code: 'CODE ON GITHUB ‹/›',
     tech: 'Technologies',
     gallery: 'Gallery',

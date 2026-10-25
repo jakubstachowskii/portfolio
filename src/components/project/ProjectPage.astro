@@ -17,9 +17,10 @@ interface Props {
 
 const { project: p, all, locale } = Astro.props;
 const entry = await getEntry('projects', p.id);
-// Treść markdown jest po polsku: na wersji EN zostaje sam opis z `summaryEn` (DECISIONS #34).
-const hasBody = locale === 'pl' && !!entry?.body?.replace(/<!--[\s\S]*?-->/g, '').trim();
-const { Content } = entry && hasBody ? await render(entry) : { Content: null };
+// Treść: PL z pliku nadpisania, EN z `<NazwaRepo>.en.md` (DECISIONS #39); bez treści sekcja znika.
+const bodyEntry = locale === 'pl' ? entry : await getEntry('projectsEn', p.id);
+const hasBody = !!bodyEntry?.body?.replace(/<!--[\s\S]*?-->/g, '').trim();
+const { Content } = bodyEntry && hasBody ? await render(bodyEntry) : { Content: null };
 const { prev, next } = neighbours(all, p.id);
 const alternates = { pl: projectPath(p.slug, 'pl'), en: projectPath(p.slug, 'en') };
 const base = Astro.site ?? Astro.url;

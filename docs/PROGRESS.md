@@ -13,7 +13,7 @@ Fazy 0–1b (fundament, research stylu, design system) zmergowane w PR #1–#3. 
 | 5    | Podstrony projektów i 404             | `feat/etap-5-podstrony`     | ✅     |
 | 6    | Kontrybucje GitHub + codzienny build  | `feat/etap-6-kontrybucje`   | ✅     |
 | 7    | SEO, dostępność, wydajność            | `feat/etap-7-seo-a11y`      | ✅     |
-| 8    | Deploy na Vercel + README             | `feat/etap-8-deploy`        | ⏸      |
+| 8    | Deploy na Vercel + README             | `feat/etap-8-deploy`        | ✅     |
 
 ---
 
@@ -248,3 +248,16 @@ Fazy 0–1b (fundament, research stylu, design system) zmergowane w PR #1–#3. 
 
 - Wyłączyć Vercel Authentication dla produkcji, dodać `GITHUB_TOKEN`, Deploy Hook → sekret `VERCEL_DEPLOY_HOOK`, opcjonalnie domena.
 - Dane: nazwisko, e-mail, miasto, LinkedIn, CV, zdjęcie; opisy i topiki repozytoriów.
+
+## 2026-10-25 — Dane właściciela i przegląd produkcji
+
+**Zrobione**
+
+- PR #14: imię i nazwisko, e-mail, miasto, LinkedIn; CV i zdjęcie ukryte do czasu dodania plików.
+- Gałąź `fix/przeglad-produkcji`: dokładny przegląd strony na produkcji i poprawki (#39), `pnpm audit:site` (#40).
+- Pętla przeglądu: każdy przebieg = `pnpm audit:site` + obejrzenie zrzutów (7 stron × 5 szerokości × 2 motywy, po 1/10 kombinacji na przebieg). Każde znalezisko = poprawka, nowa reguła w audycie i licznik od zera. Wynik: 10 czystych przebiegów z rzędu.
+
+**Czeka na Jakuba**
+
+- Własna domena (usuwa `X-Robots-Tag: noindex` z adresu `.vercel.app`, obecnie SEO w Lighthouse 0.66).
+- CV i zdjęcie, gdy będą gotowe.

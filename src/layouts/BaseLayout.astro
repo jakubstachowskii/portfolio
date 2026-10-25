@@ -7,6 +7,7 @@ import SectionDots from '@/components/layout/SectionDots.astro';
 import Seo from '@/components/layout/Seo.astro';
 import ThemeScript from '@/components/layout/ThemeScript.astro';
 import type { Locale } from '@/config/site';
+import { getLocalizedPath } from '@/lib/paths';
 import { pageTitle } from '@/lib/seo';
 
 interface Props {
@@ -32,6 +33,8 @@ const {
   jsonLd,
 } = Astro.props;
 const fullTitle = pageTitle(title, onHome);
+const otherLocale: Locale = locale === 'pl' ? 'en' : 'pl';
+const langHref = alternates?.[otherLocale] ?? getLocalizedPath('/', otherLocale);
 // Preload tylko krojów pierwszego ekranu (≤ 2 rodziny): łacina + polskie litery (~3 KB), DECISIONS #29.
 // Mono ładuje się z font-display: swap.
 ---
@@ -65,7 +68,7 @@ const fullTitle = pageTitle(title, onHome);
     />
   </head>
   <body>
-    <Nav locale={locale} onHome={onHome} />
+    <Nav locale={locale} onHome={onHome} langHref={langHref} />
     {onHome && <SectionDots locale={locale} />}
     <main id="main" tabindex="-1">
       <slot />

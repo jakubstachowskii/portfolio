@@ -96,3 +96,41 @@ test.describe('404', () => {
     expect(violations).toEqual([]);
   });
 });
+
+test.describe('przegląd produkcji: poprawki', () => {
+  test('przełącznik języka prowadzi do tej samej strony w drugim języku', async ({ page }) => {
+    await page.goto('/');
+    await expect(page.locator('a[hreflang="en"].lang')).toHaveAttribute('href', '/en/');
+    const href = (await page.locator('[data-project]').first().getAttribute('href'))!;
+    await page.goto(href);
+    await page.locator('a.lang').click();
+    await expect(page).toHaveURL(/\/en\/projects\/[a-z0-9-]+\/$/);
+    await expect(page.locator('a.lang')).toHaveAttribute('href', href);
+  });
+
+  test('podstrony mają opis projektu po polsku i po angielsku', async ({ page }) => {
+    await page.goto('/');
+    const href = (await page.locator('[data-project]').first().getAttribute('href'))!;
+    await page.goto(href);
+    await expect(page.locator('.prose h2').first()).toBeVisible();
+    await page.goto(href.replace('/projekty/', '/en/projects/'));
+    await expect(page.locator('.prose h2').first()).toHaveText(/what it does/i);
+  });
+
+  test('404 ma linijkę po angielsku', async ({ page }) => {
+    await page.goto('/nie-ma-takiej-strony');
+    await expect(page.locator('p[lang="en"] a')).toHaveAttribute('href', '/en/');
+  });
+
+  test('telefon: kalendarz GitHub pokazuje najnowszy tydzień', async ({ page, isMobile }) => {
+    test.skip(!isMobile, 'wąski ekran');
+    await page.goto('/');
+    const grid = page.locator('#gh [role="img"]');
+    if ((await grid.count()) === 0) return; // bez tokenu sekcji nie ma
+    await grid.scrollIntoViewIfNeeded();
+    const last = grid.locator('span').last();
+    const [g, l] = await Promise.all([grid.boundingBox(), last.boundingBox()]);
+    expect(l!.x + l!.width).toBeLessThanOrEqual(g!.x + g!.width + 1);
+    expect(l!.x).toBeGreaterThanOrEqual(0);
+  });
+});

@@ -22,7 +22,8 @@
     "fonts:subset": "node scripts/subset-fonts.mjs",
     "screenshots": "node scripts/screenshots.mjs",
     "ci:local": "node scripts/ci-local.mjs",
-    "brand": "node scripts/brand-assets.mjs"
+    "brand": "node scripts/brand-assets.mjs",
+    "audit:site": "node scripts/audit-site.mjs"
   },
   "dependencies": {
     "@astrojs/markdown-remark": "^7.3.3",

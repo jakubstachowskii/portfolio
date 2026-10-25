@@ -7,4 +7,18 @@ mock: awizacja
 order: 1
 ---
 
-<!-- TODO(content): opis na podstronę projektu (Etap 5) -->
+## Co robi
+
+Aplikacja prowadzi cały obieg punktu skupu zbóż w pięciu modułach:
+
+- **Awizacje** — kalendarz awizacji, kontrahenci, przewoźnicy, zboża, raporty.
+- **Skup** — przyjęcia, dostawy, cenniki, kontrakty, dokumenty, reguły jakości.
+- **Magazyn** — magazyny, stany, partie, ruchy, przesunięcia, inwentaryzacja.
+- **Jakość** — badania laboratoryjne, certyfikaty, procesy HACCP/GMP.
+- **Sprzedaż** — klienci, zamówienia, faktury.
+
+## Jak działa
+
+Przyjęcie na skupie automatycznie tworzy ruch magazynowy: zboże ze słownika skupu jest dopasowywane do magazynu i zapisywane w jednej transakcji SQLite, więc stany nie rozjeżdżają się między modułami.
+
+Dane leżą w lokalnej bazie SQLite. Kopię zapasową, przywracanie i eksport do JSON obsługują ustawienia na ekranie startowym. Aplikacja buduje się do instalatora dla Windows.

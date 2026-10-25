@@ -5,6 +5,8 @@ import { t } from '@/i18n/utils';
 // Jedna strona 404 dla całej witryny (hosting serwuje 404.html), w języku domyślnym.
 const locale = 'pl';
 const d = t(locale).notFound;
+// jedna linijka po angielsku: 404 jest wspólne dla obu wersji językowych
+const en = t('en').notFound;
 ---
 
 <BaseLayout locale={locale} title={d.title} description={d.description} noindex>
@@ -31,6 +33,9 @@ const d = t(locale).notFound;
           <path d="m11 6-6 6 6 6"></path>
         </svg>
       </a>
+      <p class="mono alt" lang="en">
+        {en.text} <a href="/en/">{`${en.cta.toLowerCase()}\u00a0→`}</a>
+      </p>
     </div>
   </section>
 </BaseLayout>
@@ -76,6 +81,18 @@ const d = t(locale).notFound;
     margin: 0;
     font-size: clamp(24px, 4vw, 48px);
     line-height: 1;
+    /* równe linie: na telefonie ostatnie słowo nie zostaje samo */
+    text-wrap: balance;
+  }
+  .alt {
+    margin: 8px 0 0;
+    font-size: 13px;
+    color: var(--text2);
+  }
+  .alt a {
+    color: var(--text);
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
   .cta {
     display: inline-flex;

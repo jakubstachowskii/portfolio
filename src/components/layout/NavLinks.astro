@@ -6,9 +6,11 @@ import { sectionHref } from '@/lib/sections';
 interface Props {
   locale: Locale;
   onHome: boolean;
+  /** adres tej strony w drugim języku */
+  langHref: string;
 }
 
-const { locale, onHome } = Astro.props;
+const { locale, onHome, langHref } = Astro.props;
 const dict = t(locale);
 const links = (['projekty', 'o-mnie', 'stack'] as const).map((id, i) => ({
   id,
@@ -26,6 +28,10 @@ const links = (['projekty', 'o-mnie', 'stack'] as const).map((id, i) => ({
       <span class="bar" aria-hidden="true" />
     </a>
   ))}
+  <a class="nl lang" href={langHref} hreflang={dict.nav.lang.code} lang={dict.nav.lang.code}>
+    {dict.nav.lang.short}
+    <span class="sr-only">{` — ${dict.nav.lang.label}`}</span>
+  </a>
 </div>
 
 <style>
@@ -43,6 +49,15 @@ const links = (['projekty', 'o-mnie', 'stack'] as const).map((id, i) => ({
     min-height: var(--target);
     color: var(--text2);
     transition: color var(--t-fast);
+    /* link nigdy nie łamie się w środku; na wąskim ekranie rząd przewija się w bok */
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  /* przełącznik języka: oddzielony kreską od linków sekcji */
+  .lang {
+    padding-left: 20px;
+    border-left: 1px solid var(--line);
+    min-height: 20px;
   }
   .nl:hover,
   .nl.on {
@@ -74,7 +89,8 @@ const links = (['projekty', 'o-mnie', 'stack'] as const).map((id, i) => ({
       order: 3;
       width: 100%;
       overflow-x: auto;
-      gap: 24px;
+      /* 20px: przy 360px cały rząd z przełącznikiem języka mieści się bez przewijania */
+      gap: 20px;
       scrollbar-width: none;
       border-top: 1px solid var(--line);
     }
