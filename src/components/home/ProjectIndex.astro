@@ -1,5 +1,5 @@
 ---
-import type { Project } from '@/data/projects';
+import type { Project } from '@/lib/projects';
 
 interface Props {
   projects: Project[];
@@ -7,7 +7,7 @@ interface Props {
 }
 
 const { projects, selected } = Astro.props;
-const rows = projects.map((p, i) => ({ ...p, num: String(i + 1).padStart(2, '0') }));
+const rows = projects;
 // Wiersz ma dwie identyczne warstwy: zwykłą i miętową na wierzchu, odsłanianą clip-pathem.
 // Wybór projektu (hover / klik / focus) = Etap 4 (data-project).
 ---

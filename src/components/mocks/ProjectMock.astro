@@ -1,11 +1,19 @@
 ---
-import MockAwizacja from './mocks/MockAwizacja.astro';
-import MockFormatka from './mocks/MockFormatka.astro';
-import MockGeneric from './mocks/MockGeneric.astro';
-import MockLotto from './mocks/MockLotto.astro';
-import MockPig from './mocks/MockPig.astro';
-import type { Project } from '@/data/projects';
+/*
+ * Szkic projektu w podglądzie. Zasada dla każdego szkicu (nowy = nowy plik w tym katalogu + wpis w MOCKS
+ * w src/lib/projects.ts + `mock: nazwa` w nadpisaniu repo):
+ * - ramka 1px var(--line2), tło var(--surface), tekst mono 11px, szerokość ~74–78% sceny;
+ * - akcent (var(--acc)) tylko na jednym elemencie, reszta kolorów z var(--hue1–5) i var(--line*);
+ * - jedna delikatna animacja w pętli, czas z tokenów (--t-*), pauzowana poza ekranem (klasa .off);
+ * - napisy przez i18n (`home.mocks`), bez wymyślonych danych.
+ */
+import Awizacja from './Awizacja.astro';
+import Formatka from './Formatka.astro';
+import Generic from './Generic.astro';
+import Lotto from './Lotto.astro';
+import Pig from './Pig.astro';
 import type { Dictionary } from '@/i18n/utils';
+import type { Project } from '@/lib/projects';
 
 interface Props {
   project: Project;
@@ -15,8 +23,8 @@ interface Props {
 const { project, m } = Astro.props;
 ---
 
-{project.mock === 'awizacja' && <MockAwizacja m={m} />}
-{project.mock === 'formatka' && <MockFormatka />}
-{project.mock === 'lotto' && <MockLotto m={m} />}
-{project.mock === 'pig' && <MockPig m={m} />}
-{project.mock === 'generic' && <MockGeneric title={project.title} tags={project.tags} />}
+{project.mock === 'awizacja' && <Awizacja m={m} />}
+{project.mock === 'formatka' && <Formatka />}
+{project.mock === 'lotto' && <Lotto m={m} />}
+{project.mock === 'pig' && <Pig m={m} />}
+{project.mock === 'generic' && <Generic title={project.title} />}
