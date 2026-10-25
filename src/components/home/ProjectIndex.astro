@@ -1,24 +1,27 @@
 ---
+import type { Locale } from '@/config/site';
+import { projectPath } from '@/lib/paths';
 import type { Project } from '@/lib/projects';
 
 interface Props {
   projects: Project[];
   selected: string;
+  locale: Locale;
 }
 
-const { projects, selected } = Astro.props;
+const { projects, selected, locale } = Astro.props;
 const rows = projects;
-// Wiersz ma dwie identyczne warstwy: zwykłą i miętową na wierzchu, odsłanianą clip-pathem.
-// Wybór projektu (hover / klik / focus) = Etap 4 (data-project).
+// Wiersz = link do podstrony (działa bez JS). Z JS: najechanie/fokus wybiera projekt (src/scripts/projects.ts).
+// Dwie identyczne warstwy: zwykła i miętowa na wierzchu, odsłaniana clip-pathem.
 ---
 
 <div class="reveal list" role="list">
   {rows.map((p) => (
     <div role="listitem">
-      <button
-        type="button"
+      <a
         class:list={['row', p.id === selected && 'on']}
-        aria-pressed={p.id === selected ? 'true' : 'false'}
+        href={projectPath(p.slug, locale)}
+        aria-current={p.id === selected ? 'true' : undefined}
         data-project={p.id}
       >
         {[false, true].map((fill) => {
@@ -53,7 +56,7 @@ const rows = projects;
             inner
           );
         })}
-      </button>
+      </a>
     </div>
   ))}
 </div>
