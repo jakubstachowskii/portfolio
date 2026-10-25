@@ -168,6 +168,31 @@ for (const theme of ['dark', 'light']) {
   }
 }
 
+// telefon: linki menu i przyciski nie łamią się na dwie linie
+for (const path of ['/', '/en/']) {
+  const c = await browser.newContext({ viewport: { width: 360, height: 740 } });
+  const p = await c.newPage();
+  await p.goto(BASE + path, { waitUntil: 'networkidle' });
+  const wrapped = await p.evaluate(() =>
+    [...document.querySelectorAll('header a, header button, .btn')]
+      .filter((el) => {
+        // tylko widoczny tekst: bez ikon SVG i tekstu dla czytników (.sr-only)
+        const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+        const tops = new Set();
+        for (let n = walker.nextNode(); n; n = walker.nextNode()) {
+          if (!n.textContent.trim() || n.parentElement.closest('.sr-only, svg')) continue;
+          const r = document.createRange();
+          r.selectNodeContents(n);
+          for (const rect of r.getClientRects()) if (rect.width > 1) tops.add(Math.round(rect.top));
+        }
+        return tops.size > 1;
+      })
+      .map((el) => el.textContent.trim().split(/\s+/).join(' ').slice(0, 20)),
+  );
+  for (const w of wrapped) fail(`telefon ${path}`, `„${w}” łamie się na dwie linie`);
+  await c.close();
+}
+
 // telefon: w kalendarzu GitHub widać najnowszy tydzień (gdy sekcja jest)
 {
   const c = await browser.newContext({ viewport: { width: 360, height: 740 } });
