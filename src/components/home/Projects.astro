@@ -16,7 +16,7 @@ const d = t(locale).home.projects;
 const selected = projects[0]?.id ?? '';
 ---
 
-<section id="projekty" class="sec">
+<section id="projekty" class="sec" data-projects>
   <div class="wrap col">
     <div class="reveal intro">
       <SectionHead kicker={d.kicker} title={d.title} />
@@ -34,7 +34,7 @@ const selected = projects[0]?.id ?? '';
     </div>
     <div class="split body">
       <ProjectIndex projects={projects} selected={selected} />
-      <div class="preview">
+      <div class="preview" data-previews>
         {projects.map((p) => (
           <ProjectPreview project={p} locale={locale} hidden={p.id !== selected} />
         ))}
@@ -42,6 +42,11 @@ const selected = projects[0]?.id ?? '';
     </div>
   </div>
 </section>
+
+<script>
+  import { initProjects } from '@/scripts/projects';
+  for (const root of document.querySelectorAll<HTMLElement>('[data-projects]')) initProjects(root);
+</script>
 
 <style>
   .sec {
@@ -76,5 +81,11 @@ const selected = projects[0]?.id ?? '';
     min-width: 0;
     position: sticky;
     top: 88px;
+  }
+  @media (max-width: 900px) {
+    /* cel przewinięcia po stuknięciu w projekt: pod navem w dwóch rzędach */
+    .preview {
+      scroll-margin-top: 116px;
+    }
   }
 </style>

@@ -97,9 +97,6 @@ const cells = Array.from({ length: 44 * 7 }, (_, i) => {
     animation: wave var(--t-wave) ease-in-out infinite;
     animation-delay: inherit;
   }
-  :global(.off) .wave::after {
-    animation-play-state: paused;
-  }
   @keyframes wave {
     0%,
     30%,

@@ -8,8 +8,8 @@ Fazy 0–1b (fundament, research stylu, design system) zmergowane w PR #1–#3. 
 | ---- | ------------------------------------- | --------------------------- | ------ |
 | 1    | Szkielet (tokeny, fonty, nav, stopka) | `feat/etap-1-szkielet`      | ✅     |
 | 2    | Statyczna strona główna               | `feat/etap-2-strona-glowna` | ✅     |
-| 3    | Projekty z GitHub API                 | `feat/etap-3-projekty`      | ⏸      |
-| 4    | Interakcje                            | `feat/etap-4-interakcje`    | ⬜     |
+| 3    | Projekty z GitHub API                 | `feat/etap-3-projekty`      | ✅     |
+| 4    | Interakcje                            | `feat/etap-4-interakcje`    | ⏸      |
 | 5    | Podstrony projektów i 404             | `feat/etap-5-podstrony`     | ⬜     |
 | 6    | Kontrybucje GitHub + codzienny build  | `feat/etap-6-kontrybucje`   | ⬜     |
 | 7    | SEO, dostępność, wydajność            | `feat/etap-7-seo-a11y`      | ⬜     |
@@ -170,3 +170,20 @@ Fazy 0–1b (fundament, research stylu, design system) zmergowane w PR #1–#3. 
 **Czeka na Jakuba**
 
 - OK dla Etapu 3. Na GitHubie: opisy (About) i topiki platform w repozytoriach.
+
+## 2026-10-25 — Etap 4: interakcje
+
+**Zrobione** (gałąź `feat/etap-4-interakcje`, od `feat/etap-3-projekty`)
+
+- Talia kart: zerknięcie po najechaniu, pierwszy klik aktywuje, kolejny przerzuca, przeciąganie myszą i palcem (próg 90 px lub szybkie pstryknięcie), klawiatura (Tab, Enter/Spacja, ← →, Esc), wyjście myszą po ~1 s, `aria-live` podpowiedzi.
+- Wybór projektu najechaniem, fokusem i kliknięciem z animacją wejścia podglądu; telefon przewija do podglądu (#32).
+- Kopiowanie e-maila (Clipboard API, „SKOPIOWANO” na 2 s, ikona z animacją), aktywna sekcja w nav i kreskach (z blokadą po kliknięciu), pauza animacji poza ekranem.
+- Testy: 52 e2e (w tym 12 interakcji), Lighthouse 1.0, TBT 0; JS strony ~3 KB gzip.
+
+**Dalej**
+
+- Etap 5: podstrony projektów i 404.
+
+**Czeka na Jakuba**
+
+- OK dla Etapu 4.

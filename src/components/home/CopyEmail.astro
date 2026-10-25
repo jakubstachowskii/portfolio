@@ -7,7 +7,7 @@ interface Props {
 }
 
 const d = t(Astro.props.locale).home.contact;
-// Kopiowanie do schowka = Etap 4 (data-copy-email). Bez JS działa link mailto.
+// Kopiowanie: src/scripts/copy-email.ts. Bez JS działa link mailto obok.
 ---
 
 <div class="mono mailbox">
@@ -22,6 +22,7 @@ const d = t(Astro.props.locale).home.contact;
     data-label-done={d.copied}
   >
     <svg
+      class="ic-copy"
       aria-hidden="true"
       width="16"
       height="16"
@@ -34,9 +35,28 @@ const d = t(Astro.props.locale).home.contact;
       <rect x="9" y="9" width="12" height="12"></rect>
       <path d="M5 15V3h12"></path>
     </svg>
+    <svg
+      class="ic-done"
+      aria-hidden="true"
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2.6"
+      stroke-linecap="square"
+    >
+      <path d="M20 6 9 17l-5-5"></path>
+    </svg>
     <span data-copy-label>{d.copy}</span>
   </button>
 </div>
+
+<script>
+  import { initCopyEmail } from '@/scripts/copy-email';
+  for (const btn of document.querySelectorAll<HTMLButtonElement>('[data-copy-email]'))
+    initCopyEmail(btn);
+</script>
 
 <style>
   .mailbox {
@@ -77,6 +97,26 @@ const d = t(Astro.props.locale).home.contact;
   .copy.done {
     background: transparent;
     color: var(--acc-ink);
+  }
+  .ic-done,
+  .done .ic-copy {
+    display: none;
+  }
+  .done .ic-done {
+    display: block;
+    animation: copyPop var(--t-fade) cubic-bezier(0.3, 1.6, 0.5, 1) both;
+  }
+  @keyframes copyPop {
+    from {
+      scale: 0.3;
+      rotate: -25deg;
+      opacity: 0;
+    }
+    to {
+      scale: 1;
+      rotate: 0deg;
+      opacity: 1;
+    }
   }
   .copy:active {
     background: var(--press);
