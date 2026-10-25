@@ -220,3 +220,8 @@ Pozostałe wymagania strukturalne PLAN §6 (role tokenów, 5 stanów, focus ring
 - **Zależności (dev, 0 KB w przeglądarce):** `subset-font` (harfbuzz wasm), `@fontsource-variable/archivo`, `@fontsource-variable/inter`, `@fontsource-variable/jetbrains-mono` (źródła fontów).
 - **Alternatywy:** `font-display: optional` (font mógłby się w ogóle nie pokazać na pierwszej wizycie), rezygnacja z preloadu (dłuższy LCP), Google Fonts z parametrem `text=` (zewnętrzny host, gorsza prywatność).
 - **Koszt utrzymania:** znak spoza zakresów renderuje się fontem zapasowym. Dodanie znaku wymaga zmiany `font-ranges.mjs` i `pnpm fonts:subset`. Zastępuje #21.
+
+## #31 · 2026-10-25 · Pieczątka w jasnym motywie bez przezroczystości · przyjęta
+
+- **Problem:** Lighthouse w CI (headless Chrome na Linuksie = motyw jasny) dawał dostępność 0.97: pieczątka „Wysłano” w szkicu Awizacji ma w animacji `opacity: 0.9`, co przy `--hue4` w jasnym motywie daje 4.04:1. Lokalnie Lighthouse szedł w ciemnym motywie, a e2e axe z wyłączonym ruchem (pieczątka bez animacji = pełne krycie), więc nikt tego nie złapał.
+- **Decyzja:** token `--stamp-opacity`: 0.9 w ciemnym (jak we wzorcu), 1 w jasnym (4.86:1). Para `hue4 / surface` w teście kontrastu. `lighthouserc.json` wymusza motyw jasny (`preferredColorScheme=1`), więc lokalny wynik = wynik w CI; ciemny motyw pilnuje e2e axe.
