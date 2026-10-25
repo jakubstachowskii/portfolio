@@ -257,6 +257,10 @@ Fazy 0–1b (fundament, research stylu, design system) zmergowane w PR #1–#3. 
 - Gałąź `fix/przeglad-produkcji`: dokładny przegląd strony na produkcji i poprawki (#39), `pnpm audit:site` (#40).
 - Pętla przeglądu: każdy przebieg = `pnpm audit:site` + obejrzenie zrzutów (7 stron × 5 szerokości × 2 motywy, po 1/10 kombinacji na przebieg). Każde znalezisko = poprawka, nowa reguła w audycie i licznik od zera. Wynik: 10 czystych przebiegów z rzędu.
 
+- PR #16: link „przejdź do treści” nie pokazuje się przy odbiciu przewijania na telefonie (DECISIONS #41).
+- Nowe README: opis, funkcje, jakość, technologie, architektura, uruchomienie, treść, wdrożenie.
+- Końcowe sprawdzenie: `pnpm ci:local` 7/7, `pnpm audit:site` na produkcji 0 problemów, CI na main zielone.
+
 **Czeka na Jakuba**
 
 - Własna domena (usuwa `X-Robots-Tag: noindex` z adresu `.vercel.app`, obecnie SEO w Lighthouse 0.66).
