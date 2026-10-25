@@ -303,3 +303,10 @@ Pozostałe wymagania strukturalne PLAN §6 (role tokenów, 5 stanów, focus ring
 
 - Zgłoszenie Jakuba: na telefonie przy mocnym przewinięciu w górę („odbicie” przeglądarki) na chwilę pokazywał się link „Przejdź do treści”. Przyczyna: link był schowany przesunięciem nad stronę (`top: -60px`), a odbicie odsłania obszar nad stroną.
 - Teraz link stoi na swoim miejscu, ale jest przycięty do zera (`clip-path: inset(50%)`); po Tab wygląda i działa jak wcześniej. `pnpm audit:site` i test e2e pilnują, żeby nie był ukryty poza stroną.
+
+## #42 · 2026-10-25 · Sekcja GitHub na szerokościach pośrednich · przyjęta
+
+- Zgłoszenie Jakuba: przy zmniejszonym oknie (ok. 920–1200 px) tytuł „Kod na GitHubie.” łamał się na trzy linie, a kalendarz ucinał najnowsze tygodnie (poprawka z #39 działała tylko do 900 px).
+- Tytuł: linie z `<br>` nie łamią się w środku (`white-space: nowrap`), a kolumna tekstu nie zwęża się poniżej tytułu; gdy brak miejsca, sekcja przechodzi w układ jeden pod drugim.
+- Kalendarz: zapytanie kontenerowe (`@container`): siatka wyrównana do prawej tylko wtedy, gdy się nie mieści (44 tygodnie = 700 px). Na szerokich ekranach bez zmian, przy lewej krawędzi jak we wzorcu.
+- `pnpm audit:site`: kalendarz i nagłówki z `<br>` sprawdzane na wszystkich szerokościach, także 920–1100 px; pomiar po załadowaniu fontów.

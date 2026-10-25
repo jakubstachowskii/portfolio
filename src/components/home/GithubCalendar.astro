@@ -43,6 +43,7 @@ const cells = data.weeks.flatMap((week, c) =>
     min-width: 0;
     margin: 0;
     overflow: hidden;
+    container-type: inline-size;
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -54,8 +55,9 @@ const cells = data.weeks.flatMap((week, c) =>
     grid-auto-columns: 12px;
     gap: 4px;
   }
-  /* wąski ekran: siatka wyrównana do prawej, ucina się najstarsze tygodnie, nie najnowsze */
-  @media (max-width: 900px) {
+  /* siatka się nie mieści (WEEKS = 44: 44 × 12px + 43 × 4px = 700px): wyrównanie do prawej,
+     ucinają się najstarsze tygodnie, nie najnowsze; gdy się mieści, zostaje przy lewej jak we wzorcu */
+  @container (max-width: 699px) {
     .grid {
       justify-content: end;
     }
