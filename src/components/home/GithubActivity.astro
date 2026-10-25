@@ -1,21 +1,21 @@
 ---
-import type { Locale } from '@/config/site';
+import GithubCalendar from './GithubCalendar.astro';
+import { site, type Locale } from '@/config/site';
 import { t } from '@/i18n/utils';
+import type { Contributions } from '@/lib/contributions';
+import { formatDate, plural } from '@/lib/format';
 
 interface Props {
   locale: Locale;
+  data: Contributions;
 }
 
-const d = t(Astro.props.locale).home.gh;
-// Siatka „aktywności”: tylko dekoracja/szkielet, bez wymyślonych danych (Etap 6 = GitHub API).
-const cells = Array.from({ length: 44 * 7 }, (_, i) => {
-  const c = Math.floor(i / 7);
-  const r = i % 7;
-  return (c * 0.06 + r * 0.03).toFixed(2);
-});
+const { locale, data } = Astro.props;
+const d = t(locale).home.gh;
+// Renderowana tylko z danymi z GitHub GraphQL (HomePage: bez tokenu sekcji nie ma).
 ---
 
-<section id="gh" class="gh" aria-label={d.label}>
+<section id="gh" class="gh" aria-label={d.label} data-gh>
   <div class="wrap reveal row">
     <div class="copy">
       <span class="mono kicker">{d.kicker}</span>
@@ -24,17 +24,39 @@ const cells = Array.from({ length: 44 * 7 }, (_, i) => {
         <br />
         {d.title[1]}
       </h2>
-      <p class="lead">{d.lead}</p>
+      <ul class="mono facts">
+        <li>
+          <a class="mail" href={`https://github.com/${site.github}?tab=repositories`}>
+            {plural(data.publicRepos, d.repos, locale)}
+          </a>
+        </li>
+        {data.lastCommit && (
+          <li>
+            {`${d.lastCommit}: `}
+            <time datetime={data.lastCommit}>{formatDate(data.lastCommit, locale)}</time>
+          </li>
+        )}
+      </ul>
     </div>
-    <div class="cal" aria-hidden="true">
-      <div class="grid">
-        {cells.map((delay) => (
-          <span class="wave" style={`animation-delay: ${delay}s`} />
-        ))}
-      </div>
-    </div>
+    <GithubCalendar data={data} locale={locale} />
   </div>
 </section>
+
+<script>
+  // fala w siatce jako animacja wejścia: jedno przejście, gdy sekcja pierwszy raz pojawi się na ekranie
+  const gh = document.querySelector<HTMLElement>('[data-gh]');
+  if (gh && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry?.isIntersecting) return;
+        gh.classList.add('seen');
+        io.disconnect();
+      },
+      { threshold: 0.3 },
+    );
+    io.observe(gh);
+  }
+</script>
 
 <style>
   .gh {
@@ -66,45 +88,17 @@ const cells = Array.from({ length: 44 * 7 }, (_, i) => {
     font-size: 34px;
     line-height: 1.02;
   }
-  .lead {
+  .facts {
+    list-style: none;
     margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 13px;
     color: var(--text2);
-    font-size: 15px;
   }
-  .cal {
-    flex: 2 1 560px;
-    min-width: 0;
-    overflow: hidden;
-  }
-  .grid {
-    display: grid;
-    grid-template-rows: repeat(7, 12px);
-    grid-auto-flow: column;
-    grid-auto-columns: 12px;
-    gap: 4px;
-  }
-  /* fala: animujemy przezroczystość nakładki (GPU), nie kolor tła ~300 komórek */
-  .wave {
-    position: relative;
-    background: var(--cell);
-  }
-  .wave::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: var(--cell-hi);
-    opacity: 0;
-    animation: wave var(--t-wave) ease-in-out infinite;
-    animation-delay: inherit;
-  }
-  @keyframes wave {
-    0%,
-    30%,
-    100% {
-      opacity: 0;
-    }
-    12% {
-      opacity: 1;
-    }
+  .facts a {
+    color: var(--text);
   }
 </style>
