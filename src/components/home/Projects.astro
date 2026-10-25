@@ -3,7 +3,7 @@ import ProjectIndex from './ProjectIndex.astro';
 import ProjectPreview from './ProjectPreview.astro';
 import SectionHead from './SectionHead.astro';
 import { site, type Locale } from '@/config/site';
-import type { Project } from '@/data/projects';
+import type { Project } from '@/lib/projects';
 import { t } from '@/i18n/utils';
 
 interface Props {
@@ -35,13 +35,8 @@ const selected = projects[0]?.id ?? '';
     <div class="split body">
       <ProjectIndex projects={projects} selected={selected} />
       <div class="preview">
-        {projects.map((p, i) => (
-          <ProjectPreview
-            project={p}
-            num={String(i + 1).padStart(2, '0')}
-            locale={locale}
-            hidden={p.id !== selected}
-          />
+        {projects.map((p) => (
+          <ProjectPreview project={p} locale={locale} hidden={p.id !== selected} />
         ))}
       </div>
     </div>

@@ -1,0 +1,95 @@
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+// Szkic dla repo bez własnego: okno edytora z paskiem i liniami kodu, akcent = kursor (zasada w ProjectMock)
+const lines = [
+  [18, 'hue3', 0],
+  [52, 'hue1', 1],
+  [38, 'line2', 2],
+  [56, 'hue2', 2],
+  [12, 'hue3', 0],
+] as const;
+---
+
+<div class="win mono">
+  <div class="bar">
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="file">{title.toLowerCase().replace(/\s+/g, '-')}</span>
+  </div>
+  <div class="code">
+    {lines.map(([w, c, indent], i) => (
+      <span class="row">
+        <span class="no">{String(i + 1).padStart(2, '0')}</span>
+        <span
+          class="ln"
+          style={`width: ${w}%; margin-left: ${indent * 12}px; background: var(--${c})`}
+        />
+        {i === lines.length - 1 && <span class="cur" />}
+      </span>
+    ))}
+  </div>
+</div>
+
+<style>
+  .win {
+    position: relative;
+    width: 74%;
+    background: var(--surface);
+    border: 1px solid var(--line2);
+    font-size: 11px;
+  }
+  .bar {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 9px;
+    border-bottom: 1px solid var(--line);
+  }
+  .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--line2);
+  }
+  .file {
+    margin-left: 8px;
+    color: var(--text2);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .code {
+    padding: 10px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .no {
+    color: var(--text2);
+    opacity: 0.6;
+  }
+  .ln {
+    height: 6px;
+  }
+  .cur {
+    width: 7px;
+    height: 12px;
+    background: var(--acc);
+    animation: blink var(--t-line) steps(1) infinite;
+  }
+  @keyframes blink {
+    50% {
+      opacity: 0;
+    }
+  }
+</style>

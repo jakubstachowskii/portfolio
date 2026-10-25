@@ -221,6 +221,15 @@ Pozostałe wymagania strukturalne PLAN §6 (role tokenów, 5 stanów, focus ring
 - **Alternatywy:** `font-display: optional` (font mógłby się w ogóle nie pokazać na pierwszej wizycie), rezygnacja z preloadu (dłuższy LCP), Google Fonts z parametrem `text=` (zewnętrzny host, gorsza prywatność).
 - **Koszt utrzymania:** znak spoza zakresów renderuje się fontem zapasowym. Dodanie znaku wymaga zmiany `font-ranges.mjs` i `pnpm fonts:subset`. Zastępuje #21.
 
+## #30 · 2026-10-25 · Projekty z GitHub API przy buildzie · przyjęta
+
+- **Decyzja:** lista projektów to publiczne repozytoria `jakubstachowskii` pobierane przy buildzie (`src/lib/github.ts`, `src/lib/load-projects.ts`), reguły 1–7 z `docs/PROMPT-dla-Claude-Code.md` §2. Pomijane: forki, archiwa, `hiddenRepos` z `site.ts`, topik `portfolio-hide`. Nadpisania: kolekcja `projects` (`src/content/projects/<repo>.md`, schema w `src/content.config.ts`). Logika łączenia jest czysta (`src/lib/projects.ts`) i ma testy.
+- **Kopia:** `src/data/github-cache.json` jest commitowana i nadpisywana przy udanym buildzie tylko przy zmianie danych (bez znacznika czasu). Gdy API nie odpowiada, build bierze kopię. Sprawdzone złym tokenem: build przechodzi z ostrzeżeniem.
+- **Rozszerzenie promptu:** pole `summaryEn` w nadpisaniu (strona jest dwujęzyczna, CLAUDE.md wymaga PL + EN). Bez niego wersja EN bierze `summary`.
+- **README** pobierany tylko dla repo bez `description` i bez `summary` w nadpisaniu (oszczędza limit 60 zapytań/h bez tokenu).
+- **Podgląd:** screenshot z `src/assets/projects/<repo>.(png|jpg|webp)` albo `cover` w nadpisaniu zastępuje szkic (ta sama ramka, `<Image>`, WebP). `pnpm screenshots` robi zrzuty repo z `homepage`.
+- Statyczna lista z Etapu 2 (`src/data/projects.ts`, #28) usunięta.
+
 ## #31 · 2026-10-25 · Pieczątka w jasnym motywie bez przezroczystości · przyjęta
 
 - **Problem:** Lighthouse w CI (headless Chrome na Linuksie = motyw jasny) dawał dostępność 0.97: pieczątka „Wysłano” w szkicu Awizacji ma w animacji `opacity: 0.9`, co przy `--hue4` w jasnym motywie daje 4.04:1. Lokalnie Lighthouse szedł w ciemnym motywie, a e2e axe z wyłączonym ruchem (pieczątka bez animacji = pełne krycie), więc nikt tego nie złapał.

@@ -7,8 +7,8 @@ Fazy 0–1b (fundament, research stylu, design system) zmergowane w PR #1–#3. 
 | Etap | Nazwa                                 | Gałąź                       | Status |
 | ---- | ------------------------------------- | --------------------------- | ------ |
 | 1    | Szkielet (tokeny, fonty, nav, stopka) | `feat/etap-1-szkielet`      | ✅     |
-| 2    | Statyczna strona główna               | `feat/etap-2-strona-glowna` | ⏸      |
-| 3    | Projekty z GitHub API                 | `feat/etap-3-projekty`      | ⬜     |
+| 2    | Statyczna strona główna               | `feat/etap-2-strona-glowna` | ✅     |
+| 3    | Projekty z GitHub API                 | `feat/etap-3-projekty`      | ⏸      |
 | 4    | Interakcje                            | `feat/etap-4-interakcje`    | ⬜     |
 | 5    | Podstrony projektów i 404             | `feat/etap-5-podstrony`     | ⬜     |
 | 6    | Kontrybucje GitHub + codzienny build  | `feat/etap-6-kontrybucje`   | ⬜     |
@@ -153,3 +153,20 @@ Fazy 0–1b (fundament, research stylu, design system) zmergowane w PR #1–#3. 
 **Czeka na Jakuba**
 
 - OK dla Etapu 2.
+
+## 2026-10-25 — Etap 3: projekty z GitHub API
+
+**Zrobione** (gałąź `feat/etap-3-projekty`, od `feat/etap-2-strona-glowna`)
+
+- `src/lib/github.ts` (API, filtr, czytelne nazwy, wyciąg z README, kopia), `src/lib/projects.ts` (łączenie z nadpisaniami, sortowanie, numery), `src/lib/load-projects.ts` (build), kolekcja `projects` + 4 nadpisania (opisy PL/EN ze wzorca).
+- Szkice w `src/components/mocks/` z zasadą w `ProjectMock.astro`; nowy `Generic` (okno edytora, akcent = kursor). Screenshoty z `src/assets/projects/` zastępują szkic; `pnpm screenshots`.
+- Lista z API (25.10): Awizacja App, Formatka App, Lotto Analyzer. `Pig-Game` ma na GitHubie topik `portfolio-hide`, więc nie ma go na stronie (nadpisanie zostaje na wypadek odkrycia).
+- Testy: 103 unit, 40 e2e; Lighthouse 1.0 we wszystkich kategoriach.
+
+**Dalej**
+
+- Etap 4: interakcje.
+
+**Czeka na Jakuba**
+
+- OK dla Etapu 3. Na GitHubie: opisy (About) i topiki platform w repozytoriach.

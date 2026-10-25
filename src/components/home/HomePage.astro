@@ -7,7 +7,7 @@ import Projects from './Projects.astro';
 import Stack from './Stack.astro';
 import Tape from './Tape.astro';
 import type { Locale } from '@/config/site';
-import { staticProjects } from '@/data/projects';
+import { loadProjects } from '@/lib/load-projects';
 import { t } from '@/i18n/utils';
 
 interface Props {
@@ -16,13 +16,14 @@ interface Props {
 
 const { locale } = Astro.props;
 const home = t(locale).home;
+const projects = await loadProjects();
 ---
 
 <Hero locale={locale} />
 <div id="tasma" class="tasma" aria-hidden="true">
   <Tape words={home.tape} class="small" />
 </div>
-<Projects locale={locale} projects={staticProjects} />
+<Projects locale={locale} projects={projects} />
 <GithubActivity locale={locale} />
 <About locale={locale} />
 <Stack locale={locale} />

@@ -1,17 +1,17 @@
 ---
-import ProjectMock from './ProjectMock.astro';
+import { Image } from 'astro:assets';
+import ProjectMock from '@/components/mocks/ProjectMock.astro';
 import type { Locale } from '@/config/site';
-import type { Project } from '@/data/projects';
+import type { Project } from '@/lib/projects';
 import { t } from '@/i18n/utils';
 
 interface Props {
   project: Project;
-  num: string;
   locale: Locale;
   hidden?: boolean;
 }
 
-const { project: p, num, locale, hidden = false } = Astro.props;
+const { project: p, locale, hidden = false } = Astro.props;
 const home = t(locale).home;
 const d = home.projects;
 ---
@@ -19,8 +19,18 @@ const d = home.projects;
 <article class="pv pva card" hidden={hidden} data-preview={p.id}>
   <div class="stage" aria-hidden="true">
     <div class="dotgrid"></div>
-    <span class="mono label">{`${d.preview} / ${num}`}</span>
-    <ProjectMock project={p} m={home.mocks} />
+    <span class="mono label">{`${d.preview} / ${p.num}`}</span>
+    {p.cover ? (
+      <Image
+        class="cover"
+        src={p.cover}
+        alt=""
+        widths={[420, 840]}
+        sizes="(max-width: 900px) 100vw, 480px"
+      />
+    ) : (
+      <ProjectMock project={p} m={home.mocks} />
+    )}
   </div>
   <div class="info">
     <div class="titles">
@@ -70,6 +80,16 @@ const d = home.projects;
     background-image: radial-gradient(var(--line) 1px, transparent 1px);
     background-size: 16px 16px;
     opacity: 0.6;
+  }
+  /* screenshot w tej samej ramce co szkic (dekoracja: opis jest obok) */
+  .cover {
+    position: relative;
+    width: 86%;
+    height: auto;
+    max-height: 86%;
+    object-fit: cover;
+    object-position: top;
+    border: 1px solid var(--line2);
   }
   .label {
     position: absolute;
