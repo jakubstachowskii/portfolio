@@ -2,7 +2,7 @@ import type { pl } from './pl';
 
 export const en = {
   meta: {
-    title: 'Portfolio',
+    title: 'Developer: web, mobile and desktop apps',
     // TODO(content): opis strony do meta description
     description: 'Jakub — developer. Web, mobile and desktop apps.',
   },

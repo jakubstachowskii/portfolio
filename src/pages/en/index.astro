@@ -2,11 +2,20 @@
 import HomePage from '@/components/home/HomePage.astro';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { t } from '@/i18n/utils';
+import { personJsonLd } from '@/lib/seo';
 
 const locale = 'en';
 const dict = t(locale);
+const jsonLd = personJsonLd(Astro.site ?? Astro.url, dict.home.about.facts.role[1]!);
 ---
 
-<BaseLayout locale={locale} title={dict.meta.title} description={dict.meta.description} onHome>
+<BaseLayout
+  locale={locale}
+  title={dict.meta.title}
+  description={dict.meta.description}
+  onHome
+  alternates={{ pl: '/', en: '/en/' }}
+  jsonLd={jsonLd}
+>
   <HomePage locale={locale} />
 </BaseLayout>

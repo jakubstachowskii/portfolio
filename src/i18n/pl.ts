@@ -1,6 +1,6 @@
 export const pl = {
   meta: {
-    title: 'Portfolio',
+    title: 'Programista: aplikacje webowe, mobilne i desktopowe',
     // TODO(content): opis strony do meta description
     description: 'Jakub — programista. Aplikacje webowe, mobilne i desktopowe.',
   },

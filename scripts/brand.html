@@ -1,0 +1,119 @@
+<!doctype html>
+<meta charset="utf-8" />
+<!-- Szablon obrazka Open Graph (1200×630) i ikony; render: scripts/brand-assets.mjs -->
+<style>
+  @font-face {
+    font-family: A;
+    src: url(../src/assets/fonts/archivo-latin.woff2);
+    font-weight: 800;
+    font-stretch: 100% 125%;
+  }
+  @font-face {
+    font-family: A;
+    src: url(../src/assets/fonts/archivo-pl.woff2);
+    font-weight: 800;
+    font-stretch: 100% 125%;
+    unicode-range: U+0104-0107, U+0118-0119, U+0141-0144, U+015A-015B, U+0179-017C;
+  }
+  @font-face {
+    font-family: M;
+    src: url(../src/assets/fonts/jetbrains-mono-latin.woff2);
+    font-weight: 400 700;
+  }
+  @font-face {
+    font-family: M;
+    src: url(../src/assets/fonts/jetbrains-mono-pl.woff2);
+    font-weight: 400 700;
+    unicode-range: U+0104-0107, U+0118-0119, U+0141-0144, U+015A-015B, U+0179-017C;
+  }
+  * {
+    margin: 0;
+    box-sizing: border-box;
+  }
+  body {
+    background: #0d0e10;
+  }
+  #og {
+    position: relative;
+    width: 1200px;
+    height: 630px;
+    overflow: hidden;
+    background: #0d0e10;
+    color: #eceae4;
+    padding: 72px 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  #og::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(#2a2e33 1px, transparent 1px),
+      linear-gradient(90deg, #2a2e33 1px, transparent 1px);
+    background-size: 80px 80px;
+    opacity: 0.35;
+    -webkit-mask-image: linear-gradient(180deg, #000, transparent 90%);
+  }
+  .top,
+  .h,
+  .bar {
+    position: relative;
+  }
+  .top {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font: 500 22px M;
+    letter-spacing: 0.06em;
+    color: #c9c7c1;
+  }
+  .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #3ee6c1;
+  }
+  .h {
+    font: 800 96px/0.96 A;
+    font-stretch: 125%;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+  }
+  .h span {
+    color: #5ff0d0;
+  }
+  .bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font: 400 22px M;
+    color: #9a9ca1;
+  }
+  .brand {
+    font: 800 30px A;
+    font-stretch: 125%;
+    text-transform: uppercase;
+    color: #eceae4;
+  }
+  .tape {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 10px;
+    background: #3ee6c1;
+  }
+  #icon {
+    width: 180px;
+    height: 180px;
+  }
+</style>
+<div id="og">
+  <div class="top"><span class="dot"></span>DEV · WEB / MOBILE / DESKTOP</div>
+  <h1 class="h">Piszę kod,<br />który robi<br /><span>robotę.</span></h1>
+  <div class="bar"><span class="brand">Jakub</span><span>github.com/jakubstachowskii</span></div>
+  <div class="tape"></div>
+</div>
+<img id="icon" src="../public/favicon.svg" alt="" />

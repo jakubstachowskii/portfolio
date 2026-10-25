@@ -35,7 +35,7 @@ test.describe('strona główna', () => {
     await expect(page.locator('[data-preview]:visible')).toHaveCount(1);
   });
 
-  for (const width of [360, 768, 1280, 1920]) {
+  for (const width of [360, 375, 768, 1024, 1280, 1440, 1920]) {
     for (const theme of ['dark', 'light'] as const) {
       test(`brak poziomego scrolla: ${width}px, ${theme}`, async ({ page }) => {
         await page.emulateMedia({ colorScheme: theme });
