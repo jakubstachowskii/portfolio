@@ -290,9 +290,11 @@ Pozostałe wymagania strukturalne PLAN §6 (role tokenów, 5 stanów, focus ring
 - **Kalendarz GitHub na wąskim ekranie** wyrównany do prawej: ucinają się najstarsze tygodnie, nie najnowsze z aktywnością.
 - **Treść podstron** wyłącznie na podstawie README repozytoriów; wersja EN w plikach `src/content/projects/<NazwaRepo>.en.md` (kolekcja `projectsEn`). Zastępuje zapis o samym opisie na EN z #34.
 - Drobne: pełne imię i nazwisko w opisie strony, `og:site_name` i JSON-LD; LinkedIn i licznik repo w nowej karcie (jak reszta linków zewnętrznych); linijka po angielsku na 404; „PROJEKTY · 2026” w odznace łamie się razem; EN bez powtórzenia „paper”; kreski sekcji poza kolejnością Tab (te same cele są w menu); `pnpm/action-setup@v6` i `upload-artifact@v7` (Node 24).
+- Typografia na telefonie: linki menu nie łamią się w środku, a cały rząd z przełącznikiem języka mieści się przy 360px; twarda spacja przed strzałkami (↗ → ↑); `text-wrap: balance` w nagłówku 404 i tytułach zasad (bez samotnego słowa w ostatniej linii); znaczniki list w opisach podstron.
 - Bez zmian (decyzje Jakuba): domena (`X-Robots-Tag: noindex` dodaje Vercel na `.vercel.app`), hasło o aplikacjach mobilnych/webowych, stopka, licznik repozytoriów.
 
 ## #40 · 2026-10-25 · `pnpm audit:site` — przegląd działającej strony · przyjęta
 
 - `scripts/audit-site.mjs` sprawdza lokalny podgląd albo produkcję: wszystkie strony z mapy strony + 404 (statusy, placeholdery, h1, meta, JSON-LD, przełącznik języka, opis na podstronach), konsolę, linki wewnętrzne i zewnętrzne, axe w obu motywach, poziomy scroll w 7 szerokościach i obu motywach, kolejność Tab z widocznym fokusem, kalendarz na telefonie, wersję bez JS, a na produkcji nagłówki bezpieczeństwa. Ustawienia hostingu (np. `noindex`) wypisuje jako uwagi spoza kodu.
+- Reguły dodane po przeglądzie zrzutów: znaczniki list w treści, łamanie linków i przycisków przy 360px, rząd menu bez ucinania, strzałka po zwykłej spacji, samotne słowo na końcu nagłówka.
 - Sprawdzone na produkcji sprzed poprawek: wykrywa wszystkie wcześniej znalezione problemy.
