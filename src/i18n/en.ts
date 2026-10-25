@@ -31,7 +31,7 @@ export const en = {
   },
   footer: {
     made: 'DESIGNED AND BUILT BY HAND',
-    top: 'BACK TO TOP ↑',
+    top: 'BACK TO TOP ↑',
   },
   home: {
     hero: {
@@ -40,13 +40,13 @@ export const en = {
       lead: 'I’m a developer. I build desktop, mobile and web apps that take over what people still do by hand — from delivery bookings to furniture cutting plans.',
       ctaProjects: 'SEE PROJECTS',
       ctaGithub: 'GITHUB',
-      ctaCv: 'CV.PDF ↓',
+      ctaCv: 'CV.PDF ↓',
     },
     deck: {
       label:
         'Card stack: web, mobile and desktop apps. Press Enter to browse; arrow keys change the card; Esc exits.',
       hintIdle: 'click to browse',
-      hintActive: 'drag the card or use ← →',
+      hintActive: 'drag the card or use ← →',
       prev: 'Previous card',
       next: 'Next card',
       show: 'Show card',
@@ -61,10 +61,10 @@ export const en = {
       kicker: '01 — PROJECT INDEX',
       title: ['Things that', 'work.'],
       lead: 'Projects straight from my GitHub. Hover or click to see a preview.',
-      all: 'All repositories ↗',
+      all: 'All repositories ↗',
       preview: 'PREVIEW',
       tech: 'Technologies',
-      demo: 'VIEW ↗',
+      demo: 'VIEW ↗',
       code: 'CODE ON GITHUB ‹/›',
     },
     mocks: {
@@ -129,15 +129,15 @@ export const en = {
       title: ['Write', 'to me.'],
       copy: 'COPY',
       copied: 'COPIED',
-      github: 'GITHUB ↗',
-      linkedin: 'LINKEDIN ↗',
+      github: 'GITHUB ↗',
+      linkedin: 'LINKEDIN ↗',
       tape: 'Let’s talk',
     },
   },
   project: {
     back: '← Projects',
-    details: 'Details →',
-    demo: 'DEMO ↗',
+    details: 'Details →',
+    demo: 'DEMO ↗',
     code: 'CODE ON GITHUB ‹/›',
     tech: 'Technologies',
     gallery: 'Gallery',

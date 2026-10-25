@@ -29,7 +29,7 @@ export const pl = {
   },
   footer: {
     made: 'ZAPROJEKTOWANE I ZBUDOWANE RĘCZNIE',
-    top: 'NA GÓRĘ ↑',
+    top: 'NA GÓRĘ ↑',
   },
   home: {
     hero: {
@@ -38,13 +38,13 @@ export const pl = {
       lead: 'Jestem programistą. Buduję aplikacje desktopowe, mobilne i webowe, które biorą na siebie to, co ludzie wciąż robią ręcznie — od awizacji po rozkrój mebli.',
       ctaProjects: 'ZOBACZ PROJEKTY',
       ctaGithub: 'GITHUB',
-      ctaCv: 'CV.PDF ↓',
+      ctaCv: 'CV.PDF ↓',
     },
     deck: {
       label:
         'Stos kart: aplikacje webowe, mobilne i desktopowe. Enter, aby przeglądać; strzałki zmieniają kartę; Esc kończy.',
       hintIdle: 'kliknij, aby przeglądać',
-      hintActive: 'przeciągnij kartę lub użyj ← →',
+      hintActive: 'przeciągnij kartę lub użyj ← →',
       prev: 'Poprzednia karta',
       next: 'Następna karta',
       show: 'Pokaż kartę',
@@ -59,10 +59,10 @@ export const pl = {
       kicker: '01 — INDEKS PROJEKTÓW',
       title: ['Rzeczy, które', 'działają.'],
       lead: 'Projekty prosto z mojego GitHuba. Najedź albo kliknij, żeby zobaczyć podgląd.',
-      all: 'Wszystkie repozytoria ↗',
+      all: 'Wszystkie repozytoria ↗',
       preview: 'PODGLĄD',
       tech: 'Technologie',
-      demo: 'ZOBACZ ↗',
+      demo: 'ZOBACZ ↗',
       code: 'KOD NA GITHUBIE ‹/›',
     },
     mocks: {
@@ -127,15 +127,15 @@ export const pl = {
       title: ['Napisz', 'do mnie.'],
       copy: 'KOPIUJ',
       copied: 'SKOPIOWANO',
-      github: 'GITHUB ↗',
-      linkedin: 'LINKEDIN ↗',
+      github: 'GITHUB ↗',
+      linkedin: 'LINKEDIN ↗',
       tape: 'Porozmawiajmy',
     },
   },
   project: {
     back: '← Projekty',
-    details: 'Szczegóły →',
-    demo: 'DEMO ↗',
+    details: 'Szczegóły →',
+    demo: 'DEMO ↗',
     code: 'KOD NA GITHUBIE ‹/›',
     tech: 'Technologie',
     gallery: 'Galeria',

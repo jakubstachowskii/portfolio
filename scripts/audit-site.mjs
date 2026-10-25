@@ -80,6 +80,8 @@ for (const path of all) {
   if (/\[[^\]\n]{2,40}\]/.test(info.text) || info.title.includes('['))
     fail(path, 'placeholder w nawiasach');
   if (/TODO/.test(info.text)) fail(path, 'TODO w treści');
+  // strzałka po zwykłej spacji może spaść sama do nowej linii (potrzebna twarda spacja)
+  for (const m of info.text.matchAll(/\S+ [→←↗↑↓]/g)) fail(path, `„${m[0]}” bez twardej spacji`);
   if (info.h1 !== 1) fail(path, `liczba h1: ${info.h1}`);
   if (!info.title || !info.desc) fail(path, 'brak tytułu albo opisu');
   if (!notFound && !info.canonical) fail(path, 'brak canonical');
