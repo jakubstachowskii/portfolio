@@ -26,7 +26,12 @@ const d = t(locale).home.gh;
       </h2>
       <ul class="mono facts">
         <li>
-          <a class="mail" href={`https://github.com/${site.github}?tab=repositories`}>
+          <a
+            class="mail"
+            href={`https://github.com/${site.github}?tab=repositories`}
+            target="_blank"
+            rel="noopener"
+          >
             {plural(data.publicRepos, d.repos, locale)}
           </a>
         </li>

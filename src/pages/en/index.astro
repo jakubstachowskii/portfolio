@@ -1,6 +1,7 @@
 ---
 import HomePage from '@/components/home/HomePage.astro';
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import { site } from '@/config/site';
 import { t } from '@/i18n/utils';
 import { personJsonLd } from '@/lib/seo';
 
@@ -12,7 +13,7 @@ const jsonLd = personJsonLd(Astro.site ?? Astro.url, dict.home.about.facts.role[
 <BaseLayout
   locale={locale}
   title={dict.meta.title}
-  description={dict.meta.description}
+  description={`${site.name} — ${dict.meta.description}`}
   onHome
   alternates={{ pl: '/', en: '/en/' }}
   jsonLd={jsonLd}

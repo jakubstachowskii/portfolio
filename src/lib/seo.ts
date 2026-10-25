@@ -45,6 +45,6 @@ export function projectJsonLd(p: Project, locale: Locale, url: string, base: URL
     applicationCategory: 'BusinessApplication',
     keywords: p.tags.join(', '),
     sameAs: p.repo,
-    author: { '@type': 'Person', name: site.firstName, url: absolute('/', base) },
+    author: { '@type': 'Person', name: site.name, url: absolute('/', base) },
   };
 }

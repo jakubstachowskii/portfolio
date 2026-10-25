@@ -10,6 +10,10 @@ interface Props {
 const { locale } = Astro.props;
 const h = t(locale).home.hero;
 const last = h.lines.length - 1;
+// ostatnie słowo statusu łamie się razem z rokiem („PROJEKTY · 2026”), żeby rok nie został sam
+const statusWords = h.status.split(' ');
+const statusTail = statusWords.pop() ?? '';
+const statusHead = statusWords.length ? `${statusWords.join(' ')} ` : '';
 ---
 
 <section id="top" class="hero">
@@ -18,7 +22,8 @@ const last = h.lines.length - 1;
     <div class="copy">
       <div class="in d1 mono status">
         <span class="dotlive" aria-hidden="true"></span>
-        {`${h.status} · ${site.year}`}
+        {statusHead}
+        <span class="nowrap">{`${statusTail} · ${site.year}`}</span>
       </div>
       <h1 class="disp title">
         {h.lines.map((line, i) => (
@@ -126,6 +131,9 @@ const last = h.lines.length - 1;
     margin: 0;
     font-size: clamp(36px, 7.6vw, 108px);
     line-height: 0.96;
+  }
+  .nowrap {
+    white-space: nowrap;
   }
   .acc {
     color: var(--acc-text);
