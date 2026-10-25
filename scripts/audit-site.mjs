@@ -268,19 +268,37 @@ for (const path of all) {
   await c.close();
 }
 
-// telefon: w kalendarzu GitHub widać najnowszy tydzień (gdy sekcja jest)
-{
-  const c = await browser.newContext({ viewport: { width: 360, height: 740 } });
+// każda szerokość (także pośrednie 900–1200 px, gdzie kolumny się ścieśniają): w kalendarzu GitHub
+// widać najnowszy tydzień, a nagłówki dzielone <br> nie łamią się dodatkowo („KOD / NA / GITHUBIE.”)
+for (const width of [...WIDTHS, 920, 940, 960, 1000, 1060, 1100]) {
+  const c = await browser.newContext({ viewport: { width, height: 900 } });
   const p = await c.newPage();
-  await p.goto(BASE + '/', { waitUntil: 'networkidle' });
-  const grid = p.locator('#gh [role="img"]');
-  if (await grid.count()) {
-    const ok = await grid.evaluate((g) => {
-      const box = g.parentElement.getBoundingClientRect();
-      const last = g.lastElementChild.getBoundingClientRect();
-      return last.right <= box.right + 1 && last.left >= box.left;
-    });
-    if (!ok) fail('telefon', 'kalendarz GitHub ucina najnowsze tygodnie');
+  for (const path of ['/', '/en/']) {
+    await p.goto(BASE + path, { waitUntil: 'networkidle' });
+    // pomiar linii dopiero po załadowaniu fontów (zastępczy font ma inne szerokości)
+    await p.evaluate(() => document.fonts.ready);
+    const grid = p.locator('#gh [role="img"]');
+    if (await grid.count()) {
+      const ok = await grid.evaluate((g) => {
+        const box = g.parentElement.getBoundingClientRect();
+        const last = g.lastElementChild.getBoundingClientRect();
+        return last.right <= box.right + 1 && last.left >= box.left;
+      });
+      if (!ok) fail(`${width}px ${path}`, 'kalendarz GitHub ucina najnowsze tygodnie');
+    }
+    // na telefonie duże tytuły sekcji z założenia łamią się mocniej; od tabletu linia z <br> ma się mieścić
+    const broken = await p.evaluate(
+      (w) =>
+        [...(w >= 768 ? document.querySelectorAll('main h2:has(br), main h3:has(br)') : [])]
+          .filter((h) => {
+            const lh = parseFloat(getComputedStyle(h).lineHeight);
+            const lines = Math.round(h.getBoundingClientRect().height / lh);
+            return lines > h.querySelectorAll('br').length + 1;
+          })
+          .map((h) => h.textContent.trim().split(/\s+/).join(' ').slice(0, 30)),
+      width,
+    );
+    for (const h of broken) fail(`${width}px ${path}`, `nagłówek „${h}” łamie się poza <br>`);
   }
   await c.close();
 }

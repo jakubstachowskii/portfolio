@@ -76,9 +76,9 @@ const d = t(locale).home.gh;
     gap: 32px;
     align-items: center;
   }
+  /* kolumna nie zwęża się poniżej tytułu: gdy brak miejsca, kalendarz schodzi pod spód */
   .copy {
     flex: 1 1 280px;
-    min-width: 0;
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -92,6 +92,8 @@ const d = t(locale).home.gh;
     margin: 0;
     font-size: 34px;
     line-height: 1.02;
+    /* dwie linie z <br>, żadna nie łamie się w środku („NA / GITHUBIE.”) */
+    white-space: nowrap;
   }
   .facts {
     list-style: none;
