@@ -150,6 +150,28 @@ for (const theme of ['dark', 'light']) {
   }
 }
 
+// link „przejdź do treści”: bez fokusu niewidoczny i nie poza stroną (odbicie przewijania
+// na telefonie odsłania obszar nad stroną), po Tab widoczny
+{
+  await page.goto(BASE + '/', { waitUntil: 'networkidle' });
+  const skip = () =>
+    page.evaluate(() => {
+      const el = document.querySelector('.skip');
+      if (!el) return null;
+      const r = el.getBoundingClientRect();
+      return { top: r.top, clipped: getComputedStyle(el).clipPath !== 'none' };
+    });
+  const before = await skip();
+  if (!before) fail('skip link', 'brak');
+  else {
+    if (before.top < 0)
+      fail('skip link', 'ukryty przesunięciem nad stronę (widać go przy odbiciu)');
+    if (!before.clipped) fail('skip link', 'widoczny bez fokusu');
+    await page.keyboard.press('Tab');
+    if ((await skip())?.clipped) fail('skip link', 'niewidoczny po Tab');
+  }
+}
+
 // Tab: każdy kolejny fokus widoczny i z :focus-visible (pierwsze 40 elementów głównej)
 {
   await page.goto(BASE + '/', { waitUntil: 'networkidle' });
