@@ -103,20 +103,8 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
   env: {
-    // Sekrety opcjonalne do Fazy 5 (kontakt) — DECISIONS #12
+    // Jedyny sekret: token GitHub przy buildzie (sekcja aktywności, limit API) — DECISIONS #35, #38
     schema: {
-      RESEND_API_KEY: envField.string({ context: 'server', access: 'secret', optional: true }),
-      TURNSTILE_SECRET_KEY: envField.string({
-        context: 'server',
-        access: 'secret',
-        optional: true,
-      }),
-      PUBLIC_TURNSTILE_SITE_KEY: envField.string({
-        context: 'client',
-        access: 'public',
-        optional: true,
-      }),
-      CONTACT_TO_EMAIL: envField.string({ context: 'server', access: 'secret', optional: true }),
       GITHUB_TOKEN: envField.string({ context: 'server', access: 'secret', optional: true }),
     },
   },
