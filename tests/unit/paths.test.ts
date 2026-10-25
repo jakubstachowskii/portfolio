@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { getLocaleFromPath, getLocalizedPath, isLocale } from '@/lib/paths';
+import { getLocaleFromPath, getLocalizedPath, isLocale, projectPath } from '@/lib/paths';
 
 describe('isLocale', () => {
   it('rozpoznaje obsługiwane języki', () => {
@@ -34,5 +34,12 @@ describe('getLocalizedPath', () => {
     expect(getLocalizedPath('/', 'en')).toBe('/en/');
     expect(getLocalizedPath('kontakt', 'en')).toBe('/en/kontakt');
     expect(getLocalizedPath('/en/kontakt', 'en')).toBe('/en/kontakt');
+  });
+});
+
+describe('projectPath', () => {
+  it('PL bez prefiksu, EN pod /en/projects/', () => {
+    expect(projectPath('awizacja-app', 'pl')).toBe('/projekty/awizacja-app/');
+    expect(projectPath('awizacja-app', 'en')).toBe('/en/projects/awizacja-app/');
   });
 });

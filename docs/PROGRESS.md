@@ -9,8 +9,8 @@ Fazy 0–1b (fundament, research stylu, design system) zmergowane w PR #1–#3. 
 | 1    | Szkielet (tokeny, fonty, nav, stopka) | `feat/etap-1-szkielet`      | ✅     |
 | 2    | Statyczna strona główna               | `feat/etap-2-strona-glowna` | ✅     |
 | 3    | Projekty z GitHub API                 | `feat/etap-3-projekty`      | ✅     |
-| 4    | Interakcje                            | `feat/etap-4-interakcje`    | ⏸      |
-| 5    | Podstrony projektów i 404             | `feat/etap-5-podstrony`     | ⬜     |
+| 4    | Interakcje                            | `feat/etap-4-interakcje`    | ✅     |
+| 5    | Podstrony projektów i 404             | `feat/etap-5-podstrony`     | ⏸      |
 | 6    | Kontrybucje GitHub + codzienny build  | `feat/etap-6-kontrybucje`   | ⬜     |
 | 7    | SEO, dostępność, wydajność            | `feat/etap-7-seo-a11y`      | ⬜     |
 | 8    | Deploy na Vercel + README             | `feat/etap-8-deploy`        | ⬜     |
@@ -187,3 +187,20 @@ Fazy 0–1b (fundament, research stylu, design system) zmergowane w PR #1–#3. 
 **Czeka na Jakuba**
 
 - OK dla Etapu 4.
+
+## 2026-10-25 — Etap 5: podstrony projektów i 404
+
+**Zrobione** (gałąź `feat/etap-5-podstrony`, od `feat/etap-4-interakcje`)
+
+- Podstrony `/projekty/<slug>/` i `/en/projects/<slug>/` (6 stron): nagłówek, scena (szkic albo screenshot), treść markdown, galeria, poprzedni/następny projekt.
+- Indeks: wiersze jako linki (działają bez JS), „Szczegóły →” w podglądzie; strona 404.
+- Wspólne komponenty `src/components/project/` (`ProjectStage`, `ProjectFacts`) dla indeksu i podstrony.
+- Testy: 118 unit, e2e podstron, linków bez JS i 404 (z axe w obu motywach); Lighthouse także na podstronie.
+
+**Dalej**
+
+- Etap 6: kontrybucje GitHub i codzienny rebuild.
+
+**Czeka na Jakuba**
+
+- OK dla Etapu 5. Treść podstron (`TODO(content)` w `src/content/projects/*.md`).

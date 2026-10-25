@@ -1,0 +1,92 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { t } from '@/i18n/utils';
+
+// Jedna strona 404 dla całej witryny (hosting serwuje 404.html), w języku domyślnym.
+const locale = 'pl';
+const d = t(locale).notFound;
+---
+
+<BaseLayout locale={locale} title={d.title} description={d.description} noindex>
+  <section class="nf">
+    <div class="grid" aria-hidden="true"></div>
+    <div class="wrap body">
+      <p class="disp code" aria-hidden="true">
+        {d.code}
+      </p>
+      <h1 class="disp msg">{d.text}</h1>
+      <a class="btn btn-acc mono cta" href="/">
+        {d.cta}
+        <svg
+          aria-hidden="true"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="square"
+        >
+          <path d="M19 12H5"></path>
+          <path d="m11 6-6 6 6 6"></path>
+        </svg>
+      </a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .nf {
+    position: relative;
+    overflow: hidden;
+    min-height: calc(100dvh - var(--nav-h) - 72px);
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--line);
+  }
+  .grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 80px 80px;
+    opacity: 0.35;
+    -webkit-mask-image: linear-gradient(180deg, black, transparent 85%);
+    mask-image: linear-gradient(180deg, black, transparent 85%);
+  }
+  .body {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    padding-top: 80px;
+    padding-bottom: 96px;
+  }
+  .code {
+    margin: 0;
+    font-size: clamp(120px, 28vw, 360px);
+    line-height: 0.85;
+    color: var(--acc-text);
+    animation: up var(--t-up) var(--ease-up) both;
+  }
+  .msg {
+    margin: 0;
+    font-size: clamp(24px, 4vw, 48px);
+    line-height: 1;
+  }
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 52px;
+    padding: 0 22px;
+    background: var(--acc);
+    color: var(--acc-ink);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+</style>

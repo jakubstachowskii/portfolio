@@ -3,7 +3,11 @@
     "collect": {
       "startServerCommand": "pnpm preview",
       "startServerReadyPattern": "localhost:4321",
-      "url": ["http://localhost:4321/", "http://localhost:4321/en/"],
+      "url": [
+        "http://localhost:4321/",
+        "http://localhost:4321/en/",
+        "http://localhost:4321/projekty/awizacja-app/"
+      ],
       "numberOfRuns": 3,
       "settings": {
         "chromeFlags": "--blink-settings=preferredColorScheme=1"

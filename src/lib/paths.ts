@@ -20,3 +20,11 @@ export function getLocalizedPath(path: string, locale: Locale): string {
   if (locale === defaultLocale) return withoutLocale;
   return withoutLocale === '/' ? `/${locale}/` : `/${locale}${withoutLocale}`;
 }
+
+/** Segment podstron projektów w danym języku (PL bez prefiksu, EN pod /en/). */
+const PROJECTS_SEGMENT: Record<Locale, string> = { pl: 'projekty', en: 'projects' };
+
+/** Adres podstrony projektu: `/projekty/awizacja-app/`, `/en/projects/awizacja-app/`. */
+export function projectPath(slug: string, locale: Locale): string {
+  return getLocalizedPath(`/${PROJECTS_SEGMENT[locale]}/${slug}/`, locale);
+}

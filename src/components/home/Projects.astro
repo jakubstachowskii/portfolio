@@ -33,7 +33,7 @@ const selected = projects[0]?.id ?? '';
       </p>
     </div>
     <div class="split body">
-      <ProjectIndex projects={projects} selected={selected} />
+      <ProjectIndex projects={projects} selected={selected} locale={locale} />
       <div class="preview" data-previews>
         {projects.map((p) => (
           <ProjectPreview project={p} locale={locale} hidden={p.id !== selected} />
