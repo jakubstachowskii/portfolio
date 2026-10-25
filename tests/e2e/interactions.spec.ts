@@ -54,8 +54,8 @@ test.describe('indeks projektów', () => {
     await page.goto('/');
     const rows = page.locator('[data-project]');
     await rows.nth(1).hover();
-    await expect(rows.nth(1)).toHaveAttribute('aria-pressed', 'true');
-    await expect(rows.nth(0)).toHaveAttribute('aria-pressed', 'false');
+    await expect(rows.nth(1)).toHaveAttribute('aria-current', 'true');
+    await expect(rows.nth(0)).not.toHaveAttribute('aria-current');
     const id = await rows.nth(1).getAttribute('data-project');
     await expect(page.locator('[data-preview]:visible')).toHaveAttribute('data-preview', id!);
   });

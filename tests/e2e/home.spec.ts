@@ -11,7 +11,7 @@ test.describe('strona główna', () => {
 
   test('pierwszy projekt wybrany, reszta podglądów ukryta', async ({ page }) => {
     await page.goto('/');
-    await expect(page.locator('[data-project]').first()).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.locator('[data-project]').first()).toHaveAttribute('aria-current', 'true');
     await expect(page.locator('[data-preview]:visible')).toHaveCount(1);
   });
 
