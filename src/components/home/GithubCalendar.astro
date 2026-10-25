@@ -54,6 +54,12 @@ const cells = data.weeks.flatMap((week, c) =>
     grid-auto-columns: 12px;
     gap: 4px;
   }
+  /* wąski ekran: siatka wyrównana do prawej, ucina się najstarsze tygodnie, nie najnowsze */
+  @media (max-width: 900px) {
+    .grid {
+      justify-content: end;
+    }
+  }
   .l0 {
     background: var(--cell);
   }

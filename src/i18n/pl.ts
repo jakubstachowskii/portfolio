@@ -2,13 +2,15 @@ export const pl = {
   meta: {
     title: 'Programista: aplikacje webowe, mobilne i desktopowe',
     // TODO(content): opis strony do meta description
-    description: 'Jakub — programista. Aplikacje webowe, mobilne i desktopowe.',
+    description:
+      'Programista. Aplikacje desktopowe, mobilne i webowe, które biorą na siebie ręczną pracę — od awizacji po rozkrój mebli.',
   },
   nav: {
     skip: 'Przejdź do treści',
     label: 'Główna',
     brandSub: 'dev',
     contact: 'KONTAKT',
+    lang: { short: 'EN', label: 'English version', code: 'en' },
     links: {
       projekty: 'Projekty',
       'o-mnie': 'O mnie',

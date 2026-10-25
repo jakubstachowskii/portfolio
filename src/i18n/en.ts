@@ -4,13 +4,15 @@ export const en = {
   meta: {
     title: 'Developer: web, mobile and desktop apps',
     // TODO(content): opis strony do meta description
-    description: 'Jakub — developer. Web, mobile and desktop apps.',
+    description:
+      'Developer. Desktop, mobile and web apps that take over manual work — from delivery bookings to furniture cutting plans.',
   },
   nav: {
     skip: 'Skip to content',
     label: 'Main',
     brandSub: 'dev',
     contact: 'CONTACT',
+    lang: { short: 'PL', label: 'Wersja polska', code: 'pl' },
     links: {
       projekty: 'Projects',
       'o-mnie': 'About',
@@ -92,7 +94,7 @@ export const en = {
     about: {
       kicker: '02 — ABOUT',
       title: ['I start with', 'what hurts.'],
-      lead: 'Delivery bookings and grain purchases kept on paper, furniture cuts worked out on a scrap of paper. I take a problem like that and build a tool that does it for people.',
+      lead: 'Delivery bookings and grain purchases kept on paper, furniture cuts worked out by hand. I take a problem like that and build a tool that does it for people.',
       body: 'I study computer science with a cybersecurity specialisation, so I think about security from the first line of code, not after launch.',
       facts: {
         role: ['ROLE', 'Developer'],
