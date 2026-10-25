@@ -248,3 +248,11 @@ Pozostałe wymagania strukturalne PLAN §6 (role tokenów, 5 stanów, focus ring
 - **Decyzja:** `scripts/ci-local.mjs` powtarza kroki `.github/workflows/ci.yml` w tej samej kolejności, z `CI=true`, na czystej kopii ostatniego commitu (`git worktree`): install `--frozen-lockfile` → lint → check → test → build → e2e → lhci. Zatrzymuje się na pierwszym błędzie. Push dopiero po zielonym `ci:local`. `pnpm lint` zaczyna od `astro sync`.
 - **Sprawdzone:** na commicie sprzed poprawki lintu skrypt pada tak samo jak GitHub (18 błędów).
 - **Czego nie odtwarza:** systemu (Linux vs Windows: renderowanie fontów, snapshoty wizualne tylko w CI, #19) i tokenu `GITHUB_TOKEN` z Actions (lokalnie API bez tokenu).
+
+## #34 · 2026-10-25 · Podstrony projektów, wiersze jako linki, 404 · przyjęta
+
+- **Adresy:** `/projekty/<slug>/` i `/en/projects/<slug>/`; slug z nazwy repo (`AwizacjaApp` → `awizacja-app`, `toSlug` w `src/lib/projects.ts`, polskie litery → ASCII). `projectPath()` w `src/lib/paths.ts`.
+- **Treść:** nagłówek (powrót, numer i platformy, tytuł, opis, tagi, przyciski), scena podglądu (ta sama co w indeksie: `ProjectStage`), treść markdown z nadpisania, galeria (`gallery`), poprzedni/następny projekt (w kółko). Markdown jest po polsku, więc wersja EN pokazuje sam opis z `summaryEn` (treść EN można dodać później, np. osobnym plikiem). Bez treści i galerii sekcja się nie renderuje.
+- **Indeks:** wiersz to `<a>` do podstrony (działa bez JS, wymóg promptu). Wybrany wiersz ma `aria-current="true"` zamiast `aria-pressed` (to atrybut przycisków, nie linków). Z JS: najechanie/fokus wybiera, klik w wybrany wiersz na desktopie otwiera podstronę, na telefonie stuknięcie wybiera i przewija do podglądu z „Szczegóły →”; Ctrl/środkowy przycisk otwiera nową kartę.
+- **404:** jedna strona `404.html` w języku domyślnym (`noindex`); hosting serwuje ją dla każdego nieznanego adresu.
+- Lighthouse CI sprawdza też podstronę `/projekty/awizacja-app/`.
