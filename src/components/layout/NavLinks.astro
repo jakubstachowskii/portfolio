@@ -49,6 +49,9 @@ const links = (['projekty', 'o-mnie', 'stack'] as const).map((id, i) => ({
     min-height: var(--target);
     color: var(--text2);
     transition: color var(--t-fast);
+    /* link nigdy nie łamie się w środku; na wąskim ekranie rząd przewija się w bok */
+    white-space: nowrap;
+    flex-shrink: 0;
   }
   /* przełącznik języka: oddzielony kreską od linków sekcji */
   .lang {
