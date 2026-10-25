@@ -256,3 +256,11 @@ Pozostałe wymagania strukturalne PLAN §6 (role tokenów, 5 stanów, focus ring
 - **Indeks:** wiersz to `<a>` do podstrony (działa bez JS, wymóg promptu). Wybrany wiersz ma `aria-current="true"` zamiast `aria-pressed` (to atrybut przycisków, nie linków). Z JS: najechanie/fokus wybiera, klik w wybrany wiersz na desktopie otwiera podstronę, na telefonie stuknięcie wybiera i przewija do podglądu z „Szczegóły →”; Ctrl/środkowy przycisk otwiera nową kartę.
 - **404:** jedna strona `404.html` w języku domyślnym (`noindex`); hosting serwuje ją dla każdego nieznanego adresu.
 - Lighthouse CI sprawdza też podstronę `/projekty/awizacja-app/`.
+
+## #35 · 2026-10-25 · Kontrybucje z GraphQL, codzienny rebuild · przyjęta
+
+- **Dane:** `src/lib/contributions.ts` pobiera przy buildzie (GraphQL `contributionsCollection`) kalendarz, liczbę publicznych repo i datę ostatniego commita (ostatnio pushowane publiczne repo). Siatka = ostatnie 44 tygodnie (rozmiar ze wzorca), kolor z `contributionLevel` (tokeny `--cell-1…4`), fala tylko jako jednorazowe wejście (klasa `.seen`). Siatka ma `role="img"` z opisem dla czytnika.
+- **Bez tokenu** (`GITHUB_TOKEN`, GraphQL go wymaga) sekcja się nie renderuje, bez szkieletu. Z tokenem, gdy API nie odpowiada: kopia `src/data/github-contrib.json`; bez kopii sekcja też znika. Build nigdy nie pada przez API.
+- **CI:** token Actions jest w `env` całego joba, więc e2e i Lighthouse budują stronę tak jak produkcja. Testy e2e sprawdzają oba warianty (sekcja z danymi albo brak sekcji). `ci:local` bez tokenu sprawdza wariant „brak”; wariant z danymi sprawdzony lokalnie na tymczasowej próbce (nie commitowana).
+- **Produkcja:** zmienna `GITHUB_TOKEN` w Vercelu (token tylko do odczytu publicznych danych) i codzienny rebuild: `.github/workflows/rebuild.yml` (04:00 UTC + ręcznie) wywołuje Deploy Hook z sekretu `VERCEL_DEPLOY_HOOK`. Bez sekretu job tylko informuje.
+- Wspólny zapis kopii w `src/lib/json-cache.ts`; formatowanie (liczba mnoga, daty) w `src/lib/format.ts`.

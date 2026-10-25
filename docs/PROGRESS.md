@@ -10,8 +10,8 @@ Fazy 0–1b (fundament, research stylu, design system) zmergowane w PR #1–#3. 
 | 2    | Statyczna strona główna               | `feat/etap-2-strona-glowna` | ✅     |
 | 3    | Projekty z GitHub API                 | `feat/etap-3-projekty`      | ✅     |
 | 4    | Interakcje                            | `feat/etap-4-interakcje`    | ✅     |
-| 5    | Podstrony projektów i 404             | `feat/etap-5-podstrony`     | ⏸      |
-| 6    | Kontrybucje GitHub + codzienny build  | `feat/etap-6-kontrybucje`   | ⬜     |
+| 5    | Podstrony projektów i 404             | `feat/etap-5-podstrony`     | ✅     |
+| 6    | Kontrybucje GitHub + codzienny build  | `feat/etap-6-kontrybucje`   | ⏸      |
 | 7    | SEO, dostępność, wydajność            | `feat/etap-7-seo-a11y`      | ⬜     |
 | 8    | Deploy na Vercel + README             | `feat/etap-8-deploy`        | ⬜     |
 
@@ -204,3 +204,19 @@ Fazy 0–1b (fundament, research stylu, design system) zmergowane w PR #1–#3. 
 **Czeka na Jakuba**
 
 - OK dla Etapu 5. Treść podstron (`TODO(content)` w `src/content/projects/*.md`).
+
+## 2026-10-25 — Etap 6: kontrybucje GitHub i codzienny rebuild
+
+**Zrobione** (gałąź `feat/etap-6-kontrybucje`, od `feat/etap-5-podstrony`)
+
+- Sekcja GitHub na prawdziwych danych z GraphQL: kalendarz 44 tygodni z poziomami, legenda, liczba publicznych repo, data ostatniego commita; bez tokenu sekcji nie ma (#35).
+- `.github/workflows/rebuild.yml`: codzienny Deploy Hook Vercela.
+- Testy: 130 unit, e2e w obu wariantach (bez tokenu i z danymi), axe.
+
+**Dalej**
+
+- Etap 7: SEO, dostępność, wydajność.
+
+**Czeka na Jakuba**
+
+- OK dla Etapu 6. Vercel: zmienna `GITHUB_TOKEN` i Deploy Hook → sekret repo `VERCEL_DEPLOY_HOOK`.
