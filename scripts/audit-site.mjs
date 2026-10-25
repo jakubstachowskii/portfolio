@@ -190,6 +190,13 @@ for (const path of ['/', '/en/']) {
       .map((el) => el.textContent.trim().split(/\s+/).join(' ').slice(0, 20)),
   );
   for (const w of wrapped) fail(`telefon ${path}`, `„${w}” łamie się na dwie linie`);
+  // cały rząd menu (z przełącznikiem języka) widoczny bez przewijania
+  const hidden = await p.evaluate(() => {
+    const n = document.querySelector('.navlinks');
+    return n ? n.scrollWidth - n.clientWidth : 0;
+  });
+  if (hidden > 0)
+    fail(`telefon ${path}`, `menu ucina ${hidden}px (przełącznik języka niewidoczny)`);
   await c.close();
 }
 
