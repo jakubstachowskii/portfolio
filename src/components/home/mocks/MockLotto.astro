@@ -1,0 +1,136 @@
+---
+import type { Dictionary } from '@/i18n/utils';
+
+interface Props {
+  m: Dictionary['home']['mocks'];
+}
+
+const { m } = Astro.props;
+// Szkic: wykres częstości i wylosowane liczby (dekoracja, 1:1 ze wzorca)
+const bars = [
+  [55, 'line2', ''],
+  [90, 'hue2', 'o2'],
+  [40, 'line2', 'o3'],
+  [75, 'hue2', 'o4'],
+  [30, 'hue1', ''],
+  [62, 'line2', 'o2'],
+  [85, 'hue2', 'o3'],
+  [22, 'hue1', 'o4'],
+] as const;
+const balls = [
+  [7, ''],
+  [14, 'p2'],
+  [21, 'p3'],
+  [33, 'p4'],
+  [38, 'p5'],
+] as const;
+---
+
+<div class="card mono">
+  <div class="top">
+    <span>{m.freq}</span>
+    <span>{m.year}</span>
+  </div>
+  <div class="chart">
+    {bars.map(([h, c, o]) => (
+      <span class:list={['bob', o]} style={`height: ${h}%; background: var(--${c})`} />
+    ))}
+  </div>
+  <div class="balls">
+    {balls.map(([n, p]) => (
+      <span class:list={['ball', 'piece', p]}>{n}</span>
+    ))}
+    <span class="ball piece p5 hit">42</span>
+  </div>
+</div>
+
+<style>
+  .card {
+    position: relative;
+    width: 78%;
+    background: var(--surface);
+    border: 1px solid var(--line2);
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    font-size: 11px;
+  }
+  .top {
+    display: flex;
+    justify-content: space-between;
+    color: var(--text2);
+  }
+  .chart {
+    height: 70px;
+    display: flex;
+    align-items: flex-end;
+    gap: 4px;
+  }
+  .bob {
+    flex: 1;
+    animation: bob var(--t-bob) ease-in-out infinite;
+  }
+  .o2 {
+    animation-delay: 0.12s;
+  }
+  .o3 {
+    animation-delay: 0.24s;
+  }
+  .o4 {
+    animation-delay: 0.36s;
+  }
+  .balls {
+    display: flex;
+    gap: 6px;
+  }
+  .ball {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: 1px solid var(--line2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hit {
+    border: 0;
+    background: var(--acc);
+    color: var(--acc-ink);
+  }
+  .piece {
+    animation: piece var(--t-piece) var(--ease-line) infinite both;
+  }
+  .p2 {
+    animation-delay: 0.15s;
+  }
+  .p3 {
+    animation-delay: 0.3s;
+  }
+  .p4 {
+    animation-delay: 0.45s;
+  }
+  .p5 {
+    animation-delay: 0.6s;
+  }
+  @keyframes bob {
+    40% {
+      translate: 0 -8px;
+    }
+  }
+  @keyframes piece {
+    0% {
+      opacity: 0;
+      scale: 0.6;
+    }
+    12%,
+    82% {
+      opacity: 1;
+      scale: 1;
+    }
+    94%,
+    100% {
+      opacity: 0;
+    }
+  }
+</style>

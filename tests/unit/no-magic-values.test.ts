@@ -30,8 +30,9 @@ const RULES: [string, RegExp][] = [
   ['surowy czas animacji', /\b\d+m?s\b(?!\w)/],
 ];
 
-// Dozwolone wyjątki: meta theme-color musi być literałem (przeglądarka nie czyta zmiennych CSS).
-const ALLOW = [/name="theme-color"/];
+// Dozwolone wyjątki: meta theme-color musi być literałem (przeglądarka nie czyta zmiennych CSS);
+// opóźnienia to choreografia wzorca (kolejność wejść), nie czas trwania (DECISIONS #27).
+const ALLOW = [/name="theme-color"/, /^\s*(animation|transition)-delay:/];
 
 describe('zero magicznych wartości w komponentach i layoutach', () => {
   const all = DIRS.flatMap((d) => files(join(ROOT, d)));

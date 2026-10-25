@@ -6,8 +6,8 @@ Fazy 0–1b (fundament, research stylu, design system) zmergowane w PR #1–#3. 
 
 | Etap | Nazwa                                 | Gałąź                       | Status |
 | ---- | ------------------------------------- | --------------------------- | ------ |
-| 1    | Szkielet (tokeny, fonty, nav, stopka) | `feat/etap-1-szkielet`      | ⏸      |
-| 2    | Statyczna strona główna               | `feat/etap-2-strona-glowna` | ⬜     |
+| 1    | Szkielet (tokeny, fonty, nav, stopka) | `feat/etap-1-szkielet`      | ✅     |
+| 2    | Statyczna strona główna               | `feat/etap-2-strona-glowna` | ⏸      |
 | 3    | Projekty z GitHub API                 | `feat/etap-3-projekty`      | ⬜     |
 | 4    | Interakcje                            | `feat/etap-4-interakcje`    | ⬜     |
 | 5    | Podstrony projektów i 404             | `feat/etap-5-podstrony`     | ⬜     |
@@ -136,3 +136,20 @@ Fazy 0–1b (fundament, research stylu, design system) zmergowane w PR #1–#3. 
 **Czeka na Jakuba**
 
 - OK dla Etapu 1.
+
+## 2026-10-23 — Etap 2: statyczna strona główna
+
+**Zrobione** (gałąź `feat/etap-2-strona-glowna`, od `feat/etap-1-szkielet`)
+
+- Wszystkie sekcje wzorca 1:1: hero z talią kart (stan spoczynku), taśma, indeks projektów + podgląd ze szkicami (Awizacja, Formatka, Lotto, Pig, generic), GitHub (szkielet siatki), O mnie, Stack, Kontakt z taśmą.
+- Treści w `src/i18n/` (PL + EN), dane w `src/config/site.ts` i `src/data/projects.ts` (#28). Logika talii w `src/lib/deck.ts` (z testem), wspólna z Etapem 4.
+- Porównanie ze wzorcem (Playwright, 1440 i 390 px): wysokości sekcji identyczne; jedna różnica łamania wiersza w akapicie O mnie (Inter z fontsource vs Google Fonts).
+- Testy: 88 unit, 40 e2e (kolejność sekcji, brak poziomego scrolla 360–1920 w obu motywach, axe w obu motywach).
+
+**Dalej**
+
+- Etap 3: projekty z GitHub API przy buildzie.
+
+**Czeka na Jakuba**
+
+- OK dla Etapu 2.

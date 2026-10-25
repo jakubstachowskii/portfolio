@@ -30,6 +30,19 @@ export const site = {
   locales,
 };
 
+/** Skrzynka z narzędziami (sekcja Stack): kategoria → etykieta z i18n (`home.stack.cats`). */
+export const stack = [
+  { cat: 'web', name: 'HTML · CSS' },
+  { cat: 'web', name: 'JavaScript' },
+  { cat: 'ui', name: 'React' },
+  { cat: 'desktop', name: 'Electron' },
+  { cat: 'data', name: 'SQLite' },
+  { cat: 'tools', name: 'Vite' },
+  { cat: 'tools', name: 'Git' },
+  { cat: 'tools', name: 'Claude Code' },
+] as const;
+export type StackCategory = (typeof stack)[number]['cat'];
+
 /** Sekcje strony głównej w kolejności (nawigacja, kropki, aktywna sekcja). */
 export const sections = ['top', 'projekty', 'o-mnie', 'stack', 'kontakt'] as const;
 export type SectionId = (typeof sections)[number];

@@ -1,0 +1,142 @@
+---
+import ProjectMock from './ProjectMock.astro';
+import type { Locale } from '@/config/site';
+import type { Project } from '@/data/projects';
+import { t } from '@/i18n/utils';
+
+interface Props {
+  project: Project;
+  num: string;
+  locale: Locale;
+  hidden?: boolean;
+}
+
+const { project: p, num, locale, hidden = false } = Astro.props;
+const home = t(locale).home;
+const d = home.projects;
+---
+
+<article class="pv pva card" hidden={hidden} data-preview={p.id}>
+  <div class="stage" aria-hidden="true">
+    <div class="dotgrid"></div>
+    <span class="mono label">{`${d.preview} / ${num}`}</span>
+    <ProjectMock project={p} m={home.mocks} />
+  </div>
+  <div class="info">
+    <div class="titles">
+      <span class="mono plat">{p.platforms}</span>
+      <h3 class="disp name">{p.title}</h3>
+    </div>
+    <p class="desc">{p.desc[locale]}</p>
+    <ul class="mono tags" aria-label={d.tech}>
+      {p.tags.map((tag) => (
+        <li>{tag}</li>
+      ))}
+    </ul>
+    <div class="mono links">
+      {p.demo && (
+        <a class="btn link demo" href={p.demo} target="_blank" rel="noopener">
+          {d.demo}
+        </a>
+      )}
+      <a class="btn link code" href={p.repo} target="_blank" rel="noopener">
+        {d.code}
+      </a>
+    </div>
+  </div>
+</article>
+
+<style>
+  .card {
+    border: 1px solid var(--line);
+    background: var(--surface);
+  }
+  .card[hidden] {
+    display: none;
+  }
+  .stage {
+    position: relative;
+    height: 260px;
+    border-bottom: 1px solid var(--line);
+    background: var(--bg2);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .dotgrid {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(var(--line) 1px, transparent 1px);
+    background-size: 16px 16px;
+    opacity: 0.6;
+  }
+  .label {
+    position: absolute;
+    top: 12px;
+    left: 14px;
+    font-size: 11px;
+    color: var(--text2);
+  }
+  .info {
+    padding: 26px 26px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .titles {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .plat {
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    color: var(--acc-text);
+  }
+  .name {
+    margin: 0;
+    font-size: clamp(20px, 2vw, 24px);
+    line-height: 1.1;
+    overflow-wrap: anywhere;
+  }
+  .desc {
+    margin: 0;
+    color: var(--text2);
+  }
+  .tags {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    font-size: 12px;
+  }
+  .tags li {
+    padding: 4px 10px;
+    border: 1px solid var(--line2);
+    color: var(--text3);
+  }
+  .links {
+    display: flex;
+    gap: 10px;
+    padding-top: 6px;
+    font-size: 13px;
+  }
+  .link {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--target);
+    padding: 0 16px;
+  }
+  .demo {
+    background: var(--text);
+    color: var(--bg);
+    font-weight: 700;
+  }
+  .code {
+    border: 1px solid var(--line2);
+    color: var(--text);
+  }
+</style>

@@ -1,0 +1,98 @@
+---
+import CopyEmail from './CopyEmail.astro';
+import Tape from './Tape.astro';
+import { site, type Locale } from '@/config/site';
+import { t } from '@/i18n/utils';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const d = t(locale).home.contact;
+---
+
+<section id="kontakt" class="sec">
+  <div class="wrap col">
+    <span class="mono kicker">{d.kicker}</span>
+    <h2 class="disp wipe ttl">
+      {d.title[0]}
+      <br />
+      {d.title[1]}
+    </h2>
+    <div class="actions">
+      <CopyEmail locale={locale} />
+      <a
+        class="btn mono out"
+        href={`https://github.com/${site.github}`}
+        target="_blank"
+        rel="noopener"
+      >
+        {d.github}
+      </a>
+      <a class="btn mono out" href={site.linkedin}>
+        {d.linkedin}
+      </a>
+    </div>
+  </div>
+  <div class="belt" aria-hidden="true">
+    <Tape words={[d.tape, d.tape]} reverse class="big" />
+  </div>
+</section>
+
+<style>
+  .sec {
+    position: relative;
+    overflow: hidden;
+    background: var(--acc);
+    color: var(--acc-ink);
+    padding: 120px 0 0;
+  }
+  .col {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+  }
+  .kicker {
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+  }
+  .ttl {
+    margin: 0;
+    font-size: clamp(44px, 11vw, 168px);
+    line-height: 0.94;
+    letter-spacing: -0.02em;
+  }
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: stretch;
+  }
+  .out {
+    display: inline-flex;
+    align-items: center;
+    min-height: 60px;
+    padding: 0 20px;
+    border: 2px solid var(--acc-ink);
+    font-weight: 700;
+    color: var(--acc-ink);
+  }
+  .belt {
+    margin-top: 96px;
+    overflow: hidden;
+    border-top: 2px solid var(--acc-ink);
+    --tape-gap: 32px;
+  }
+  .belt :global(.big) {
+    font-size: clamp(48px, 7vw, 96px);
+    line-height: 1.1;
+    padding: 12px 0;
+  }
+  /* focus na miętowym tle: ciemna ramka zamiast miętowej */
+  .sec :global(a:focus-visible),
+  .sec :global(button:focus-visible) {
+    outline-color: var(--acc-ink);
+  }
+</style>

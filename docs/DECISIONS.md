@@ -202,6 +202,16 @@ Pozostałe wymagania strukturalne PLAN §6 (role tokenów, 5 stanów, focus ring
 
 - `docs/design-reference.html` i `docs/PROMPT-dla-Claude-Code.md` są w `.prettierignore`: to dokumenty źródłowe, nie formatujemy ich.
 
+## #27 · 2026-10-23 · Opóźnienia animacji jako literały · przyjęta
+
+- **Decyzja:** czasy trwania animacji i przejść tylko z tokenów (`--t-*`). Opóźnienia (`animation-delay`, `transition-delay`) zostają literałami ze wzorca: to kolejność wejść (choreografia), nie skala czasu. Test `no-magic-values` dopuszcza linie `*-delay:`.
+
+## #28 · 2026-10-23 · Etap 2: projekty statycznie w `src/data/projects.ts` · przyjęta
+
+- **Decyzja:** do czasu Etapu 3 lista projektów (4 repozytoria z `jakubstachowskii`, opisy z wzorca) siedzi w `src/data/projects.ts`. Etap 3 zastępuje ją danymi z GitHub API i nadpisaniami w `src/content/projects/`.
+- Wszystkie podglądy są renderowane, widoczny tylko wybrany (`hidden`), więc Etap 4 tylko przełącza atrybut.
+- Axe w e2e działa z `reducedMotion: 'reduce'`: inaczej mierzy kontrast klatki wejścia (`opacity: 0`).
+
 ## #29 · 2026-10-23 · Własne podzbiory fontów (LCP) · przyjęta
 
 - **Problem:** Lighthouse w CI padał na `main` po Etapie 1: LCP 2.1–3.0 s (budżet 1.8 s), wydajność 0.93 (próg 0.95). Pliki z Fontsource były duże (Inter latin-ext 133 KB, Archivo latin 90 KB). Na stronie PL wszystkie ładowały się przed pierwszym malowaniem, a `h1` czekał na Archivo.
@@ -210,3 +220,8 @@ Pozostałe wymagania strukturalne PLAN §6 (role tokenów, 5 stanów, focus ring
 - **Zależności (dev, 0 KB w przeglądarce):** `subset-font` (harfbuzz wasm), `@fontsource-variable/archivo`, `@fontsource-variable/inter`, `@fontsource-variable/jetbrains-mono` (źródła fontów).
 - **Alternatywy:** `font-display: optional` (font mógłby się w ogóle nie pokazać na pierwszej wizycie), rezygnacja z preloadu (dłuższy LCP), Google Fonts z parametrem `text=` (zewnętrzny host, gorsza prywatność).
 - **Koszt utrzymania:** znak spoza zakresów renderuje się fontem zapasowym. Dodanie znaku wymaga zmiany `font-ranges.mjs` i `pnpm fonts:subset`. Zastępuje #21.
+
+## #31 · 2026-10-25 · Pieczątka w jasnym motywie bez przezroczystości · przyjęta
+
+- **Problem:** Lighthouse w CI (headless Chrome na Linuksie = motyw jasny) dawał dostępność 0.97: pieczątka „Wysłano” w szkicu Awizacji ma w animacji `opacity: 0.9`, co przy `--hue4` w jasnym motywie daje 4.04:1. Lokalnie Lighthouse szedł w ciemnym motywie, a e2e axe z wyłączonym ruchem (pieczątka bez animacji = pełne krycie), więc nikt tego nie złapał.
+- **Decyzja:** token `--stamp-opacity`: 0.9 w ciemnym (jak we wzorcu), 1 w jasnym (4.86:1). Para `hue4 / surface` w teście kontrastu. `lighthouserc.json` wymusza motyw jasny (`preferredColorScheme=1`), więc lokalny wynik = wynik w CI; ciemny motyw pilnuje e2e axe.

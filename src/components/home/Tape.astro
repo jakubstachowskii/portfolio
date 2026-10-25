@@ -1,0 +1,29 @@
+---
+interface Props {
+  words: string[];
+  /** ruch w przeciwną stronę */
+  reverse?: boolean;
+  /** klasa rozmiaru z komponentu nadrzędnego */
+  class?: string;
+}
+
+const { words, reverse = false, class: cls } = Astro.props;
+// Dwie identyczne połowy: przesunięcie o -50% daje płynną pętlę.
+const items = [...words, ...words];
+---
+
+<div class:list={['tape', 'disp', reverse && 'rev', cls]} aria-hidden="true">
+  {items.map((w) => (
+    <>
+      <span class="w">{w}</span>
+      <span>✱</span>
+    </>
+  ))}
+</div>
+
+<style>
+  .w {
+    padding: 0 var(--tape-gap, 28px);
+    white-space: nowrap;
+  }
+</style>

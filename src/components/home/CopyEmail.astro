@@ -1,0 +1,101 @@
+---
+import { site, type Locale } from '@/config/site';
+import { t } from '@/i18n/utils';
+
+interface Props {
+  locale: Locale;
+}
+
+const d = t(Astro.props.locale).home.contact;
+// Kopiowanie do schowka = Etap 4 (data-copy-email). Bez JS działa link mailto.
+---
+
+<div class="mono mailbox">
+  <a class="mail addr" href={`mailto:${site.email}`}>
+    {site.email}
+  </a>
+  <button
+    type="button"
+    class="copy"
+    aria-live="polite"
+    data-copy-email={site.email}
+    data-label-done={d.copied}
+  >
+    <svg
+      aria-hidden="true"
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2.2"
+      stroke-linecap="square"
+    >
+      <rect x="9" y="9" width="12" height="12"></rect>
+      <path d="M5 15V3h12"></path>
+    </svg>
+    <span data-copy-label>{d.copy}</span>
+  </button>
+</div>
+
+<style>
+  .mailbox {
+    display: flex;
+    align-items: stretch;
+    border: 2px solid var(--acc-ink);
+    font-size: 16px;
+  }
+  .addr {
+    display: inline-flex;
+    align-items: center;
+    padding: 0 20px;
+    min-height: 56px;
+    font-weight: 700;
+    color: var(--acc-ink);
+  }
+  /* stała szerokość (etykieta nie skacze), odwrócenie kolorów po najechaniu */
+  .copy {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-width: 168px;
+    min-height: 56px;
+    padding: 0 18px;
+    border: 0;
+    border-left: 2px solid var(--acc-ink);
+    background: var(--acc-ink);
+    color: var(--acc);
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    transition:
+      background-color var(--t-base) ease,
+      color var(--t-base) ease;
+  }
+  .copy:hover,
+  .copy.done {
+    background: transparent;
+    color: var(--acc-ink);
+  }
+  .copy:active {
+    background: var(--press);
+  }
+  @media (max-width: 520px) {
+    .mailbox {
+      flex: 1 1 100%;
+      min-width: 0;
+      flex-wrap: wrap;
+    }
+    .addr {
+      flex: 1 1 100%;
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
+    .copy {
+      flex: 1 1 100%;
+      border-left: 0;
+      border-top: 2px solid var(--acc-ink);
+    }
+  }
+</style>

@@ -29,6 +29,102 @@ export const pl = {
     made: 'ZAPROJEKTOWANE I ZBUDOWANE RĘCZNIE',
     top: 'NA GÓRĘ ↑',
   },
+  home: {
+    hero: {
+      status: 'STATUS: OTWARTY NA PROJEKTY',
+      lines: ['Piszę kod,', 'który robi', 'robotę.'],
+      lead: 'Jestem programistą. Buduję aplikacje desktopowe, mobilne i webowe, które biorą na siebie to, co ludzie wciąż robią ręcznie — od awizacji po rozkrój mebli.',
+      ctaProjects: 'ZOBACZ PROJEKTY',
+      ctaGithub: 'GITHUB',
+      ctaCv: 'CV.PDF ↓',
+    },
+    deck: {
+      label:
+        'Stos kart: aplikacje webowe, mobilne i desktopowe. Enter, aby przeglądać; strzałki zmieniają kartę; Esc kończy.',
+      hintIdle: 'kliknij, aby przeglądać',
+      hintActive: 'przeciągnij kartę lub użyj ← →',
+      prev: 'Poprzednia karta',
+      next: 'Następna karta',
+      show: 'Pokaż kartę',
+      cards: {
+        web: { label: 'WEB', title: 'Aplikacje webowe', sub: 'w każdej przeglądarce' },
+        mobile: { label: 'MOBILE', title: 'Aplikacje mobilne', sub: 'w kieszeni, w terenie' },
+        desktop: { label: 'DESKTOP', title: 'Aplikacje desktopowe', sub: 'narzędzia na co dzień' },
+      },
+    },
+    tape: ['Desktop', 'Mobile', 'Web', 'Od pomysłu do wdrożenia', 'Cyberbezpieczeństwo'],
+    projects: {
+      kicker: '01 — INDEKS PROJEKTÓW',
+      title: ['Rzeczy, które', 'działają.'],
+      lead: 'Projekty prosto z mojego GitHuba. Najedź albo kliknij, żeby zobaczyć podgląd.',
+      all: 'Wszystkie repozytoria ↗',
+      preview: 'PODGLĄD',
+      tech: 'Technologie',
+      demo: 'ZOBACZ ↗',
+      code: 'KOD NA GITHUBIE ‹/›',
+    },
+    mocks: {
+      booking: 'AWIZACJA',
+      delivery: 'DOSTAWA',
+      send: 'WYŚLIJ',
+      sent: 'Wysłano',
+      freq: 'CZĘSTOŚĆ LICZB',
+      year: 'ROK',
+      player: 'GRACZ',
+    },
+    gh: {
+      label: 'Aktywność na GitHubie',
+      kicker: 'LIVE — GITHUB',
+      title: ['Kod', 'na GitHubie.'],
+      // TODO(content): Etap 6 podmienia na prawdziwą aktywność z GitHub API
+      lead: '[Tu pojawi się Twoja prawdziwa aktywność z GitHub API — wykres, liczba repozytoriów i ostatnie commity.]',
+    },
+    about: {
+      kicker: '02 — O MNIE',
+      title: ['Zaczynam od', 'tego, co boli.'],
+      lead: 'Awizacje i skup zbóż prowadzone na papierze, rozkrój mebli liczony na kartce. Biorę taki problem i buduję narzędzie, które robi to za ludzi.',
+      body: 'Studiuję informatykę ze specjalizacją cyberbezpieczeństwo, więc o bezpieczeństwie myślę od pierwszej linijki, nie po wdrożeniu.',
+      // TODO(content): zdjęcie
+      photo: '[ZDJĘCIE]',
+      photoNote: ['// tu Twoje zdjęcie', '// kwadrat, min. 400×400'],
+      facts: {
+        role: ['ROLA', 'Programista'],
+        platforms: ['PLATFORMY', 'Desktop · Mobile · Web'],
+        spec: ['SPECJALIZACJA', 'Cyberbezpieczeństwo'],
+        school: ['UCZELNIA', 'WSB Merito Chorzów'],
+        city: ['LOKALIZACJA', ''],
+        rule: ['ZASADA', 'Prosto, solidnie, bezpiecznie.'],
+      },
+      steps: [
+        {
+          title: 'Konkretny problem',
+          text: 'Zaczynam od tego, co zabiera ludziom czas — technologię dobieram dopiero potem.',
+        },
+        {
+          title: 'Bezpiecznie od startu',
+          text: 'Uprawnienia, dane i dostęp projektuję razem z funkcjami, nie na końcu.',
+        },
+        {
+          title: 'Do samego końca',
+          text: 'Od pomysłu po działającą wersję, którą można wręczyć użytkownikom.',
+        },
+      ],
+    },
+    stack: {
+      kicker: '03 — STACK',
+      title: ['Skrzynka', 'z narzędziami.'],
+      cats: { web: 'WEB', ui: 'UI', desktop: 'DESKTOP', data: 'DANE', tools: 'NARZĘDZIA' },
+    },
+    contact: {
+      kicker: '04 — KONTAKT',
+      title: ['Napisz', 'do mnie.'],
+      copy: 'KOPIUJ',
+      copied: 'SKOPIOWANO',
+      github: 'GITHUB ↗',
+      linkedin: 'LINKEDIN ↗',
+      tape: 'Porozmawiajmy',
+    },
+  },
   ui: {
     theme: {
       toLight: 'Włącz jasny motyw',

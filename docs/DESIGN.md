@@ -59,13 +59,21 @@ Krzywe i czasy wzorca są tokenami (`--ease-*`, `--t-*`). Zasady:
 - Cele dotykowe przycisków i linków nawigacji ≥ 44px.
 - Bez JS: motyw z `prefers-color-scheme`, wszystkie linki działają.
 
-## 6. Komponenty (stan po Etapie 1)
+## 6. Komponenty (stan po Etapie 2)
 
-| Komponent               | Plik                                      |
-| ----------------------- | ----------------------------------------- |
-| Nawigacja               | `src/components/layout/Nav.astro`         |
-| Linki nawigacji (`.nl`) | `src/components/layout/NavLinks.astro`    |
-| Przełącznik motywu      | `src/components/layout/ThemeToggle.astro` |
-| Kreski sekcji (`.dots`) | `src/components/layout/SectionDots.astro` |
-| Stopka                  | `src/components/layout/Footer.astro`      |
-| Klasy wspólne           | `src/styles/global.css`                   |
+| Komponent                 | Plik                                                                       |
+| ------------------------- | -------------------------------------------------------------------------- |
+| Nawigacja                 | `src/components/layout/Nav.astro`                                          |
+| Linki nawigacji (`.nl`)   | `src/components/layout/NavLinks.astro`                                     |
+| Przełącznik motywu        | `src/components/layout/ThemeToggle.astro`                                  |
+| Kreski sekcji (`.dots`)   | `src/components/layout/SectionDots.astro`                                  |
+| Stopka                    | `src/components/layout/Footer.astro`                                       |
+| Klasy wspólne             | `src/styles/global.css`                                                    |
+| Strona główna (składanie) | `src/components/home/HomePage.astro`                                       |
+| Hero + talia kart         | `Hero`, `HeroDeck`, `DeckSketch`; `src/styles/deck.css`, `src/lib/deck.ts` |
+| Taśma                     | `src/components/home/Tape.astro`                                           |
+| Projekty                  | `Projects`, `ProjectIndex`, `ProjectPreview`, `ProjectMock` + `mocks/*`    |
+| GitHub (szkielet)         | `src/components/home/GithubActivity.astro`                                 |
+| O mnie                    | `About`, `AboutSteps`                                                      |
+| Stack                     | `src/components/home/Stack.astro`                                          |
+| Kontakt                   | `Contact`, `CopyEmail`                                                     |

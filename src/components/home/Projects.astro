@@ -1,0 +1,85 @@
+---
+import ProjectIndex from './ProjectIndex.astro';
+import ProjectPreview from './ProjectPreview.astro';
+import SectionHead from './SectionHead.astro';
+import { site, type Locale } from '@/config/site';
+import type { Project } from '@/data/projects';
+import { t } from '@/i18n/utils';
+
+interface Props {
+  locale: Locale;
+  projects: Project[];
+}
+
+const { locale, projects } = Astro.props;
+const d = t(locale).home.projects;
+const selected = projects[0]?.id ?? '';
+---
+
+<section id="projekty" class="sec">
+  <div class="wrap col">
+    <div class="reveal intro">
+      <SectionHead kicker={d.kicker} title={d.title} />
+      <p class="lead">
+        {`${d.lead} `}
+        <a
+          class="mail all"
+          href={`https://github.com/${site.github}?tab=repositories`}
+          target="_blank"
+          rel="noopener"
+        >
+          {d.all}
+        </a>
+      </p>
+    </div>
+    <div class="split body">
+      <ProjectIndex projects={projects} selected={selected} />
+      <div class="preview">
+        {projects.map((p, i) => (
+          <ProjectPreview
+            project={p}
+            num={String(i + 1).padStart(2, '0')}
+            locale={locale}
+            hidden={p.id !== selected}
+          />
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .sec {
+    padding: 112px 0;
+  }
+  .col {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+  .intro {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 24px;
+  }
+  .lead {
+    margin: 0;
+    max-width: 360px;
+    color: var(--text2);
+  }
+  .all {
+    color: var(--acc-text);
+  }
+  .body {
+    gap: 40px;
+    align-items: flex-start;
+  }
+  .preview {
+    flex: 1 1 420px;
+    min-width: 0;
+    position: sticky;
+    top: 88px;
+  }
+</style>

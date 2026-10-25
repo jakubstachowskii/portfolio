@@ -1,0 +1,99 @@
+---
+import type { Dictionary } from '@/i18n/utils';
+
+interface Props {
+  m: Dictionary['home']['mocks'];
+}
+
+const { m } = Astro.props;
+// Szkic: formularz awizacji z pieczątką „Wysłano” (dekoracja, 1:1 ze wzorca)
+---
+
+<div class="card mono">
+  <div class="top">
+    <span>{m.booking}</span>
+    <span>{m.delivery}</span>
+  </div>
+  <span class="ln w70 strong"></span>
+  <span class="ln w90"></span>
+  <span class="ln w55"></span>
+  <div class="end">
+    <span class="btn-acc send">{m.send}</span>
+  </div>
+  <span class="stamp disp">{m.sent}</span>
+</div>
+
+<style>
+  .card {
+    position: relative;
+    width: 74%;
+    background: var(--surface);
+    border: 1px solid var(--line2);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 11px;
+  }
+  .top {
+    display: flex;
+    justify-content: space-between;
+    color: var(--text2);
+  }
+  .ln {
+    height: 8px;
+    background: var(--line);
+  }
+  .strong {
+    background: var(--line2);
+  }
+  .w70 {
+    width: 70%;
+  }
+  .w90 {
+    width: 90%;
+  }
+  .w55 {
+    width: 55%;
+  }
+  .end {
+    display: flex;
+    justify-content: flex-end;
+  }
+  .send {
+    position: relative;
+    overflow: hidden;
+    padding: 6px 12px;
+    background: var(--acc);
+    color: var(--acc-ink);
+    font-weight: 700;
+  }
+  .stamp {
+    position: absolute;
+    right: 14px;
+    top: 28px;
+    padding: 6px 10px;
+    border: 3px solid var(--hue4);
+    color: var(--hue4);
+    font-size: 13px;
+    rotate: -12deg;
+    animation: stamp var(--t-sheen) cubic-bezier(0.3, 1.6, 0.5, 1) infinite both;
+    animation-delay: 1.6s;
+  }
+  @keyframes stamp {
+    0% {
+      opacity: 0;
+      scale: 1.8;
+    }
+    8%,
+    85% {
+      opacity: var(--stamp-opacity);
+      scale: 1;
+    }
+    95%,
+    100% {
+      opacity: 0;
+      scale: 1;
+    }
+  }
+</style>

@@ -1,0 +1,35 @@
+---
+interface Props {
+  kicker: string;
+  /** Linie nagłówka (łamane <br>) */
+  title: string[];
+  id?: string;
+}
+
+const { kicker, title, id } = Astro.props;
+---
+
+<div class="head">
+  <span class="mono kicker">{kicker}</span>
+  <h2 class="disp wipe ttl" id={id}>
+    {title.map((line, i) => (i === 0 ? line : [<br />, line]))}
+  </h2>
+</div>
+
+<style>
+  .head {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .kicker {
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: var(--acc-text);
+  }
+  .ttl {
+    margin: 0;
+    font-size: clamp(32px, 5.6vw, 76px);
+    line-height: 1;
+  }
+</style>
