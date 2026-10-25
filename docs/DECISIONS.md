@@ -235,6 +235,13 @@ Pozostałe wymagania strukturalne PLAN §6 (role tokenów, 5 stanów, focus ring
 - **Problem:** Lighthouse w CI (headless Chrome na Linuksie = motyw jasny) dawał dostępność 0.97: pieczątka „Wysłano” w szkicu Awizacji ma w animacji `opacity: 0.9`, co przy `--hue4` w jasnym motywie daje 4.04:1. Lokalnie Lighthouse szedł w ciemnym motywie, a e2e axe z wyłączonym ruchem (pieczątka bez animacji = pełne krycie), więc nikt tego nie złapał.
 - **Decyzja:** token `--stamp-opacity`: 0.9 w ciemnym (jak we wzorcu), 1 w jasnym (4.86:1). Para `hue4 / surface` w teście kontrastu. `lighthouserc.json` wymusza motyw jasny (`preferredColorScheme=1`), więc lokalny wynik = wynik w CI; ciemny motyw pilnuje e2e axe.
 
+## #32 · 2026-10-25 · Interakcje jako małe skrypty, telefon przewija do podglądu · przyjęta
+
+- **Decyzja:** interakcje to moduły w `src/scripts/` (talia `deck.ts` + `deck-render.ts`, `projects.ts`, `copy-email.ts`, `active-section.ts`, `offscreen.ts`), bez wyspy React. Logika talii 1:1 ze wzorca, stan i transformacje kart z `src/lib/deck.ts` (te same co w renderze bez JS). Cały JS strony głównej: ~3 KB gzip.
+- **Telefon (≤ 900 px):** po stuknięciu w projekt płynne przewinięcie do podglądu (z `scroll-margin` pod nav w dwóch rzędach). Alternatywa „rozwiń szczegóły pod wierszem” odrzucona: dwa miejsca z tą samą treścią i dwa układy do utrzymania.
+- **Pauza poza ekranem:** jedna reguła w `global.css` dla wszystkich animacji w sekcji z klasą `.off`, z wyjątkiem `.reveal` i `.wipe` (sterowane scrollem; pauza by je zamroziła).
+- **Bez JS:** talia w spoczynku, pierwszy projekt wybrany, e-mail jako link `mailto:`. Wiersze jako linki do podstron dochodzą w Etapie 5 (razem z podstronami).
+
 ## #33 · 2026-10-25 · `pnpm ci:local` przed każdym pushem · przyjęta
 
 - **Problem:** dwa razy z rzędu CI padło na czymś, co lokalnie przechodziło: Lighthouse w motywie jasnym (#31) i lint bez wygenerowanych typów Astro (czysty checkout nie ma `.astro/`). Lokalnie sprawdzałem w innych warunkach niż CI.
