@@ -92,9 +92,6 @@ export const pl = {
       title: ['Zaczynam od', 'tego, co boli.'],
       lead: 'Awizacje i skup zbóż prowadzone na papierze, rozkrój mebli liczony na kartce. Biorę taki problem i buduję narzędzie, które robi to za ludzi.',
       body: 'Studiuję informatykę ze specjalizacją cyberbezpieczeństwo, więc o bezpieczeństwie myślę od pierwszej linijki, nie po wdrożeniu.',
-      // TODO(content): zdjęcie
-      photo: '[ZDJĘCIE]',
-      photoNote: ['// tu Twoje zdjęcie', '// kwadrat, min. 400×400'],
       facts: {
         role: ['ROLA', 'Programista'],
         platforms: ['PLATFORMY', 'Desktop · Mobile · Web'],

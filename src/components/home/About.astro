@@ -1,4 +1,6 @@
 ---
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
 import AboutSteps from './AboutSteps.astro';
 import SectionHead from './SectionHead.astro';
 import { site, type Locale } from '@/config/site';
@@ -15,6 +17,12 @@ const facts = Object.entries(d.facts).map(([key, [label, value]]) => ({
   label,
   value: key === 'city' ? site.city : value,
 }));
+// Zdjęcie pokazuje się dopiero po wrzuceniu pliku src/assets/about/photo.(jpg|png|webp) (kwadrat, min. 400×400)
+const photos = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/assets/about/photo.{jpg,jpeg,png,webp,avif}',
+  { eager: true },
+);
+const photo = Object.values(photos)[0]?.default;
 ---
 
 <section id="o-mnie" class="sec">
@@ -26,14 +34,18 @@ const facts = Object.entries(d.facts).map(([key, [label, value]]) => ({
       <div class="reveal text">
         <p class="lead">{d.lead}</p>
         <p class="body">{d.body}</p>
-        <div class="me">
-          <div class="mono photo">{d.photo}</div>
-          <span class="mono note">
-            {d.photoNote[0]}
-            <br />
-            {d.photoNote[1]}
-          </span>
-        </div>
+        {photo && (
+          <div class="me">
+            <Image
+              class="photo"
+              src={photo}
+              alt={site.name}
+              width={96}
+              height={96}
+              densities={[1, 2]}
+            />
+          </div>
+        )}
       </div>
       <dl class="reveal mono facts">
         {facts.map((f) => (
@@ -82,18 +94,9 @@ const facts = Object.entries(d.facts).map(([key, [label, value]]) => ({
   .photo {
     width: 96px;
     height: 96px;
+    object-fit: cover;
     background: var(--surface2);
     border: 1px solid var(--line2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 11px;
-    color: var(--text2);
-    text-align: center;
-  }
-  .note {
-    font-size: 12px;
-    color: var(--text2);
   }
   .facts {
     flex: 1 1 420px;

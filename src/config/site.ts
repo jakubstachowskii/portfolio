@@ -4,25 +4,20 @@ export type Locale = (typeof locales)[number];
 export const defaultLocale: Locale = 'pl';
 
 /**
- * Dane właściciela i ustawienia strony. Wartości w nawiasach kwadratowych to placeholdery
- * do uzupełnienia (docs/PROMPT-dla-Claude-Code.md §8).
+ * Dane właściciela i ustawienia strony.
  */
 export const site = {
   firstName: 'Jakub',
-  // TODO(content): nazwisko
-  lastName: '[Nazwisko]',
+  lastName: 'Stachowski',
   get name() {
     return `${this.firstName} ${this.lastName}`;
   },
-  // TODO(content): adres e-mail
-  email: '[twoj@email.pl]',
-  // TODO(content): miasto
-  city: '[miasto]',
+  email: 'jakub.stachowski@proton.me',
+  city: 'Rybnik',
   github: 'jakubstachowskii',
-  // TODO(content): profil LinkedIn
-  linkedin: '[link-linkedin]',
-  // TODO(content): plik CV
-  cv: '[link-do-CV]',
+  linkedin: 'https://www.linkedin.com/in/jakub-stachowski-845937444',
+  /** Adres CV (np. '/cv.pdf' po wrzuceniu pliku do public/); pusty = przycisk „CV.PDF ↓” ukryty. */
+  cv: '',
   /** Repozytoria pomijane na liście projektów (np. ta strona). */
   hiddenRepos: ['portfolio'] as string[],
   year: 2026,

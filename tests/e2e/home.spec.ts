@@ -49,3 +49,28 @@ test.describe('strona główna', () => {
     }
   }
 });
+
+test.describe('dane właściciela', () => {
+  test('bez placeholderów w nawiasach i bez martwych linków CV/LinkedIn', async ({ page }) => {
+    for (const path of ['/', '/en/']) {
+      await page.goto(path);
+      const text = await page.locator('body').innerText();
+      expect(text, path).not.toMatch(/\[[^\]\n]{2,40}\]/);
+      expect(await page.title()).not.toContain('[');
+      for (const href of await page
+        .locator('a[href]')
+        .evaluateAll((as) => as.map((a) => a.getAttribute('href') ?? ''))) {
+        expect(href, path).not.toMatch(/^\[|\]$/);
+      }
+    }
+    await page.goto('/');
+    await expect(page.locator('a', { hasText: 'LINKEDIN' })).toHaveAttribute(
+      'href',
+      /^https:\/\/www\.linkedin\.com\/in\//,
+    );
+    await expect(page.locator('a[href^="mailto:"]').first()).toHaveAttribute(
+      'href',
+      /^mailto:[^@\s]+@[^@\s]+$/,
+    );
+  });
+});

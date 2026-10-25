@@ -65,9 +65,14 @@ Jedna z dwóch dróg:
 
 Forki, repozytoria zarchiwizowane i to repo (`portfolio`) są pomijane automatycznie.
 
-## Dane do uzupełnienia
+## Dane właściciela, CV i zdjęcie
 
-W [`src/config/site.ts`](src/config/site.ts): `lastName`, `email`, `city`, `linkedin`, `cv` (teraz placeholdery w nawiasach kwadratowych). Zdjęcie do sekcji „O mnie”: kwadrat, min. 400×400. Własna domena: `site` w [`astro.config.mjs`](astro.config.mjs).
+Dane kontaktowe są w [`src/config/site.ts`](src/config/site.ts). Dwie rzeczy pojawiają się na stronie dopiero, gdy je dodasz:
+
+- **CV:** wrzuć PDF do `public/cv.pdf` i ustaw `cv: '/cv.pdf'` w `site.ts` — wtedy w hero pokaże się przycisk „CV.PDF ↓”.
+- **Zdjęcie do „O mnie”:** wrzuć plik `src/assets/about/photo.jpg` (albo `.png`/`.webp`; kwadrat, min. 400×400) — pokaże się samo.
+
+Własna domena: `site` w [`astro.config.mjs`](astro.config.mjs).
 
 ## Zmienne środowiskowe
 
