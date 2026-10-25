@@ -1,0 +1,59 @@
+---
+import type { Locale } from '@/config/site';
+import { site as siteConfig } from '@/config/site';
+import { OG_LOCALE, absolute } from '@/lib/seo';
+
+interface Props {
+  locale: Locale;
+  title: string;
+  description: string;
+  /** ścieżki tej samej strony w innych językach (hreflang); bez nich brak alternatyw */
+  alternates?: Partial<Record<Locale, string>> | undefined;
+  /** dane strukturalne (JSON-LD) */
+  jsonLd?: object | undefined;
+  type?: 'website' | 'article';
+  noindex?: boolean;
+}
+
+const {
+  locale,
+  title,
+  description,
+  alternates,
+  jsonLd,
+  type = 'website',
+  noindex = false,
+} = Astro.props;
+const base = Astro.site ?? Astro.url;
+const canonical = absolute(Astro.url.pathname, base);
+const image = absolute('/og.png', base);
+const other = siteConfig.locales.filter((l) => l !== locale);
+// Tagi dla wyszukiwarek i podglądów linków (Open Graph, Twitter); obraz /og.png z `pnpm og`.
+---
+
+{!noindex && <link rel="canonical" href={canonical} />}
+{alternates &&
+  Object.entries(alternates).map(([l, path]) => (
+    <link rel="alternate" hreflang={l} href={absolute(path, base)} />
+  ))}
+{alternates?.pl && (
+  <link rel="alternate" hreflang="x-default" href={absolute(alternates.pl, base)} />
+)}
+<meta property="og:type" content={type} />
+<meta property="og:site_name" content={siteConfig.firstName} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={image} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:locale" content={OG_LOCALE[locale]} />
+{alternates &&
+  other
+    .filter((l) => alternates[l])
+    .map((l) => <meta property="og:locale:alternate" content={OG_LOCALE[l]} />)}
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={image} />
+{jsonLd && <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />}

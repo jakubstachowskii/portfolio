@@ -5,7 +5,9 @@ import ProjectHeader from './ProjectHeader.astro';
 import ProjectNav from './ProjectNav.astro';
 import type { Locale } from '@/config/site';
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import { projectPath } from '@/lib/paths';
 import { neighbours, type Project } from '@/lib/projects';
+import { absolute, projectJsonLd } from '@/lib/seo';
 
 interface Props {
   project: Project;
@@ -19,9 +21,18 @@ const entry = await getEntry('projects', p.id);
 const hasBody = locale === 'pl' && !!entry?.body?.replace(/<!--[\s\S]*?-->/g, '').trim();
 const { Content } = entry && hasBody ? await render(entry) : { Content: null };
 const { prev, next } = neighbours(all, p.id);
+const alternates = { pl: projectPath(p.slug, 'pl'), en: projectPath(p.slug, 'en') };
+const base = Astro.site ?? Astro.url;
+const jsonLd = projectJsonLd(p, locale, absolute(alternates[locale], base), base);
 ---
 
-<BaseLayout locale={locale} title={p.title} description={p.desc[locale]}>
+<BaseLayout
+  locale={locale}
+  title={p.title}
+  description={p.desc[locale]}
+  alternates={alternates}
+  jsonLd={jsonLd}
+>
   <ProjectHeader project={p} locale={locale} />
   <ProjectBody
     locale={locale}
