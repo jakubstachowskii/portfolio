@@ -50,7 +50,9 @@ export function initDeck(scene: HTMLElement) {
       // stan sprzed kliknięcia odczytujemy PRZED fokusem: fokus sam aktywuje talię
       const wasActive = s.active;
       if (e.pointerType === 'mouse') e.preventDefault(); // bez zaznaczania tekstu
-      scene.focus({ preventScroll: true }); // preventDefault blokuje fokus — ustawiamy ręcznie
+      // preventDefault blokuje fokus — ustawiamy ręcznie; focusVisible: false, bo to klik myszą
+      // (inaczej przy pierwszym kliknięciu Chrome rysuje ramkę jak dla klawiatury)
+      scene.focus({ preventScroll: true, focusVisible: false });
       window.clearTimeout(leaveT);
       const sx = e.clientX;
       let lastX = e.clientX;

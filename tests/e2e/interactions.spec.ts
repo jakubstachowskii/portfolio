@@ -123,3 +123,26 @@ test('animacje w pętli pauzują poza ekranem', async ({ page }) => {
     .evaluate((el) => getComputedStyle(el).animationPlayState);
   expect(pv).toBe('running');
 });
+
+test.describe('talia kart: ramka fokusu', () => {
+  test.skip(({ isMobile }) => isMobile, 'mysz i klawiatura: desktop');
+
+  test('kliknięcie myszą nie rysuje ramki, Tab tak', async ({ page }) => {
+    await page.goto('/');
+    await clickFront(page);
+    await expect(page.locator('.deck')).toHaveClass(/flat/);
+    const afterClick = await page
+      .locator('[data-deck]')
+      .evaluate((el) => el.matches(':focus-visible'));
+    expect(afterClick).toBe(false);
+
+    await page.goto('/');
+    await page.locator('[data-deck]').focus();
+    await page.keyboard.press('Shift+Tab');
+    await page.keyboard.press('Tab');
+    const afterTab = await page
+      .locator('[data-deck]')
+      .evaluate((el) => el.matches(':focus-visible'));
+    expect(afterTab).toBe(true);
+  });
+});
