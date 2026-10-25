@@ -116,4 +116,10 @@ test('animacje w pętli pauzują poza ekranem', async ({ page }) => {
     .locator('#kontakt .tape')
     .evaluate((el) => getComputedStyle(el).animationPlayState);
   expect(state).toBe('paused');
+  // jednorazowe wejście podglądu projektu nie może stać w pierwszej klatce (Lighthouse widzi całą stronę)
+  await expect(page.locator('#projekty')).toHaveClass(/off/);
+  const pv = await page
+    .locator('[data-preview]:not([hidden])')
+    .evaluate((el) => getComputedStyle(el).animationPlayState);
+  expect(pv).toBe('running');
 });

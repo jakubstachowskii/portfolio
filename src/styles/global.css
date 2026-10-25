@@ -191,10 +191,10 @@
   }
 
   /* animacje w pętli stoją, gdy sekcja jest poza ekranem (klasa .off z src/scripts/offscreen.ts).
-     Bez .reveal/.wipe: to animacje sterowane scrollem, pauza by je zamroziła. */
-  .off :not(.reveal, .wipe),
-  .off :not(.reveal, .wipe)::before,
-  .off :not(.reveal, .wipe)::after {
+     Tylko pętle (jak we wzorcu): jednorazowe wejścia (.pv, .in, .reveal…) muszą dobiec do końca,
+     inaczej zostają w pierwszej, przezroczystej klatce. Nowa animacja w pętli = dopisz klasę tutaj. */
+  .off :is(.tape, .deck-float, .piece, .bob, .stamp, .cur),
+  .off :is(.dotlive, .btn-acc, .sweep)::after {
     animation-play-state: paused;
   }
 }
