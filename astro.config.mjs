@@ -2,12 +2,11 @@
 import { defineConfig, envField, fontProviders } from 'astro/config';
 import { unified } from '@astrojs/markdown-remark';
 import mdx from '@astrojs/mdx';
-import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 import vercel from '@astrojs/vercel';
 import tailwindcss from '@tailwindcss/vite';
 import expressiveCode from 'astro-expressive-code';
-import icon from 'astro-icon';
+import { securityHeaders } from './src/integrations/security-headers.ts';
 import { LATIN, POLISH } from './src/lib/font-ranges.mjs';
 
 /**
@@ -33,8 +32,8 @@ function variants(file, weight, stretch) {
 
 // https://astro.build/config
 export default defineConfig({
-  // TODO(content): docelowa domena (CONTENT-CHECKLIST → Podstawy)
-  site: 'https://example.com',
+  // Adres produkcji na Vercelu do czasu własnej domeny (TODO(content): domena) — jedno miejsce do zmiany.
+  site: 'https://portfolio-jakubstachowskii.vercel.app',
   output: 'static',
   adapter: vercel(),
   prefetch: { prefetchAll: false, defaultStrategy: 'hover' },
@@ -46,6 +45,8 @@ export default defineConfig({
   // Sätteri (domyślny w Astro 7) nie obsługuje pluginów remark/rehype — DECISIONS #5
   markdown: {
     processor: unified(),
+    // bloki kodu koloruje expressive-code; wbudowany Shiki niepotrzebny (i niezgodny z CSP)
+    syntaxHighlight: false,
   },
   // Fonty OFL, variable, własne podzbiory: łacina + polskie litery, osie przycięte do użycia
   // (DECISIONS #29, pliki z `pnpm fonts:subset`). Preload tylko łaciny Archivo + Inter w BaseLayout.
@@ -77,12 +78,27 @@ export default defineConfig({
   integrations: [
     expressiveCode(),
     mdx(),
-    react(),
-    icon(),
     sitemap({
       i18n: { defaultLocale: 'pl', locales: { pl: 'pl-PL', en: 'en-US' } },
     }),
+    securityHeaders(),
   ],
+  // CSP z hashami skryptów w <meta> na każdej stronie (DECISIONS #36). Style: 'unsafe-inline', bo szkice
+  // i talia kart używają atrybutów style (Astro nie generuje wtedy hashy dla style-src).
+  security: {
+    csp: {
+      directives: [
+        "default-src 'self'",
+        "img-src 'self' data:",
+        "font-src 'self'",
+        "connect-src 'self'",
+        "object-src 'none'",
+        "base-uri 'self'",
+        "form-action 'self'",
+      ],
+      styleDirective: { resources: ["'self'", "'unsafe-inline'"] },
+    },
+  },
   vite: {
     plugins: [tailwindcss()],
   },
