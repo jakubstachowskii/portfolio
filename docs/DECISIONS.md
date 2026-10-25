@@ -279,3 +279,7 @@ Pozostałe wymagania strukturalne PLAN §6 (role tokenów, 5 stanów, focus ring
 - Favicon SVG (litera J na mięcie, kolory strony) i `apple-touch-icon`/`og.png` z szablonu `scripts/brand.html` (`pnpm brand`, fonty strony). Wygląd strony bez zmian.
 - `public/licenses/fonts.txt`: teksty OFL 1.1 trzech krojów (wymóg licencji przy rozpowszechnianiu, także podzbiorów; brak Reserved Font Names).
 - Test szerokości rozszerzony o 375, 1024 i 1440 px (lista z promptu).
+
+## #38 · 2026-10-25 · Usunięte zmienne formularza kontaktowego · przyjęta
+
+- Kontakt na stronie to link `mailto:` i kopiowanie adresu (wzorzec), bez formularza. Zmienne ze starego planu (`RESEND_API_KEY`, `TURNSTILE_SECRET_KEY`, `PUBLIC_TURNSTILE_SITE_KEY`, `CONTACT_TO_EMAIL`, #12) nie były nigdzie używane, więc znikają ze schematu `astro:env` i z `.env.example` (zgoda Jakuba). Jedyna zmienna: `GITHUB_TOKEN`. Zastępuje #12.
