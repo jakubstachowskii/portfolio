@@ -1,0 +1,27 @@
+name: Codzienny rebuild
+
+# Nowe repozytoria i aktywność z GitHuba trafiają na stronę przy buildzie (DECISIONS #35).
+# Raz dziennie wywołujemy Deploy Hook Vercela, który buduje produkcję od nowa.
+# Wymaga sekretu repo VERCEL_DEPLOY_HOOK (Vercel → Settings → Git → Deploy Hooks); bez niego job tylko informuje.
+on:
+  schedule:
+    - cron: '0 4 * * *' # 04:00 UTC = 5:00/6:00 w Polsce
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  rebuild:
+    name: Deploy Hook Vercela
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Wywołaj Deploy Hook
+        env:
+          HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK }}
+        run: |
+          if [ -z "$HOOK" ]; then
+            echo "::notice::Brak sekretu VERCEL_DEPLOY_HOOK — pomijam (instrukcja w README)."
+            exit 0
+          fi
+          curl --fail --silent --show-error -X POST "$HOOK"
