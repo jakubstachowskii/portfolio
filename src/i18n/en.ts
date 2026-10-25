@@ -127,6 +127,24 @@ export const en = {
       tape: 'Let’s talk',
     },
   },
+  project: {
+    back: '← Projects',
+    details: 'Details →',
+    demo: 'DEMO ↗',
+    code: 'CODE ON GITHUB ‹/›',
+    tech: 'Technologies',
+    gallery: 'Gallery',
+    others: 'Other projects',
+    prev: 'Previous',
+    next: 'Next',
+  },
+  notFound: {
+    title: 'Page not found',
+    description: 'This page does not exist.',
+    code: '404',
+    text: 'This page is not here.',
+    cta: 'BACK TO START',
+  },
   ui: {
     theme: {
       toLight: 'Switch to light theme',

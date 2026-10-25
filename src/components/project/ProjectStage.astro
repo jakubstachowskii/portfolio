@@ -1,0 +1,84 @@
+---
+import { Image } from 'astro:assets';
+import ProjectMock from '@/components/mocks/ProjectMock.astro';
+import type { Locale } from '@/config/site';
+import { t } from '@/i18n/utils';
+import type { Project } from '@/lib/projects';
+
+interface Props {
+  project: Project;
+  locale: Locale;
+  /** podstrona: wyższa scena i większy screenshot */
+  large?: boolean;
+}
+
+const { project: p, locale, large = false } = Astro.props;
+const home = t(locale).home;
+// Scena podglądu: tło w kropki, etykieta, screenshot (gdy jest) albo szkic. Dekoracja: opis jest obok.
+---
+
+<div class:list={['stage', large && 'large']} aria-hidden="true">
+  <div class="dotgrid"></div>
+  <span class="mono label">{`${home.projects.preview} / ${p.num}`}</span>
+  {p.cover ? (
+    <Image
+      class="cover"
+      src={p.cover}
+      alt=""
+      widths={large ? [640, 1280] : [420, 840]}
+      sizes={large ? '(max-width: 1200px) 100vw, 1152px' : '(max-width: 900px) 100vw, 480px'}
+      loading={large ? 'eager' : 'lazy'}
+    />
+  ) : (
+    <ProjectMock project={p} m={home.mocks} />
+  )}
+</div>
+
+<style>
+  .stage {
+    position: relative;
+    height: 260px;
+    border-bottom: 1px solid var(--line);
+    background: var(--bg2);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .large {
+    height: clamp(300px, 42vw, 460px);
+    border: 1px solid var(--line);
+  }
+  .dotgrid {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(var(--line) 1px, transparent 1px);
+    background-size: 16px 16px;
+    opacity: 0.6;
+  }
+  .label {
+    position: absolute;
+    top: 12px;
+    left: 14px;
+    font-size: 11px;
+    color: var(--text2);
+  }
+  .cover {
+    position: relative;
+    width: 86%;
+    height: auto;
+    max-height: 86%;
+    object-fit: cover;
+    object-position: top;
+    border: 1px solid var(--line2);
+  }
+  /* szkic na dużej scenie: proporcje jak w podglądzie (stała szerokość), większy tylko na szerokim ekranie */
+  .large > :global(div:not(.dotgrid)) {
+    max-width: 380px;
+  }
+  @media (min-width: 901px) {
+    .large > :global(div:not(.dotgrid)) {
+      scale: 1.3;
+    }
+  }
+</style>

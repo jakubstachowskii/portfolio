@@ -125,6 +125,24 @@ export const pl = {
       tape: 'Porozmawiajmy',
     },
   },
+  project: {
+    back: '← Projekty',
+    details: 'Szczegóły →',
+    demo: 'DEMO ↗',
+    code: 'KOD NA GITHUBIE ‹/›',
+    tech: 'Technologie',
+    gallery: 'Galeria',
+    others: 'Inne projekty',
+    prev: 'Poprzedni',
+    next: 'Następny',
+  },
+  notFound: {
+    title: 'Nie znaleziono strony',
+    description: 'Tej strony tu nie ma.',
+    code: '404',
+    text: 'Tej strony tu nie ma.',
+    cta: 'WRÓĆ NA START',
+  },
   ui: {
     theme: {
       toLight: 'Włącz jasny motyw',

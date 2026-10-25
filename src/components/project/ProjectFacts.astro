@@ -1,0 +1,78 @@
+---
+import type { Locale } from '@/config/site';
+import { t } from '@/i18n/utils';
+import { projectPath } from '@/lib/paths';
+import type { Project } from '@/lib/projects';
+
+interface Props {
+  project: Project;
+  locale: Locale;
+  /** link „Szczegóły →” do podstrony (w podglądzie na stronie głównej) */
+  details?: boolean;
+}
+
+const { project: p, locale, details = false } = Astro.props;
+const d = t(locale).project;
+// Tagi i przyciski projektu: wspólne dla podglądu na stronie głównej i podstrony.
+---
+
+<ul class="mono tags" aria-label={d.tech}>
+  {p.tags.map((tag) => (
+    <li>{tag}</li>
+  ))}
+</ul>
+<div class="mono links">
+  {details && (
+    <a class="btn link details" href={projectPath(p.slug, locale)}>
+      {d.details}
+    </a>
+  )}
+  {p.demo && (
+    <a class="btn link demo" href={p.demo} target="_blank" rel="noopener">
+      {d.demo}
+    </a>
+  )}
+  <a class="btn link code" href={p.repo} target="_blank" rel="noopener">
+    {d.code}
+  </a>
+</div>
+
+<style>
+  .tags {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    font-size: 12px;
+  }
+  .tags li {
+    padding: 4px 10px;
+    border: 1px solid var(--line2);
+    color: var(--text3);
+  }
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding-top: 6px;
+    font-size: 13px;
+  }
+  .link {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--target);
+    padding: 0 16px;
+  }
+  .demo,
+  .details {
+    background: var(--text);
+    color: var(--bg);
+    font-weight: 700;
+  }
+  .code {
+    border: 1px solid var(--line2);
+    color: var(--text);
+  }
+</style>

@@ -1,0 +1,82 @@
+---
+import ProjectFacts from './ProjectFacts.astro';
+import ProjectStage from './ProjectStage.astro';
+import type { Locale } from '@/config/site';
+import { t } from '@/i18n/utils';
+import type { Project } from '@/lib/projects';
+import { sectionHref } from '@/lib/sections';
+
+interface Props {
+  project: Project;
+  locale: Locale;
+}
+
+const { project: p, locale } = Astro.props;
+const d = t(locale).project;
+---
+
+<header class="wrap head">
+  <a class="mono back" href={sectionHref('projekty', locale, false)}>
+    {d.back}
+  </a>
+  <div class="in d1 titles">
+    <span class="mono kicker">{`${p.num} — ${p.platforms}`}</span>
+    <h1 class="disp ttl">{p.title}</h1>
+  </div>
+  <p class="in d2 lead">{p.desc[locale]}</p>
+  <div class="in d3 facts">
+    <ProjectFacts project={p} locale={locale} />
+  </div>
+  <div class="in d4">
+    <ProjectStage project={p} locale={locale} large />
+  </div>
+</header>
+
+<style>
+  .head {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding-top: 56px;
+  }
+  .back {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--target);
+    font-size: 13px;
+    color: var(--text2);
+    transition: color var(--t-fast);
+  }
+  .back:hover {
+    color: var(--text);
+  }
+  .titles {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .kicker {
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: var(--acc-text);
+  }
+  .ttl {
+    margin: 0;
+    font-size: clamp(36px, 7vw, 96px);
+    line-height: 0.96;
+    overflow-wrap: anywhere;
+  }
+  .lead {
+    margin: 0;
+    max-width: 640px;
+    font-size: 19px;
+    line-height: 1.55;
+    color: var(--text2);
+  }
+  .facts {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+</style>

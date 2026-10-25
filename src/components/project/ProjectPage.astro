@@ -1,0 +1,35 @@
+---
+import { getEntry, render } from 'astro:content';
+import ProjectBody from './ProjectBody.astro';
+import ProjectHeader from './ProjectHeader.astro';
+import ProjectNav from './ProjectNav.astro';
+import type { Locale } from '@/config/site';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { neighbours, type Project } from '@/lib/projects';
+
+interface Props {
+  project: Project;
+  all: Project[];
+  locale: Locale;
+}
+
+const { project: p, all, locale } = Astro.props;
+const entry = await getEntry('projects', p.id);
+// Treść markdown jest po polsku: na wersji EN zostaje sam opis z `summaryEn` (DECISIONS #34).
+const hasBody = locale === 'pl' && !!entry?.body?.replace(/<!--[\s\S]*?-->/g, '').trim();
+const { Content } = entry && hasBody ? await render(entry) : { Content: null };
+const { prev, next } = neighbours(all, p.id);
+---
+
+<BaseLayout locale={locale} title={p.title} description={p.desc[locale]}>
+  <ProjectHeader project={p} locale={locale} />
+  <ProjectBody
+    locale={locale}
+    gallery={entry?.data.gallery ?? []}
+    title={p.title}
+    hasBody={hasBody}
+  >
+    {Content && <Content />}
+  </ProjectBody>
+  <ProjectNav locale={locale} prev={prev} next={next} />
+</BaseLayout>

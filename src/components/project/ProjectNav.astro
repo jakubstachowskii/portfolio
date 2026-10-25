@@ -1,0 +1,134 @@
+---
+import type { Locale } from '@/config/site';
+import { t } from '@/i18n/utils';
+import { projectPath } from '@/lib/paths';
+import type { Project } from '@/lib/projects';
+
+interface Props {
+  locale: Locale;
+  prev?: Project | undefined;
+  next?: Project | undefined;
+}
+
+const { locale, prev, next } = Astro.props;
+const d = t(locale).project;
+const items = [
+  prev && { p: prev, label: d.prev, back: true },
+  next && next !== prev && { p: next, label: d.next, back: false },
+].filter((x): x is { p: Project; label: string; back: boolean } => !!x);
+// Poprzedni / następny projekt jako duże wiersze jak w indeksie (wypełnienie akcentem od lewej).
+---
+
+{items.length > 0 && (
+  <nav class="wrap pn reveal" aria-label={d.others}>
+    {items.map(({ p, label, back }) => (
+      <a class="row" href={projectPath(p.slug, locale)} rel={back ? 'prev' : 'next'}>
+        {[false, true].map((fill) => {
+          const inner = (
+            <span class="row-in">
+              <span class="mono num">{label.toUpperCase()}</span>
+              <span class="tx">
+                <span class="disp ttl">{p.title}</span>
+                <span class="mono plat">{p.platforms}</span>
+              </span>
+              <span class:list={['arr', back && 'left']} aria-hidden="true">
+                →
+              </span>
+            </span>
+          );
+          return fill ? (
+            <span class="row-fill" aria-hidden="true">
+              {inner}
+            </span>
+          ) : (
+            inner
+          );
+        })}
+      </a>
+    ))}
+  </nav>
+)}
+
+<style>
+  .pn {
+    margin-top: 96px;
+    border-bottom: 1px solid var(--line);
+  }
+  .row {
+    position: relative;
+    display: block;
+    border-top: 1px solid var(--line);
+    color: var(--text);
+  }
+  .row-in {
+    display: grid;
+    grid-template-columns: 120px minmax(0, 1fr) 28px;
+    align-items: center;
+    column-gap: 18px;
+    padding: 24px 16px;
+  }
+  .row-fill {
+    position: absolute;
+    inset: 0;
+    background: var(--acc);
+    color: var(--acc-ink);
+    clip-path: inset(0 100% 0 0);
+    transition: clip-path var(--t-row) var(--ease-fill);
+    pointer-events: none;
+  }
+  .row:hover .row-fill,
+  .row:focus-visible .row-fill {
+    clip-path: inset(0 0 0 0);
+  }
+  .num {
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    color: var(--text2);
+  }
+  .tx {
+    min-width: 0;
+  }
+  .ttl {
+    display: block;
+    font-size: clamp(20px, 2.6vw, 34px);
+    line-height: 1.1;
+    overflow-wrap: anywhere;
+  }
+  .plat {
+    display: block;
+    margin-top: 6px;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: var(--text2);
+  }
+  .row-fill .num,
+  .row-fill .plat {
+    color: var(--acc-ink);
+  }
+  .arr {
+    justify-self: end;
+    font-size: 22px;
+    transition: transform var(--t-row) var(--ease-spring);
+  }
+  .left {
+    transform: rotate(180deg);
+  }
+  .row:hover .arr {
+    transform: rotate(-45deg);
+  }
+  .row:hover .left {
+    transform: rotate(-135deg);
+  }
+  @media (max-width: 520px) {
+    .row-in {
+      grid-template-columns: minmax(0, 1fr) 22px;
+      padding: 20px 8px;
+    }
+    .num {
+      grid-column: 1 / -1;
+    }
+    .ttl {
+      font-stretch: 100%;
+    }
+  }
+</style>
