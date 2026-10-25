@@ -298,3 +298,8 @@ Pozostałe wymagania strukturalne PLAN §6 (role tokenów, 5 stanów, focus ring
 - `scripts/audit-site.mjs` sprawdza lokalny podgląd albo produkcję: wszystkie strony z mapy strony + 404 (statusy, placeholdery, h1, meta, JSON-LD, przełącznik języka, opis na podstronach), konsolę, linki wewnętrzne i zewnętrzne, axe w obu motywach, poziomy scroll w 7 szerokościach i obu motywach, kolejność Tab z widocznym fokusem, kalendarz na telefonie, wersję bez JS, a na produkcji nagłówki bezpieczeństwa. Ustawienia hostingu (np. `noindex`) wypisuje jako uwagi spoza kodu.
 - Reguły dodane po przeglądzie zrzutów: znaczniki list w treści, łamanie linków i przycisków przy 360px, rząd menu bez ucinania, strzałka po zwykłej spacji, samotne słowo na końcu nagłówka.
 - Sprawdzone na produkcji sprzed poprawek: wykrywa wszystkie wcześniej znalezione problemy.
+
+## #41 · 2026-10-25 · Link „przejdź do treści” ukryty przycięciem · przyjęta
+
+- Zgłoszenie Jakuba: na telefonie przy mocnym przewinięciu w górę („odbicie” przeglądarki) na chwilę pokazywał się link „Przejdź do treści”. Przyczyna: link był schowany przesunięciem nad stronę (`top: -60px`), a odbicie odsłania obszar nad stroną.
+- Teraz link stoi na swoim miejscu, ale jest przycięty do zera (`clip-path: inset(50%)`); po Tab wygląda i działa jak wcześniej. `pnpm audit:site` i test e2e pilnują, żeby nie był ukryty poza stroną.

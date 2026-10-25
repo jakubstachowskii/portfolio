@@ -146,3 +146,22 @@ test.describe('talia kart: ramka fokusu', () => {
     expect(afterTab).toBe(true);
   });
 });
+
+test('link „przejdź do treści”: bez fokusu przycięty w obrębie strony, po Tab widoczny', async ({
+  page,
+}) => {
+  await page.goto('/');
+  const skip = page.locator('.skip');
+  const state = () =>
+    skip.evaluate((el) => ({
+      top: el.getBoundingClientRect().top,
+      clip: getComputedStyle(el).clipPath,
+    }));
+  // przesunięcie nad stronę odsłaniało link przy „odbiciu” przewijania na telefonie
+  const before = await state();
+  expect(before.top).toBeGreaterThanOrEqual(0);
+  expect(before.clip).not.toBe('none');
+  await skip.focus();
+  expect((await state()).clip).toBe('none');
+  await expect(skip).toBeVisible();
+});

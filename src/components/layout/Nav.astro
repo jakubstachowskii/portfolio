@@ -93,19 +93,22 @@ const dict = t(locale);
     font-size: 13px;
     font-weight: 700;
   }
+  /* ukryty przycięciem, nie przesunięciem nad stronę: na telefonie „odbicie” przy
+     mocnym przewinięciu w górę odsłania obszar nad stroną i link byłby tam widoczny */
   .skip {
     position: absolute;
     left: 12px;
-    top: -60px;
+    top: 8px;
     z-index: 20;
     padding: 10px 16px;
     background: var(--acc);
     color: var(--acc-ink);
     font-size: 14px;
-    transition: top var(--t-fast);
+    white-space: nowrap;
+    clip-path: inset(50%);
   }
   .skip:focus {
-    top: 8px;
+    clip-path: none;
   }
   .progress {
     position: absolute;
