@@ -234,3 +234,10 @@ Pozostałe wymagania strukturalne PLAN §6 (role tokenów, 5 stanów, focus ring
 
 - **Problem:** Lighthouse w CI (headless Chrome na Linuksie = motyw jasny) dawał dostępność 0.97: pieczątka „Wysłano” w szkicu Awizacji ma w animacji `opacity: 0.9`, co przy `--hue4` w jasnym motywie daje 4.04:1. Lokalnie Lighthouse szedł w ciemnym motywie, a e2e axe z wyłączonym ruchem (pieczątka bez animacji = pełne krycie), więc nikt tego nie złapał.
 - **Decyzja:** token `--stamp-opacity`: 0.9 w ciemnym (jak we wzorcu), 1 w jasnym (4.86:1). Para `hue4 / surface` w teście kontrastu. `lighthouserc.json` wymusza motyw jasny (`preferredColorScheme=1`), więc lokalny wynik = wynik w CI; ciemny motyw pilnuje e2e axe.
+
+## #33 · 2026-10-25 · `pnpm ci:local` przed każdym pushem · przyjęta
+
+- **Problem:** dwa razy z rzędu CI padło na czymś, co lokalnie przechodziło: Lighthouse w motywie jasnym (#31) i lint bez wygenerowanych typów Astro (czysty checkout nie ma `.astro/`). Lokalnie sprawdzałem w innych warunkach niż CI.
+- **Decyzja:** `scripts/ci-local.mjs` powtarza kroki `.github/workflows/ci.yml` w tej samej kolejności, z `CI=true`, na czystej kopii ostatniego commitu (`git worktree`): install `--frozen-lockfile` → lint → check → test → build → e2e → lhci. Zatrzymuje się na pierwszym błędzie. Push dopiero po zielonym `ci:local`. `pnpm lint` zaczyna od `astro sync`.
+- **Sprawdzone:** na commicie sprzed poprawki lintu skrypt pada tak samo jak GitHub (18 błędów).
+- **Czego nie odtwarza:** systemu (Linux vs Windows: renderowanie fontów, snapshoty wizualne tylko w CI, #19) i tokenu `GITHUB_TOKEN` z Actions (lokalnie API bez tokenu).
