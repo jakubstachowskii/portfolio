@@ -12,11 +12,11 @@ import {
   fetchReadme,
   fetchRepos,
   filterRepos,
-  readCache,
   readmeExcerpt,
-  writeCache,
+  type GithubCache,
   type Repo,
 } from '@/lib/github';
+import { readJson, writeJson } from '@/lib/json-cache';
 import { buildProjects, type Override, type Project } from '@/lib/projects';
 
 // ścieżka od katalogu projektu: po zbudowaniu import.meta.url wskazuje na dist/
@@ -46,12 +46,12 @@ async function loadRepos(withSummary: Set<string>): Promise<Repo[]> {
       const md = await fetchReadme(user, r.name, GITHUB_TOKEN);
       r.readme = md ? readmeExcerpt(md) : null;
     }
-    await writeCache(CACHE, { user, repos }).catch((e: unknown) => {
+    await writeJson(CACHE, { user, repos } satisfies GithubCache).catch((e: unknown) => {
       console.warn(`[projekty] nie udało się zapisać kopii: ${String(e)}`);
     });
     return repos;
   } catch (err) {
-    const cache = await readCache(CACHE);
+    const cache = await readJson<GithubCache>(CACHE);
     if (!cache) throw err;
     console.warn(`[projekty] GitHub API niedostępne (${String(err)}), używam kopii z cache.`);
     // filtr jeszcze raz: lista ukrytych mogła się zmienić od zapisu kopii

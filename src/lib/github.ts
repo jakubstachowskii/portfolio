@@ -1,10 +1,8 @@
 /**
  * Repozytoria z GitHub API przy buildzie (docs/PROMPT-dla-Claude-Code.md §2, DECISIONS #30).
  * Funkcje czyste (filtr, nazwy, wyciąg z README) są testowane w tests/unit/github.test.ts;
- * sieć i plik cache są na brzegu (fetchRepos, fetchReadme, readCache, writeCache).
+ * sieć jest na brzegu (fetchRepos, fetchReadme); kopia danych: src/lib/json-cache.ts.
  */
-import { mkdir, readFile, writeFile } from 'node:fs/promises';
-
 const API = 'https://api.github.com';
 /** Topik, którym ukrywa się repo bez zmiany kodu strony. */
 export const HIDE_TOPIC = 'portfolio-hide';
@@ -114,22 +112,4 @@ export function readmeExcerpt(markdown: string, max = 200): string | null {
   if (clean.length <= max) return clean;
   const cut = clean.slice(0, max);
   return `${cut.slice(0, cut.lastIndexOf(' ')).replace(/[,;:–—-]\s*$/, '')}…`;
-}
-
-export async function readCache(file: URL): Promise<GithubCache | null> {
-  try {
-    return JSON.parse(await readFile(file, 'utf8')) as GithubCache;
-  } catch {
-    return null;
-  }
-}
-
-/** Zapisuje kopię tylko przy zmianie danych (bez znacznika czasu: brak szumu w gicie). */
-export async function writeCache(file: URL, cache: GithubCache): Promise<boolean> {
-  const next = `${JSON.stringify(cache, null, 2)}\n`;
-  const prev = await readFile(file, 'utf8').catch(() => '');
-  if (prev === next) return false;
-  await mkdir(new URL('.', file), { recursive: true });
-  await writeFile(file, next);
-  return true;
 }

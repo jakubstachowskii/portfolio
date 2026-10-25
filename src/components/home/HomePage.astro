@@ -7,6 +7,7 @@ import Projects from './Projects.astro';
 import Stack from './Stack.astro';
 import Tape from './Tape.astro';
 import type { Locale } from '@/config/site';
+import { loadContributions } from '@/lib/load-contributions';
 import { loadProjects } from '@/lib/load-projects';
 import { t } from '@/i18n/utils';
 
@@ -17,6 +18,8 @@ interface Props {
 const { locale } = Astro.props;
 const home = t(locale).home;
 const projects = await loadProjects();
+// bez tokenu GitHub albo danych sekcji aktywności nie ma (nie pokazujemy siatki bez danych)
+const contributions = await loadContributions();
 ---
 
 <Hero locale={locale} />
@@ -24,7 +27,7 @@ const projects = await loadProjects();
   <Tape words={home.tape} class="small" />
 </div>
 <Projects locale={locale} projects={projects} />
-<GithubActivity locale={locale} />
+{contributions && <GithubActivity locale={locale} data={contributions} />}
 <About locale={locale} />
 <Stack locale={locale} />
 <Contact locale={locale} />

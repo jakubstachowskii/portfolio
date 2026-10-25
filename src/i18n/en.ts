@@ -78,8 +78,16 @@ export const en = {
       label: 'GitHub activity',
       kicker: 'LIVE — GITHUB',
       title: ['Code', 'on GitHub.'],
-      // TODO(content): Etap 6 podmienia na prawdziwą aktywność z GitHub API
-      lead: '[Your real activity from the GitHub API will appear here — a chart, repository count and latest commits.]',
+      repos: {
+        one: 'public repository',
+        few: 'public repositories',
+        many: 'public repositories',
+        other: 'public repositories',
+      },
+      lastCommit: 'last commit',
+      calendar: 'Contribution calendar: {total} in the last {weeks} weeks',
+      less: 'less',
+      more: 'more',
     },
     about: {
       kicker: '02 — ABOUT',

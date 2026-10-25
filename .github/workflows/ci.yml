@@ -17,6 +17,10 @@ jobs:
     name: Lint · typy · testy · build · e2e · Lighthouse
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    # token Actions dla wszystkich kroków, które budują stronę (build, e2e, Lighthouse): sekcja GitHub
+    # (GraphQL wymaga tokenu) jest wtedy testowana tak, jak trafi na produkcję
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v5
 
@@ -34,8 +38,6 @@ jobs:
       - run: pnpm test
 
       - run: pnpm build
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # Na razie tylko ostrzeżenie; blokada w Fazie 9 (PLAN §14)
       - name: Szukaj TODO(content) w dist/

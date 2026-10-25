@@ -76,8 +76,16 @@ export const pl = {
       label: 'Aktywność na GitHubie',
       kicker: 'LIVE — GITHUB',
       title: ['Kod', 'na GitHubie.'],
-      // TODO(content): Etap 6 podmienia na prawdziwą aktywność z GitHub API
-      lead: '[Tu pojawi się Twoja prawdziwa aktywność z GitHub API — wykres, liczba repozytoriów i ostatnie commity.]',
+      repos: {
+        one: 'publiczne repozytorium',
+        few: 'publiczne repozytoria',
+        many: 'publicznych repozytoriów',
+        other: 'publicznego repozytorium',
+      },
+      lastCommit: 'ostatni commit',
+      calendar: 'Kalendarz kontrybucji: {total} w ostatnich {weeks} tygodniach',
+      less: 'mniej',
+      more: 'więcej',
     },
     about: {
       kicker: '02 — O MNIE',

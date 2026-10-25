@@ -26,6 +26,10 @@
   --nav-bg: rgba(13, 14, 16, 0.78);
   --cell: #1c1f23;
   --cell-hi: rgba(62, 230, 193, 0.55);
+  --cell-1: rgba(62, 230, 193, 0.28);
+  --cell-2: rgba(62, 230, 193, 0.5);
+  --cell-3: rgba(62, 230, 193, 0.75);
+  --cell-4: rgba(62, 230, 193, 1);
   /* tylko szkice projektów */
   --hue1: #5ac8fa;
   --hue2: #ff8a5c;
@@ -61,6 +65,10 @@
   --nav-bg: rgba(241, 239, 233, 0.82);
   --cell: #e3dfd5;
   --cell-hi: rgba(62, 230, 193, 0.55);
+  --cell-1: rgba(62, 230, 193, 0.28);
+  --cell-2: rgba(62, 230, 193, 0.5);
+  --cell-3: rgba(62, 230, 193, 0.75);
+  --cell-4: rgba(62, 230, 193, 1);
   --hue1: #0a7cae;
   --hue2: #c2410c;
   --hue3: #6d4fd6;
@@ -94,6 +102,10 @@
     --nav-bg: rgba(241, 239, 233, 0.82);
     --cell: #e3dfd5;
     --cell-hi: rgba(62, 230, 193, 0.55);
+    --cell-1: rgba(62, 230, 193, 0.28);
+    --cell-2: rgba(62, 230, 193, 0.5);
+    --cell-3: rgba(62, 230, 193, 0.75);
+    --cell-4: rgba(62, 230, 193, 1);
     --hue1: #0a7cae;
     --hue2: #c2410c;
     --hue3: #6d4fd6;
