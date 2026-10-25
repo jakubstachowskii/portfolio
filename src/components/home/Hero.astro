@@ -67,9 +67,12 @@ const last = h.lines.length - 1;
           </svg>
           {h.ctaGithub}
         </a>
-        <a class="btn mono cta cta-ghost" href={site.cv}>
-          {h.ctaCv}
-        </a>
+        {/* CV pokazuje się dopiero po ustawieniu `cv` w site.ts (bez martwego linku) */}
+        {site.cv && (
+          <a class="btn mono cta cta-ghost" href={site.cv}>
+            {h.ctaCv}
+          </a>
+        )}
       </div>
     </div>
     <div class="art">

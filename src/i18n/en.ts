@@ -94,9 +94,6 @@ export const en = {
       title: ['I start with', 'what hurts.'],
       lead: 'Delivery bookings and grain purchases kept on paper, furniture cuts worked out on a scrap of paper. I take a problem like that and build a tool that does it for people.',
       body: 'I study computer science with a cybersecurity specialisation, so I think about security from the first line of code, not after launch.',
-      // TODO(content): zdjęcie
-      photo: '[PHOTO]',
-      photoNote: ['// your photo here', '// square, min. 400×400'],
       facts: {
         role: ['ROLE', 'Developer'],
         platforms: ['PLATFORMS', 'Desktop · Mobile · Web'],
