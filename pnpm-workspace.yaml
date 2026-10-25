@@ -1,2 +1,7 @@
 allowBuilds:
   lefthook: true
+# Poprawki bezpieczeństwa w zależnościach narzędzi buildu (DECISIONS #36): tylko podatne zakresy.
+overrides:
+  path-to-regexp@>=4.0.0 <6.3.0: ^6.3.0
+  zod@>=4.0.0 <4.6.6: ^4.6.6
+  postcss-selector-parser@<7.1.6: ^7.1.6
