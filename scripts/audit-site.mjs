@@ -69,9 +69,14 @@ for (const path of all) {
     hrefs: [...document.querySelectorAll('a[href]:not([href^="#"])')].map((a) => a.href),
     noAlt: document.querySelectorAll('img:not([alt])').length,
     prose: document.querySelector('.prose')?.textContent?.trim().length ?? 0,
+    // listy w treści muszą mieć znaczniki (reset CSS je zdejmuje)
+    bareLists: [...document.querySelectorAll('.prose li')].filter(
+      (li) => getComputedStyle(li).listStyleType === 'none',
+    ).length,
   }));
   if (/\/(projekty|projects)\//.test(path) && info.prose < 80)
     fail(path, 'podstrona bez opisu projektu');
+  if (info.bareLists) fail(path, `${info.bareLists} punktów listy bez znacznika`);
   if (/\[[^\]\n]{2,40}\]/.test(info.text) || info.title.includes('['))
     fail(path, 'placeholder w nawiasach');
   if (/TODO/.test(info.text)) fail(path, 'TODO w treści');
