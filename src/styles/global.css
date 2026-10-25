@@ -190,10 +190,11 @@
     animation: ping var(--t-ping) cubic-bezier(0, 0.6, 0.4, 1) infinite;
   }
 
-  /* animacje w pętli stoją, gdy sekcja jest poza ekranem (klasa .off z src/scripts/offscreen.ts) */
-  .off :is(.dotlive, .tape, .deck-float, .sweep)::after,
-  .off :is(.tape, .deck-float),
-  .off .btn-acc::after {
+  /* animacje w pętli stoją, gdy sekcja jest poza ekranem (klasa .off z src/scripts/offscreen.ts).
+     Bez .reveal/.wipe: to animacje sterowane scrollem, pauza by je zamroziła. */
+  .off :not(.reveal, .wipe),
+  .off :not(.reveal, .wipe)::before,
+  .off :not(.reveal, .wipe)::after {
     animation-play-state: paused;
   }
 }
