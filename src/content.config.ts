@@ -9,7 +9,7 @@ import { MOCKS, PLATFORMS } from '@/lib/projects';
  */
 const projects = defineCollection({
   loader: glob({
-    pattern: '*.md',
+    pattern: ['*.md', '!*.en.md'],
     base: './src/content/projects',
     // id = nazwa pliku bez zmian (wielkość liter jak w nazwie repo)
     generateId: ({ entry }) => entry.replace(/\.md$/, ''),
@@ -33,4 +33,14 @@ const projects = defineCollection({
     }),
 });
 
-export const collections = { projects };
+/** Angielska treść podstrony: `<NazwaRepo>.en.md` obok nadpisania (bez frontmattera). */
+const projectsEn = defineCollection({
+  loader: glob({
+    pattern: '*.en.md',
+    base: './src/content/projects',
+    generateId: ({ entry }) => entry.replace(/\.en\.md$/, ''),
+  }),
+  schema: z.object({}),
+});
+
+export const collections = { projects, projectsEn };
