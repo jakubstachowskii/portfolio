@@ -202,6 +202,50 @@ for (const path of ['/', '/en/']) {
   await c.close();
 }
 
+// telefon: nagłówki nie kończą się jednym słowem w osobnej linii (sierotka)
+for (const path of all) {
+  const c = await browser.newContext({ viewport: { width: 360, height: 740 } });
+  const p = await c.newPage();
+  await p.goto(BASE + path, { waitUntil: 'networkidle' });
+  const orphans = await p.evaluate(() =>
+    [...document.querySelectorAll('main h1, main h2, main h3')]
+      .filter((h) => {
+        // słowa z widocznego tekstu pogrupowane po liniach (górna krawędź prostokąta)
+        const lines = new Map();
+        const walker = document.createTreeWalker(h, NodeFilter.SHOW_TEXT);
+        for (let n = walker.nextNode(); n; n = walker.nextNode()) {
+          if (n.parentElement.closest('.sr-only, svg')) continue;
+          for (const m of n.textContent.matchAll(/\S+/g)) {
+            const r = document.createRange();
+            r.setStart(n, m.index);
+            r.setEnd(n, m.index + m[0].length);
+            const box = r.getBoundingClientRect();
+            const top = Math.round(box.top);
+            const line = lines.get(top) ?? { words: 0, left: box.left, right: box.right };
+            line.words += 1;
+            line.left = Math.min(line.left, box.left);
+            line.right = Math.max(line.right, box.right);
+            lines.set(top, line);
+          }
+        }
+        // celowe łamanie (każda linia w osobnym bloku, np. tytuł hero) nie jest sierotką
+        if (h.querySelector('.line, br')) return false;
+        const sorted = [...lines.entries()].sort((a, b) => a[0] - b[0]).map((e) => e[1]);
+        if (sorted.length < 2) return false;
+        const last = sorted.at(-1);
+        const widest = Math.max(...sorted.map((l) => l.right - l.left));
+        // sierotka = jedno słowo w linii krótszej niż 40% najdłuższej, gdy linia wyżej
+        // ma słowo do oddania (dwuwyrazowa nazwa w dwóch liniach nie ma innego układu)
+        return (
+          last.words === 1 && sorted.at(-2).words > 1 && (last.right - last.left) / widest < 0.4
+        );
+      })
+      .map((h) => h.textContent.trim().split(/\s+/).join(' ').slice(0, 30)),
+  );
+  for (const o of orphans) fail(`telefon ${path}`, `nagłówek „${o}” kończy się samotnym słowem`);
+  await c.close();
+}
+
 // telefon: w kalendarzu GitHub widać najnowszy tydzień (gdy sekcja jest)
 {
   const c = await browser.newContext({ viewport: { width: 360, height: 740 } });
