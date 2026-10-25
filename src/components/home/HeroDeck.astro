@@ -15,10 +15,10 @@ const cards = DECK_IDS.map((id, i) => {
   const view = cardView(id, initialDeck);
   return { id, ...d.cards[id], pos: `0${i + 1} / ${total}`, view, style: cardStyle(view) };
 });
-// Etap 2: stan spoczynku. Przeglądanie (klik, przeciąganie, klawiatura) = Etap 4 (data-deck*).
+// Render = stan spoczynku (działa bez JS); interakcje w src/scripts/deck.ts (atrybuty data-deck*).
 ---
 
-{/* talia to własny widżet: Tab ją aktywuje, strzałki zmieniają kartę, Esc kończy (Etap 4) */}
+{/* talia to własny widżet: Tab ją aktywuje, strzałki zmieniają kartę, Esc kończy */}
 {/* eslint-disable-next-line astro/jsx-a11y/no-noninteractive-tabindex */}
 <figure class="deck-scene" tabindex="0" aria-label={d.label} data-deck>
   <div class="deck-stage" data-deck-stage>
@@ -79,6 +79,11 @@ const cards = DECK_IDS.map((id, i) => {
     </span>
   </figcaption>
 </figure>
+
+<script>
+  import { initDeck } from '@/scripts/deck';
+  for (const scene of document.querySelectorAll<HTMLElement>('[data-deck]')) initDeck(scene);
+</script>
 
 <style>
   .deck-cap {
