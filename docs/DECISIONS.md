@@ -264,3 +264,18 @@ Pozostałe wymagania strukturalne PLAN §6 (role tokenów, 5 stanów, focus ring
 - **CI:** token Actions jest w `env` całego joba, więc e2e i Lighthouse budują stronę tak jak produkcja. Testy e2e sprawdzają oba warianty (sekcja z danymi albo brak sekcji). `ci:local` bez tokenu sprawdza wariant „brak”; wariant z danymi sprawdzony lokalnie na tymczasowej próbce (nie commitowana).
 - **Produkcja:** zmienna `GITHUB_TOKEN` w Vercelu (token tylko do odczytu publicznych danych) i codzienny rebuild: `.github/workflows/rebuild.yml` (04:00 UTC + ręcznie) wywołuje Deploy Hook z sekretu `VERCEL_DEPLOY_HOOK`. Bez sekretu job tylko informuje.
 - Wspólny zapis kopii w `src/lib/json-cache.ts`; formatowanie (liczba mnoga, daty) w `src/lib/format.ts`.
+
+## #36 · 2026-10-25 · Bezpieczeństwo: CSP, nagłówki, zależności · przyjęta
+
+- **CSP:** `security.csp` w Astro dodaje na każdej stronie `<meta>` z hashami wszystkich skryptów (liczone przy buildzie) i dyrektywami `default-src 'self'`, `object-src 'none'`, `base-uri`, `form-action`. Style mają `'unsafe-inline'`, bo szkice i talia kart używają atrybutów `style` (przy `'unsafe-inline'` Astro nie emituje hashy stylów). Wbudowany Shiki wyłączony (`syntaxHighlight: false`), bloki kodu koloruje expressive-code.
+- **Nagłówki** (`src/integrations/security-headers.ts`): adapter statyczny Vercela nie ma opcji na nagłówki, więc po buildzie dopisujemy trasę na początek `.vercel/output/config.json` (Build Output API v3): HSTS, `nosniff`, `X-Frame-Options: DENY`, `frame-ancestors 'none'`, Referrer-Policy, Permissions-Policy, COOP. Wynik sprawdzalny lokalnie po `pnpm build`.
+- **Zależności:** usunięte nieużywane (`react`, `react-dom`, `@astrojs/react`, `@types/react*`, `astro-icon`, `@iconify-json/lucide`). Podatności w zależnościach produkcyjnych (narzędzia buildu): nadpisania w `pnpm-workspace.yaml` tylko na podatne zakresy (`path-to-regexp` 6.x, `zod` 4.x, `postcss-selector-parser` → 7.1.6; sprawdzone, że kolorowanie kodu działa). `pnpm audit --prod`: 0. Zostały podatności tylko w narzędziach deweloperskich (Lighthouse CI itd.), które nie trafiają na stronę.
+- **Testy:** brak błędów konsoli i naruszeń CSP na głównej, podstronie i 404; wewnętrzne linki bez 4xx.
+
+## #37 · 2026-10-25 · SEO, favicon, obrazek OG, licencje fontów · przyjęta
+
+- `site` = adres produkcji na Vercelu do czasu własnej domeny (jedno miejsce w `astro.config.mjs`). Uwaga: produkcja ma teraz włączone Vercel Authentication (302 na logowanie) — do wyłączenia w Etapie 8.
+- `src/components/layout/Seo.astro`: canonical (bez 404), `hreflang` pl/en/x-default, Open Graph + Twitter (`/og.png`), JSON-LD `Person` (główna) i `SoftwareApplication` (podstrony); placeholdery z `site.ts` nie trafiają do danych strukturalnych. Tytuły: główna „Imię Nazwisko — Programista: aplikacje…”, podstrony „Projekt — Imię Nazwisko”. `robots.txt` z adresem mapy strony.
+- Favicon SVG (litera J na mięcie, kolory strony) i `apple-touch-icon`/`og.png` z szablonu `scripts/brand.html` (`pnpm brand`, fonty strony). Wygląd strony bez zmian.
+- `public/licenses/fonts.txt`: teksty OFL 1.1 trzech krojów (wymóg licencji przy rozpowszechnianiu, także podzbiorów; brak Reserved Font Names).
+- Test szerokości rozszerzony o 375, 1024 i 1440 px (lista z promptu).
