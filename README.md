@@ -95,21 +95,22 @@ Nagłówki bezpieczeństwa i CSP są generowane przy buildzie (`src/integrations
 
 ## Komendy
 
-| Komenda             | Co robi                                                                                   |
-| ------------------- | ----------------------------------------------------------------------------------------- |
-| `pnpm dev`          | serwer deweloperski                                                                       |
-| `pnpm build`        | build produkcyjny                                                                         |
-| `pnpm preview`      | podgląd builda                                                                            |
-| `pnpm check`        | `astro check` (typy)                                                                      |
-| `pnpm lint`         | `astro sync` + ESLint + `prettier --check`                                                |
-| `pnpm format`       | `prettier --write`                                                                        |
-| `pnpm test`         | Vitest (unit)                                                                             |
-| `pnpm test:e2e`     | Playwright + axe (sam buduje i uruchamia; zatrzymaj wcześniej `pnpm dev`)                 |
-| `pnpm lhci`         | Lighthouse CI na zbudowanym `dist/`                                                       |
-| `pnpm ci:local`     | **wszystkie kroki CI na czystej kopii ostatniego commitu** — uruchamiaj przed każdym push |
-| `pnpm screenshots`  | zrzuty stron repo z ustawionym Website → `src/assets/projects/`                           |
-| `pnpm brand`        | favicon Apple i obrazek Open Graph z `scripts/brand.html`                                 |
-| `pnpm fonts:subset` | podzbiory fontów do `src/assets/fonts/` (po zmianie zakresów znaków)                      |
+| Komenda             | Co robi                                                                                                            |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| `pnpm dev`          | serwer deweloperski                                                                                                |
+| `pnpm build`        | build produkcyjny                                                                                                  |
+| `pnpm preview`      | podgląd builda                                                                                                     |
+| `pnpm check`        | `astro check` (typy)                                                                                               |
+| `pnpm lint`         | `astro sync` + ESLint + `prettier --check`                                                                         |
+| `pnpm format`       | `prettier --write`                                                                                                 |
+| `pnpm test`         | Vitest (unit)                                                                                                      |
+| `pnpm test:e2e`     | Playwright + axe (sam buduje i uruchamia; zatrzymaj wcześniej `pnpm dev`)                                          |
+| `pnpm lhci`         | Lighthouse CI na zbudowanym `dist/`                                                                                |
+| `pnpm audit:site`   | pełny przegląd działającej strony: `pnpm audit:site` (lokalnie po `pnpm preview`) albo `pnpm audit:site https://…` |
+| `pnpm ci:local`     | **wszystkie kroki CI na czystej kopii ostatniego commitu** — uruchamiaj przed każdym push                          |
+| `pnpm screenshots`  | zrzuty stron repo z ustawionym Website → `src/assets/projects/`                                                    |
+| `pnpm brand`        | favicon Apple i obrazek Open Graph z `scripts/brand.html`                                                          |
+| `pnpm fonts:subset` | podzbiory fontów do `src/assets/fonts/` (po zmianie zakresów znaków)                                               |
 
 **Lighthouse CI lokalnie na Windowsie:** jeśli `lhci` zgłasza `spawn UNKNOWN`, wskaż headless shell z Playwrighta:
 
