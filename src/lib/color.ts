@@ -42,6 +42,8 @@ const BACKGROUNDS = ['bg', 'bg2', 'surface', 'surface2'] as const;
 export const CONTRAST_PAIRS: [fg: string, bg: string][] = [
   ...TEXTS.flatMap((fg) => BACKGROUNDS.map((bg) => [fg, bg] as [string, string])),
   ['acc-ink', 'acc'],
+  // jedyny tekst w kolorze --hue*: pieczątka „Wysłano” w szkicu Awizacji
+  ['hue4', 'surface'],
 ];
 
 export interface ContrastResult {

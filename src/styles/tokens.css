@@ -38,6 +38,8 @@
   --sheen: rgba(255, 255, 255, 0.55);
   --sheen-soft: rgba(255, 255, 255, 0.35);
   --press: rgba(0, 0, 0, 0.08);
+  /* pieczątka w szkicu Awizacji: w jasnym pełne krycie, bo 0.9 daje 4.04:1 (DECISIONS #31) */
+  --stamp-opacity: 0.9;
 }
 
 /* ── Motyw jasny ── */
@@ -69,6 +71,7 @@
   --sheen: rgba(255, 255, 255, 0.55);
   --sheen-soft: rgba(255, 255, 255, 0.35);
   --press: rgba(0, 0, 0, 0.08);
+  --stamp-opacity: 1;
 }
 
 /* Bez JS: jasny, gdy system tego chce, a skrypt nie ustawił motywu (te same wartości co wyżej) */
@@ -96,6 +99,7 @@
     --hue3: #6d4fd6;
     --hue4: #16803c;
     --hue5: #a86400;
+    --stamp-opacity: 1;
   }
 }
 
