@@ -317,6 +317,7 @@ Pozostałe wymagania strukturalne PLAN §6 (role tokenów, 5 stanów, focus ring
 - Treść oparta na faktach z repozytoriów i danych Jakuba: aplikacje desktopowe i webowe (projekty są desktopowe), JavaScript, React, Electron, studia (WSB Merito, cyberbezpieczeństwo). Karty w hero (web / mobile / desktop) zostają, bo są elementem wyglądu.
 - Poprawka po uwagach Jakuba: ton przyziemny i naturalny, w pierwszej osobie (hero „Cześć, jestem Jakub.”, sekcje „Moje projekty”, „Kilka słów o mnie”, „Czego używam”), bez haseł marketingowych.
 - Tytuł hero ma krótkie słowa: linie mają `overflow: hidden` (animacja wejścia), więc za długie słowo byłoby ucięte na 1024–1920 px. `pnpm audit:site` sprawdza teraz ucięcie linii tytułu na wszystkich szerokościach.
+- Stopka bez napisu „Zrobione w Astro i TypeScript”: informacja dla programistów, nie dla rekruterów (technologie są w README). W stopce zostają © z imieniem i link „na górę”.
 
 ## #44 · 2026-11-02 · Wzmocnienia po audycie bezpieczeństwa · przyjęta
 

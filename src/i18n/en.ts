@@ -29,7 +29,6 @@ export const en = {
     },
   },
   footer: {
-    made: 'BUILT WITH ASTRO AND TYPESCRIPT',
     top: 'BACK TO TOP ↑',
   },
   home: {
