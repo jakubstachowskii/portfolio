@@ -339,3 +339,4 @@ Audyt metodą Cloudflare security-audit (profil quick, commit 8ec79fb): 0 podatn
 - HSTS `preload` (ma sens dopiero na własnej domenie),
 - ochrona przed osadzaniem w ramce poza nagłówkiem (strona nie ma formularzy ani akcji, które można wymusić kliknięciem).
 - Krótsze „O mnie” (prośba Jakuba): bez trzech kart 01–03 (ogólniki) i wiersza „Na co dzień” (powtarzał sekcję Stack); lead w hero skrócony, bo powtarzał akapit z „O mnie”. Doszły aplikacje mobilne (Jakub: „mobilna też będzie”) w tytule, opisie, hero, taśmie i platformach.
+- „O mnie” od Jakuba (fakty od niego): technikum i nauka na własną rękę, praktyki, pierwszy rok studiów; drugi akapit mówi, czego szuka (staż / junior, zdalnie lub na miejscu, pełny etat). Bez opisu projektów — są w swojej sekcji.
