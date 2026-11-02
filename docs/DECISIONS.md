@@ -315,4 +315,5 @@ Pozostałe wymagania strukturalne PLAN §6 (role tokenów, 5 stanów, focus ring
 
 - Prośba Jakuba: cała treść rzeczowa i profesjonalna, bez kreatywnych nazw (np. „Skrzynka z narzędziami” → „Technologie i narzędzia”), bez twierdzeń wykraczających poza jego projekty. Zmieniony wyłącznie tekst w `src/i18n/`; układ, liczba linii w nagłówkach, klucze i działanie bez zmian.
 - Treść oparta na faktach z repozytoriów i danych Jakuba: aplikacje desktopowe i webowe (projekty są desktopowe), JavaScript, React, Electron, studia (WSB Merito, cyberbezpieczeństwo). Karty w hero (web / mobile / desktop) zostają, bo są elementem wyglądu.
+- Poprawka po uwagach Jakuba: ton przyziemny i naturalny, w pierwszej osobie (hero „Cześć, jestem Jakub.”, sekcje „Moje projekty”, „Kilka słów o mnie”, „Czego używam”), bez haseł marketingowych.
 - Tytuł hero ma krótkie słowa: linie mają `overflow: hidden` (animacja wejścia), więc za długie słowo byłoby ucięte na 1024–1920 px. `pnpm audit:site` sprawdza teraz ucięcie linii tytułu na wszystkich szerokościach.

@@ -2,7 +2,7 @@ export const pl = {
   meta: {
     title: 'Programista aplikacji desktopowych i webowych',
     description:
-      'Programista i student informatyki (specjalizacja: cyberbezpieczeństwo). Tworzę aplikacje desktopowe i webowe w JavaScript, React i Electron, które automatyzują codzienną pracę.',
+      'Programista i student informatyki. Piszę aplikacje desktopowe i webowe — tutaj są moje projekty i kontakt do mnie.',
   },
   nav: {
     skip: 'Przejdź do treści',
@@ -22,19 +22,19 @@ export const pl = {
       top: 'START',
       projekty: '01 PROJEKTY',
       'o-mnie': '02 O MNIE',
-      stack: '03 TECHNOLOGIE',
+      stack: '03 STACK',
       kontakt: '04 KONTAKT',
     },
   },
   footer: {
-    made: 'STRONA ZBUDOWANA W ASTRO I TYPESCRIPT',
+    made: 'ZROBIONE W ASTRO I TYPESCRIPT',
     top: 'NA GÓRĘ ↑',
   },
   home: {
     hero: {
-      status: 'STATUS: OTWARTY NA WSPÓŁPRACĘ',
-      lines: ['Kod, który', 'ułatwia', 'pracę.'],
-      lead: 'Jestem programistą i studentem informatyki. Tworzę aplikacje desktopowe i webowe, które automatyzują codzienną pracę — od obsługi awizacji w skupie zbóż po planowanie rozkroju mebli.',
+      status: 'STATUS: OTWARTY NA PROPOZYCJE',
+      lines: ['Cześć,', 'jestem', 'Jakub.'],
+      lead: 'Piszę aplikacje desktopowe i webowe. Najbardziej lubię brać coś, co ludzie robią ręcznie albo na papierze, i zamieniać to w program, który zrobi to za nich. Studiuję informatykę ze specjalizacją z cyberbezpieczeństwa.',
       ctaProjects: 'ZOBACZ PROJEKTY',
       ctaGithub: 'GITHUB',
       ctaCv: 'CV.PDF ↓',
@@ -50,20 +50,25 @@ export const pl = {
       cards: {
         web: { label: 'WEB', title: 'Aplikacje webowe', sub: 'działają w przeglądarce' },
         mobile: { label: 'MOBILE', title: 'Aplikacje mobilne', sub: 'na telefon i tablet' },
-        desktop: { label: 'DESKTOP', title: 'Aplikacje desktopowe', sub: 'instalowane lokalnie' },
+        desktop: {
+          label: 'DESKTOP',
+          title: 'Aplikacje desktopowe',
+          sub: 'instalowane na komputerze',
+        },
       },
     },
     tape: [
       'Aplikacje desktopowe',
       'Aplikacje webowe',
-      'Automatyzacja procesów',
-      'Od analizy do wdrożenia',
+      'JavaScript',
+      'React',
+      'Electron',
       'Cyberbezpieczeństwo',
     ],
     projects: {
       kicker: '01 — PROJEKTY',
-      title: ['Wybrane', 'projekty.'],
-      lead: 'Aplikacje z mojego GitHuba, z opisem, technologiami i kodem źródłowym. Najedź na projekt albo go kliknij, aby zobaczyć podgląd.',
+      title: ['Moje', 'projekty.'],
+      lead: 'Wszystkie są na moim GitHubie. Najedź na projekt albo go kliknij, żeby zobaczyć podgląd.',
       all: 'Wszystkie repozytoria ↗',
       preview: 'PODGLĄD',
       tech: 'Technologie',
@@ -81,7 +86,7 @@ export const pl = {
     },
     gh: {
       label: 'Aktywność na GitHubie',
-      kicker: 'AKTYWNOŚĆ — GITHUB',
+      kicker: 'GITHUB',
       title: ['Kod', 'na GitHubie.'],
       repos: {
         one: 'publiczne repozytorium',
@@ -96,35 +101,35 @@ export const pl = {
     },
     about: {
       kicker: '02 — O MNIE',
-      title: ['Od problemu', 'do aplikacji.'],
-      lead: 'Tworzę oprogramowanie na podstawie konkretnych potrzeb: awizacje i skup zbóż prowadzone na papierze, rozkrój mebli liczony ręcznie. Analizuję proces, projektuję rozwiązanie i doprowadzam je do działającej wersji.',
-      body: 'Studiuję informatykę w WSB Merito w Chorzowie, na specjalizacji cyberbezpieczeństwo. Dlatego ochronę danych i kontrolę dostępu uwzględniam od początku projektu, a nie dopiero przed wdrożeniem.',
+      title: ['Kilka słów', 'o mnie.'],
+      lead: 'Lubię programy, które rozwiązują konkretny problem. Tak powstały moje projekty: aplikacja do awizacji i skupu zbóż, które wcześniej prowadzono na papierze, i program do rozkroju mebli, który wcześniej liczono ręcznie.',
+      body: 'Studiuję informatykę w WSB Merito w Chorzowie, na specjalizacji z cyberbezpieczeństwa. Dlatego przy każdym projekcie myślę też o tym, jak chronić dane i kto powinien mieć do czego dostęp.',
       facts: {
         role: ['ROLA', 'Programista'],
         platforms: ['PLATFORMY', 'Desktop · Web'],
         spec: ['SPECJALIZACJA', 'Cyberbezpieczeństwo'],
         school: ['UCZELNIA', 'WSB Merito Chorzów'],
         city: ['LOKALIZACJA', ''],
-        rule: ['GŁÓWNE TECHNOLOGIE', 'JavaScript · React · Electron'],
+        rule: ['NA CO DZIEŃ', 'JavaScript · React · Electron'],
       },
       steps: [
         {
-          title: 'Analiza potrzeb',
-          text: 'Zaczynam od zrozumienia procesu i problemu użytkownika, a technologię dobieram do wymagań.',
+          title: 'Najpierw problem',
+          text: 'Zanim zacznę pisać, chcę dobrze zrozumieć, co komuś zabiera czas. Technologię dobieram dopiero potem.',
         },
         {
           title: 'Bezpieczeństwo od początku',
-          text: 'Uprawnienia, ochronę danych i kontrolę dostępu planuję razem z funkcjami, nie na końcu.',
+          text: 'O dostępie i ochronie danych myślę od pierwszego dnia, a nie dopiero na końcu.',
         },
         {
-          title: 'Pełny cykl',
-          text: 'Prowadzę projekt od pomysłu, przez implementację i testy, do wersji gotowej dla użytkowników.',
+          title: 'Do działającej wersji',
+          text: 'Lubię doprowadzać rzeczy do końca: od pomysłu do programu, który ktoś może zainstalować i używać.',
         },
       ],
     },
     stack: {
       kicker: '03 — STACK',
-      title: ['Technologie', 'i narzędzia.'],
+      title: ['Czego', 'używam.'],
       cats: { web: 'WEB', ui: 'UI', desktop: 'DESKTOP', data: 'BAZY DANYCH', tools: 'NARZĘDZIA' },
     },
     contact: {
@@ -149,10 +154,10 @@ export const pl = {
     next: 'Następny',
   },
   notFound: {
-    title: 'Nie znaleziono strony',
+    title: 'Nie ma takiej strony',
     description: 'Strona o tym adresie nie istnieje.',
     code: '404',
-    text: 'Nie znaleziono strony.',
+    text: 'Nie ma takiej strony.',
     cta: 'WRÓĆ NA START',
   },
   ui: {

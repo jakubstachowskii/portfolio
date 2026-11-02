@@ -4,7 +4,7 @@ export const en = {
   meta: {
     title: 'Desktop and web application developer',
     description:
-      'Developer and computer science student (cybersecurity specialisation). I build desktop and web applications in JavaScript, React and Electron that automate everyday work.',
+      'Developer and computer science student. I build desktop and web apps — here you’ll find my projects and how to reach me.',
   },
   nav: {
     skip: 'Skip to content',
@@ -24,7 +24,7 @@ export const en = {
       top: 'START',
       projekty: '01 PROJECTS',
       'o-mnie': '02 ABOUT',
-      stack: '03 TECHNOLOGIES',
+      stack: '03 STACK',
       kontakt: '04 CONTACT',
     },
   },
@@ -34,9 +34,9 @@ export const en = {
   },
   home: {
     hero: {
-      status: 'STATUS: OPEN TO COLLABORATION',
-      lines: ['Code that', 'makes work', 'easier.'],
-      lead: 'I’m a developer and a computer science student. I build desktop and web applications that automate everyday work — from delivery bookings at a grain purchase point to furniture cutting plans.',
+      status: 'STATUS: OPEN TO OFFERS',
+      lines: ['Hi,', 'I’m', 'Jakub.'],
+      lead: 'I build desktop and web apps. What I enjoy most is taking something people do by hand or on paper and turning it into a program that does it for them. I’m studying computer science, specialising in cybersecurity.',
       ctaProjects: 'SEE PROJECTS',
       ctaGithub: 'GITHUB',
       ctaCv: 'CV.PDF ↓',
@@ -52,20 +52,14 @@ export const en = {
       cards: {
         web: { label: 'WEB', title: 'Web apps', sub: 'run in the browser' },
         mobile: { label: 'MOBILE', title: 'Mobile apps', sub: 'for phone and tablet' },
-        desktop: { label: 'DESKTOP', title: 'Desktop apps', sub: 'installed locally' },
+        desktop: { label: 'DESKTOP', title: 'Desktop apps', sub: 'installed on your computer' },
       },
     },
-    tape: [
-      'Desktop applications',
-      'Web applications',
-      'Process automation',
-      'From analysis to deployment',
-      'Cybersecurity',
-    ],
+    tape: ['Desktop apps', 'Web apps', 'JavaScript', 'React', 'Electron', 'Cybersecurity'],
     projects: {
       kicker: '01 — PROJECTS',
-      title: ['Selected', 'projects.'],
-      lead: 'Applications from my GitHub, with a description, technologies and source code. Hover over or click a project to see a preview.',
+      title: ['My', 'projects.'],
+      lead: 'They’re all on my GitHub. Hover over or click a project to see a preview.',
       all: 'All repositories ↗',
       preview: 'PREVIEW',
       tech: 'Technologies',
@@ -83,7 +77,7 @@ export const en = {
     },
     gh: {
       label: 'GitHub activity',
-      kicker: 'ACTIVITY — GITHUB',
+      kicker: 'GITHUB',
       title: ['Code', 'on GitHub.'],
       repos: {
         one: 'public repository',
@@ -98,35 +92,35 @@ export const en = {
     },
     about: {
       kicker: '02 — ABOUT',
-      title: ['From problem', 'to product.'],
-      lead: 'I build software around specific needs: delivery bookings and grain purchases kept on paper, furniture cuts worked out by hand. I analyse the process, design the solution and take it to a working version.',
-      body: 'I study computer science at WSB Merito University in Chorzów, specialising in cybersecurity. That is why I plan data protection and access control from the start of a project, not just before release.',
+      title: ['A bit', 'about me.'],
+      lead: 'I like software that solves a specific problem. That’s how my projects started: an app for delivery bookings and grain purchases that used to be kept on paper, and a program for furniture cutting plans that used to be worked out by hand.',
+      body: 'I study computer science at WSB Merito University in Chorzów, specialising in cybersecurity. So in every project I also think about how to protect data and who should have access to what.',
       facts: {
         role: ['ROLE', 'Developer'],
         platforms: ['PLATFORMS', 'Desktop · Web'],
         spec: ['SPECIALISATION', 'Cybersecurity'],
         school: ['UNIVERSITY', 'WSB Merito Chorzów'],
         city: ['LOCATION', ''],
-        rule: ['MAIN TECHNOLOGIES', 'JavaScript · React · Electron'],
+        rule: ['DAY TO DAY', 'JavaScript · React · Electron'],
       },
       steps: [
         {
-          title: 'Understanding needs',
-          text: 'I start by understanding the process and the user’s problem, then choose technology that fits the requirements.',
+          title: 'Problem first',
+          text: 'Before I write any code, I want to understand what is taking someone’s time. I pick the technology after that.',
         },
         {
           title: 'Security from day one',
-          text: 'I plan permissions, data protection and access control together with features, not at the end.',
+          text: 'I think about access and data protection from the first day, not at the very end.',
         },
         {
-          title: 'The full cycle',
-          text: 'I take a project from the idea, through implementation and testing, to a version ready for users.',
+          title: 'To a working version',
+          text: 'I like finishing things: from an idea to a program someone can install and use.',
         },
       ],
     },
     stack: {
       kicker: '03 — STACK',
-      title: ['Technologies', '& tools.'],
+      title: ['What', 'I use.'],
       cats: { web: 'WEB', ui: 'UI', desktop: 'DESKTOP', data: 'DATABASES', tools: 'TOOLS' },
     },
     contact: {
@@ -154,7 +148,7 @@ export const en = {
     title: 'Page not found',
     description: 'There is no page at this address.',
     code: '404',
-    text: 'Page not found.',
+    text: 'This page doesn’t exist.',
     cta: 'BACK TO START',
   },
   ui: {
