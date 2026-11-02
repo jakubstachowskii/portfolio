@@ -84,7 +84,7 @@ test.describe('404', () => {
   test('nieistniejący adres: status 404, komunikat i powrót na start', async ({ page }) => {
     const res = await page.goto('/nie-ma-takiej-strony');
     expect(res?.status()).toBe(404);
-    await expect(page.locator('h1')).toHaveText('Tej strony tu nie ma.');
+    await expect(page.locator('h1')).toHaveText('Nie znaleziono strony.');
     await page.locator('a', { hasText: 'WRÓĆ NA START' }).click();
     await expect(page).toHaveURL(/\/$/);
   });
