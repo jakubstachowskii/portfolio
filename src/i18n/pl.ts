@@ -1,9 +1,8 @@
 export const pl = {
   meta: {
-    title: 'Programista: aplikacje webowe, mobilne i desktopowe',
-    // TODO(content): opis strony do meta description
+    title: 'Programista aplikacji desktopowych i webowych',
     description:
-      'Programista. Aplikacje desktopowe, mobilne i webowe, które biorą na siebie ręczną pracę — od awizacji po rozkrój mebli.',
+      'Programista i student informatyki (specjalizacja: cyberbezpieczeństwo). Tworzę aplikacje desktopowe i webowe w JavaScript, React i Electron, które automatyzują codzienną pracę.',
   },
   nav: {
     skip: 'Przejdź do treści',
@@ -23,42 +22,48 @@ export const pl = {
       top: 'START',
       projekty: '01 PROJEKTY',
       'o-mnie': '02 O MNIE',
-      stack: '03 STACK',
+      stack: '03 TECHNOLOGIE',
       kontakt: '04 KONTAKT',
     },
   },
   footer: {
-    made: 'ZAPROJEKTOWANE I ZBUDOWANE RĘCZNIE',
+    made: 'STRONA ZBUDOWANA W ASTRO I TYPESCRIPT',
     top: 'NA GÓRĘ ↑',
   },
   home: {
     hero: {
-      status: 'STATUS: OTWARTY NA PROJEKTY',
-      lines: ['Piszę kod,', 'który robi', 'robotę.'],
-      lead: 'Jestem programistą. Buduję aplikacje desktopowe, mobilne i webowe, które biorą na siebie to, co ludzie wciąż robią ręcznie — od awizacji po rozkrój mebli.',
+      status: 'STATUS: OTWARTY NA WSPÓŁPRACĘ',
+      lines: ['Kod, który', 'ułatwia', 'pracę.'],
+      lead: 'Jestem programistą i studentem informatyki. Tworzę aplikacje desktopowe i webowe, które automatyzują codzienną pracę — od obsługi awizacji w skupie zbóż po planowanie rozkroju mebli.',
       ctaProjects: 'ZOBACZ PROJEKTY',
       ctaGithub: 'GITHUB',
       ctaCv: 'CV.PDF ↓',
     },
     deck: {
       label:
-        'Stos kart: aplikacje webowe, mobilne i desktopowe. Enter, aby przeglądać; strzałki zmieniają kartę; Esc kończy.',
+        'Karty z rodzajami aplikacji: webowe, mobilne i desktopowe. Enter, aby przeglądać; strzałki zmieniają kartę; Esc kończy.',
       hintIdle: 'kliknij, aby przeglądać',
-      hintActive: 'przeciągnij kartę lub użyj ← →',
+      hintActive: 'przeciągnij kartę lub użyj ← →',
       prev: 'Poprzednia karta',
       next: 'Następna karta',
       show: 'Pokaż kartę',
       cards: {
-        web: { label: 'WEB', title: 'Aplikacje webowe', sub: 'w każdej przeglądarce' },
-        mobile: { label: 'MOBILE', title: 'Aplikacje mobilne', sub: 'w kieszeni, w terenie' },
-        desktop: { label: 'DESKTOP', title: 'Aplikacje desktopowe', sub: 'narzędzia na co dzień' },
+        web: { label: 'WEB', title: 'Aplikacje webowe', sub: 'działają w przeglądarce' },
+        mobile: { label: 'MOBILE', title: 'Aplikacje mobilne', sub: 'na telefon i tablet' },
+        desktop: { label: 'DESKTOP', title: 'Aplikacje desktopowe', sub: 'instalowane lokalnie' },
       },
     },
-    tape: ['Desktop', 'Mobile', 'Web', 'Od pomysłu do wdrożenia', 'Cyberbezpieczeństwo'],
+    tape: [
+      'Aplikacje desktopowe',
+      'Aplikacje webowe',
+      'Automatyzacja procesów',
+      'Od analizy do wdrożenia',
+      'Cyberbezpieczeństwo',
+    ],
     projects: {
-      kicker: '01 — INDEKS PROJEKTÓW',
-      title: ['Rzeczy, które', 'działają.'],
-      lead: 'Projekty prosto z mojego GitHuba. Najedź albo kliknij, żeby zobaczyć podgląd.',
+      kicker: '01 — PROJEKTY',
+      title: ['Wybrane', 'projekty.'],
+      lead: 'Aplikacje z mojego GitHuba, z opisem, technologiami i kodem źródłowym. Najedź na projekt albo go kliknij, aby zobaczyć podgląd.',
       all: 'Wszystkie repozytoria ↗',
       preview: 'PODGLĄD',
       tech: 'Technologie',
@@ -76,7 +81,7 @@ export const pl = {
     },
     gh: {
       label: 'Aktywność na GitHubie',
-      kicker: 'LIVE — GITHUB',
+      kicker: 'AKTYWNOŚĆ — GITHUB',
       title: ['Kod', 'na GitHubie.'],
       repos: {
         one: 'publiczne repozytorium',
@@ -91,36 +96,36 @@ export const pl = {
     },
     about: {
       kicker: '02 — O MNIE',
-      title: ['Zaczynam od', 'tego, co boli.'],
-      lead: 'Awizacje i skup zbóż prowadzone na papierze, rozkrój mebli liczony na kartce. Biorę taki problem i buduję narzędzie, które robi to za ludzi.',
-      body: 'Studiuję informatykę ze specjalizacją cyberbezpieczeństwo, więc o bezpieczeństwie myślę od pierwszej linijki, nie po wdrożeniu.',
+      title: ['Od problemu', 'do aplikacji.'],
+      lead: 'Tworzę oprogramowanie na podstawie konkretnych potrzeb: awizacje i skup zbóż prowadzone na papierze, rozkrój mebli liczony ręcznie. Analizuję proces, projektuję rozwiązanie i doprowadzam je do działającej wersji.',
+      body: 'Studiuję informatykę w WSB Merito w Chorzowie, na specjalizacji cyberbezpieczeństwo. Dlatego ochronę danych i kontrolę dostępu uwzględniam od początku projektu, a nie dopiero przed wdrożeniem.',
       facts: {
         role: ['ROLA', 'Programista'],
-        platforms: ['PLATFORMY', 'Desktop · Mobile · Web'],
+        platforms: ['PLATFORMY', 'Desktop · Web'],
         spec: ['SPECJALIZACJA', 'Cyberbezpieczeństwo'],
         school: ['UCZELNIA', 'WSB Merito Chorzów'],
         city: ['LOKALIZACJA', ''],
-        rule: ['ZASADA', 'Prosto, solidnie, bezpiecznie.'],
+        rule: ['GŁÓWNE TECHNOLOGIE', 'JavaScript · React · Electron'],
       },
       steps: [
         {
-          title: 'Konkretny problem',
-          text: 'Zaczynam od tego, co zabiera ludziom czas — technologię dobieram dopiero potem.',
+          title: 'Analiza potrzeb',
+          text: 'Zaczynam od zrozumienia procesu i problemu użytkownika, a technologię dobieram do wymagań.',
         },
         {
-          title: 'Bezpiecznie od startu',
-          text: 'Uprawnienia, dane i dostęp projektuję razem z funkcjami, nie na końcu.',
+          title: 'Bezpieczeństwo od początku',
+          text: 'Uprawnienia, ochronę danych i kontrolę dostępu planuję razem z funkcjami, nie na końcu.',
         },
         {
-          title: 'Do samego końca',
-          text: 'Od pomysłu po działającą wersję, którą można wręczyć użytkownikom.',
+          title: 'Pełny cykl',
+          text: 'Prowadzę projekt od pomysłu, przez implementację i testy, do wersji gotowej dla użytkowników.',
         },
       ],
     },
     stack: {
       kicker: '03 — STACK',
-      title: ['Skrzynka', 'z narzędziami.'],
-      cats: { web: 'WEB', ui: 'UI', desktop: 'DESKTOP', data: 'DANE', tools: 'NARZĘDZIA' },
+      title: ['Technologie', 'i narzędzia.'],
+      cats: { web: 'WEB', ui: 'UI', desktop: 'DESKTOP', data: 'BAZY DANYCH', tools: 'NARZĘDZIA' },
     },
     contact: {
       kicker: '04 — KONTAKT',
@@ -145,9 +150,9 @@ export const pl = {
   },
   notFound: {
     title: 'Nie znaleziono strony',
-    description: 'Tej strony tu nie ma.',
+    description: 'Strona o tym adresie nie istnieje.',
     code: '404',
-    text: 'Tej strony tu nie ma.',
+    text: 'Nie znaleziono strony.',
     cta: 'WRÓĆ NA START',
   },
   ui: {

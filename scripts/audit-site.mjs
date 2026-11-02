@@ -299,6 +299,13 @@ for (const width of [...WIDTHS, 920, 940, 960, 1000, 1060, 1100]) {
       width,
     );
     for (const h of broken) fail(`${width}px ${path}`, `nagłówek „${h}” łamie się poza <br>`);
+    // linie tytułu hero mają overflow: hidden (animacja wejścia): za długie słowo zostałoby ucięte
+    const clipped = await p.evaluate(() =>
+      [...document.querySelectorAll('h1 .line')]
+        .filter((l) => l.scrollWidth > l.clientWidth + 1)
+        .map((l) => l.textContent.trim()),
+    );
+    for (const l of clipped) fail(`${width}px ${path}`, `linia tytułu „${l}” ucięta`);
   }
   await c.close();
 }
