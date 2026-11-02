@@ -338,3 +338,4 @@ Audyt metodą Cloudflare security-audit (profil quick, commit 8ec79fb): 0 podatn
 - `style-src 'unsafe-inline'` (wymagałoby przebudowy stylów talii kart, czyli zmiany wyglądu; skrypty i tak są tylko z hashami),
 - HSTS `preload` (ma sens dopiero na własnej domenie),
 - ochrona przed osadzaniem w ramce poza nagłówkiem (strona nie ma formularzy ani akcji, które można wymusić kliknięciem).
+- Krótsze „O mnie” (prośba Jakuba): bez trzech kart 01–03 (ogólniki) i wiersza „Na co dzień” (powtarzał sekcję Stack); lead w hero skrócony, bo powtarzał akapit z „O mnie”. Doszły aplikacje mobilne (Jakub: „mobilna też będzie”) w tytule, opisie, hero, taśmie i platformach.

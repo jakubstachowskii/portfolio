@@ -5,7 +5,9 @@ test.describe('SEO i podglądy linków', () => {
     page,
   }) => {
     await page.goto('/');
-    await expect(page).toHaveTitle(/^Jakub .+ — Programista aplikacji desktopowych i webowych$/);
+    await expect(page).toHaveTitle(
+      /^Jakub .+ — Programista aplikacji desktopowych, webowych i mobilnych$/,
+    );
     const head = page.locator('head');
     await expect(head.locator('link[rel="canonical"]')).toHaveAttribute('href', /\/$/);
     await expect(head.locator('link[hreflang="en"]')).toHaveAttribute('href', /\/en\/$/);
