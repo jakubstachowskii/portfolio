@@ -100,8 +100,8 @@ export const en = {
     about: {
       kicker: '02 — ABOUT',
       title: ['A bit', 'about me.'],
-      lead: 'I like software that solves a specific problem. That’s how my projects started: an app for delivery bookings and grain purchases that used to be kept on paper, and a program for furniture cutting plans that used to be worked out by hand.',
-      body: 'I study computer science at WSB Merito University in Chorzów, specialising in cybersecurity. So in every project I also think about how to protect data and who should have access to what.',
+      lead: 'I started learning to code in technical school and kept going on my own, mostly from online resources. I’ve completed an internship, and I’m now starting my first year of computer science at WSB Merito in Chorzów, specialising in cybersecurity.',
+      body: 'I’m looking for an internship or a junior role — remote or on-site, including full-time.',
       facts: {
         role: ['ROLE', 'Developer'],
         platforms: ['PLATFORMS', 'Desktop · Web · Mobile'],

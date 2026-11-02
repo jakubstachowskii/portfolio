@@ -102,8 +102,8 @@ export const pl = {
     about: {
       kicker: '02 — O MNIE',
       title: ['Kilka słów', 'o mnie.'],
-      lead: 'Lubię programy, które rozwiązują konkretny problem. Tak powstały moje projekty: aplikacja do awizacji i skupu zbóż, które wcześniej prowadzono na papierze, i program do rozkroju mebli, który wcześniej liczono ręcznie.',
-      body: 'Studiuję informatykę w WSB Merito w Chorzowie, na specjalizacji z cyberbezpieczeństwa. Dlatego przy każdym projekcie myślę też o tym, jak chronić dane i kto powinien mieć do czego dostęp.',
+      lead: 'Programowania zacząłem uczyć się w technikum, a potem uczyłem się dalej sam, głównie z internetu. Mam za sobą praktyki, a teraz zaczynam pierwszy rok informatyki w WSB Merito w Chorzowie, na specjalizacji z cyberbezpieczeństwa.',
+      body: 'Szukam stażu albo pracy jako junior. Mogę pracować zdalnie lub na miejscu, także na pełny etat.',
       facts: {
         role: ['ROLA', 'Programista'],
         platforms: ['PLATFORMY', 'Desktop · Web · Mobile'],
