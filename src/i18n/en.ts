@@ -2,9 +2,9 @@ import type { pl } from './pl';
 
 export const en = {
   meta: {
-    title: 'Desktop and web application developer',
+    title: 'Desktop, web and mobile app developer',
     description:
-      'Developer and computer science student. I build desktop and web apps — here you’ll find my projects and how to reach me.',
+      'Developer and computer science student. I build desktop, web and mobile apps — here you’ll find my projects and how to reach me.',
   },
   nav: {
     skip: 'Skip to content',
@@ -35,7 +35,7 @@ export const en = {
     hero: {
       status: 'STATUS: OPEN TO OFFERS',
       lines: ['Hi,', 'I’m', 'Jakub.'],
-      lead: 'I build desktop and web apps. What I enjoy most is taking something people do by hand or on paper and turning it into a program that does it for them. I’m studying computer science, specialising in cybersecurity.',
+      lead: 'I build desktop, web and mobile apps. I’m studying computer science, specialising in cybersecurity.',
       ctaProjects: 'SEE PROJECTS',
       ctaGithub: 'GITHUB',
       ctaCv: 'CV.PDF ↓',
@@ -54,7 +54,15 @@ export const en = {
         desktop: { label: 'DESKTOP', title: 'Desktop apps', sub: 'installed on your computer' },
       },
     },
-    tape: ['Desktop apps', 'Web apps', 'JavaScript', 'React', 'Electron', 'Cybersecurity'],
+    tape: [
+      'Desktop apps',
+      'Web apps',
+      'Mobile apps',
+      'JavaScript',
+      'React',
+      'Electron',
+      'Cybersecurity',
+    ],
     projects: {
       kicker: '01 — PROJECTS',
       title: ['My', 'projects.'],
@@ -96,26 +104,11 @@ export const en = {
       body: 'I study computer science at WSB Merito University in Chorzów, specialising in cybersecurity. So in every project I also think about how to protect data and who should have access to what.',
       facts: {
         role: ['ROLE', 'Developer'],
-        platforms: ['PLATFORMS', 'Desktop · Web'],
+        platforms: ['PLATFORMS', 'Desktop · Web · Mobile'],
         spec: ['SPECIALISATION', 'Cybersecurity'],
         school: ['UNIVERSITY', 'WSB Merito Chorzów'],
         city: ['LOCATION', ''],
-        rule: ['DAY TO DAY', 'JavaScript · React · Electron'],
       },
-      steps: [
-        {
-          title: 'Problem first',
-          text: 'Before I write any code, I want to understand what is taking someone’s time. I pick the technology after that.',
-        },
-        {
-          title: 'Security from day one',
-          text: 'I think about access and data protection from the first day, not at the very end.',
-        },
-        {
-          title: 'To a working version',
-          text: 'I like finishing things: from an idea to a program someone can install and use.',
-        },
-      ],
     },
     stack: {
       kicker: '03 — STACK',

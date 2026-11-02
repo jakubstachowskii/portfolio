@@ -1,8 +1,8 @@
 export const pl = {
   meta: {
-    title: 'Programista aplikacji desktopowych i webowych',
+    title: 'Programista aplikacji desktopowych, webowych i mobilnych',
     description:
-      'Programista i student informatyki. Piszę aplikacje desktopowe i webowe — tutaj są moje projekty i kontakt do mnie.',
+      'Programista i student informatyki. Piszę aplikacje desktopowe, webowe i mobilne — tutaj są moje projekty i kontakt do mnie.',
   },
   nav: {
     skip: 'Przejdź do treści',
@@ -33,7 +33,7 @@ export const pl = {
     hero: {
       status: 'STATUS: OTWARTY NA PROPOZYCJE',
       lines: ['Cześć,', 'jestem', 'Jakub.'],
-      lead: 'Piszę aplikacje desktopowe i webowe. Najbardziej lubię brać coś, co ludzie robią ręcznie albo na papierze, i zamieniać to w program, który zrobi to za nich. Studiuję informatykę ze specjalizacją z cyberbezpieczeństwa.',
+      lead: 'Piszę aplikacje desktopowe, webowe i mobilne. Studiuję informatykę ze specjalizacją z cyberbezpieczeństwa.',
       ctaProjects: 'ZOBACZ PROJEKTY',
       ctaGithub: 'GITHUB',
       ctaCv: 'CV.PDF ↓',
@@ -59,6 +59,7 @@ export const pl = {
     tape: [
       'Aplikacje desktopowe',
       'Aplikacje webowe',
+      'Aplikacje mobilne',
       'JavaScript',
       'React',
       'Electron',
@@ -105,26 +106,11 @@ export const pl = {
       body: 'Studiuję informatykę w WSB Merito w Chorzowie, na specjalizacji z cyberbezpieczeństwa. Dlatego przy każdym projekcie myślę też o tym, jak chronić dane i kto powinien mieć do czego dostęp.',
       facts: {
         role: ['ROLA', 'Programista'],
-        platforms: ['PLATFORMY', 'Desktop · Web'],
+        platforms: ['PLATFORMY', 'Desktop · Web · Mobile'],
         spec: ['SPECJALIZACJA', 'Cyberbezpieczeństwo'],
         school: ['UCZELNIA', 'WSB Merito Chorzów'],
         city: ['LOKALIZACJA', ''],
-        rule: ['NA CO DZIEŃ', 'JavaScript · React · Electron'],
       },
-      steps: [
-        {
-          title: 'Najpierw problem',
-          text: 'Zanim zacznę pisać, chcę dobrze zrozumieć, co komuś zabiera czas. Technologię dobieram dopiero potem.',
-        },
-        {
-          title: 'Bezpieczeństwo od początku',
-          text: 'O dostępie i ochronie danych myślę od pierwszego dnia, a nie dopiero na końcu.',
-        },
-        {
-          title: 'Do działającej wersji',
-          text: 'Lubię doprowadzać rzeczy do końca: od pomysłu do programu, który ktoś może zainstalować i używać.',
-        },
-      ],
     },
     stack: {
       kicker: '03 — STACK',
