@@ -27,7 +27,6 @@ export const pl = {
     },
   },
   footer: {
-    made: 'ZROBIONE W ASTRO I TYPESCRIPT',
     top: 'NA GÓRĘ ↑',
   },
   home: {
