@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { buildProjects, neighbours, toSlug } from '@/lib/projects';
+import { buildProjects, demoUrl, neighbours, toSlug } from '@/lib/projects';
 import { repo } from './fixtures';
 
 describe('buildProjects', () => {
@@ -63,6 +63,24 @@ describe('buildProjects', () => {
     const [p] = buildProjects([repo('Web', { homepage: 'https://x.dev' })], {});
     expect(p?.demo).toBe('https://x.dev');
     expect(out[0]?.demo).toBeUndefined();
+  });
+});
+
+describe('demoUrl', () => {
+  it('przepuszcza tylko http(s), adres bez schematu dostaje https://', () => {
+    expect(demoUrl('https://x.dev')).toBe('https://x.dev');
+    expect(demoUrl('http://x.dev/app')).toBe('http://x.dev/app');
+    expect(demoUrl(' x.dev ')).toBe('https://x.dev');
+  });
+
+  it('odrzuca javascript:, data:, puste i błędne adresy', () => {
+    expect(demoUrl('javascript:alert(1)')).toBeUndefined();
+    expect(demoUrl('JavaScript:alert(1)')).toBeUndefined();
+    expect(demoUrl('data:text/html,x')).toBeUndefined();
+    expect(demoUrl('file:///etc/passwd')).toBeUndefined();
+    expect(demoUrl('')).toBeUndefined();
+    expect(demoUrl(null)).toBeUndefined();
+    expect(demoUrl('http://')).toBeUndefined();
   });
 });
 

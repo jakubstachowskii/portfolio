@@ -1,10 +1,12 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:recommended", ":semanticCommits"],
+  "extends": ["config:recommended", ":semanticCommits", "helpers:pinGitHubActionDigests"],
   "schedule": ["before 6am on monday"],
   "timezone": "Europe/Warsaw",
   "rangeStrategy": "pin",
-  "lockFileMaintenance": { "enabled": true },
+  "lockFileMaintenance": {
+    "enabled": true
+  },
   "packageRules": [
     {
       "groupName": "astro",
@@ -31,10 +33,11 @@
       "matchPackageNames": ["tailwindcss", "@tailwindcss/**", "prettier-plugin-tailwindcss"]
     },
     {
-      "description": "Automerge patchy devDependencies",
+      "description": "Automerge patchy devDependencies, dopiero 3 dni po publikacji (czas na wycofanie złośliwej wersji)",
       "matchDepTypes": ["devDependencies"],
       "matchUpdateTypes": ["patch"],
-      "automerge": true
+      "automerge": true,
+      "minimumReleaseAge": "3 days"
     },
     {
       "description": "TS 7 czeka na wsparcie w @astrojs/check i typescript-eslint (DECISIONS #2)",
