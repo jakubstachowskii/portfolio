@@ -317,3 +317,23 @@ Pozostałe wymagania strukturalne PLAN §6 (role tokenów, 5 stanów, focus ring
 - Treść oparta na faktach z repozytoriów i danych Jakuba: aplikacje desktopowe i webowe (projekty są desktopowe), JavaScript, React, Electron, studia (WSB Merito, cyberbezpieczeństwo). Karty w hero (web / mobile / desktop) zostają, bo są elementem wyglądu.
 - Poprawka po uwagach Jakuba: ton przyziemny i naturalny, w pierwszej osobie (hero „Cześć, jestem Jakub.”, sekcje „Moje projekty”, „Kilka słów o mnie”, „Czego używam”), bez haseł marketingowych.
 - Tytuł hero ma krótkie słowa: linie mają `overflow: hidden` (animacja wejścia), więc za długie słowo byłoby ucięte na 1024–1920 px. `pnpm audit:site` sprawdza teraz ucięcie linii tytułu na wszystkich szerokościach.
+
+## #44 · 2026-11-02 · Wzmocnienia po audycie bezpieczeństwa · przyjęta
+
+Audyt metodą Cloudflare security-audit (profil quick, commit 8ec79fb): 0 podatności, 13 uwag wzmacniających (żadna nie była osiągalna dla osoby z zewnątrz — wszystkie dane na stronie pochodzą od właściciela). Jakub zostawił wybór mnie; wdrożone to, co tanio usuwa całą klasę ryzyka:
+
+- **JSON-LD** (`jsonLdScript` w `src/lib/seo.ts`): `<` jako `\u003c` (oraz U+2028/2029), więc opis repo z „</script>” nie zamknie znacznika. Test jednostkowy.
+- **Link „ZOBACZ”** (`demoUrl` w `src/lib/projects.ts`): tylko `http(s)`, adres bez schematu dostaje `https://`, `javascript:`/`data:`/`file:` odrzucone. Test jednostkowy.
+- **Nagłówki bezpieczeństwa**: na Vercelu (`VERCEL` ustawione) brak `.vercel/output/config.json` przerywa build zamiast ostrzeżenia — wdrożenie bez nagłówków się nie uda.
+- **CI**: `GITHUB_TOKEN` tylko w krokach build / e2e / Lighthouse (instalacja zależności, lint i testy go nie widzą); akcje przypięte do SHA commitów (Renovate aktualizuje je przez `helpers:pinGitHubActionDigests`).
+- **update-snapshots.yml**: `persist-credentials: false` — token z prawem zapisu nie leży w `.git/config`, gdy działają instalacja i testy gałęzi; push z tokenem tylko w ostatnim kroku, na wybraną gałąź.
+- **Renovate**: automerge patchy dopiero po 3 dniach od publikacji (`minimumReleaseAge`).
+- **.gitignore**: `.env*` z wyjątkiem `.env.example`.
+- **scripts/screenshots.mjs**: tylko publiczne adresy `http(s)` (bez localhost i sieci lokalnych) i bezpieczne nazwy plików.
+
+Świadomie bez zmian:
+
+- schemat Zod dla odpowiedzi API (dane pochodzą tylko z repozytoriów właściciela; typy wystarczą, a dwa powyższe zabezpieczenia zamykają jedyne niebezpieczne miejsca),
+- `style-src 'unsafe-inline'` (wymagałoby przebudowy stylów talii kart, czyli zmiany wyglądu; skrypty i tak są tylko z hashami),
+- HSTS `preload` (ma sens dopiero na własnej domenie),
+- ochrona przed osadzaniem w ramce poza nagłówkiem (strona nie ma formularzy ani akcji, które można wymusić kliknięciem).

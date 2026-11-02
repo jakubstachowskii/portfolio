@@ -32,7 +32,10 @@ export function securityHeaders(): AstroIntegration {
         try {
           config = JSON.parse(await readFile(file, 'utf8')) as VercelConfig;
         } catch {
-          logger.warn('brak .vercel/output/config.json — nagłówki nie zostały dodane');
+          const msg = 'brak .vercel/output/config.json — nagłówki nie zostały dodane';
+          // na Vercelu wdrożenie bez nagłówków bezpieczeństwa ma się nie udać; lokalnie wystarczy ostrzeżenie
+          if (process.env['VERCEL']) throw new Error(msg);
+          logger.warn(msg);
           return;
         }
         const route = { src: '^/(.*)$', headers: SECURITY_HEADERS, continue: true };

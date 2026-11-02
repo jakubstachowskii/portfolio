@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { site } from '@/config/site';
 import { buildProjects } from '@/lib/projects';
-import { isPlaceholder, pageTitle, personJsonLd, projectJsonLd } from '@/lib/seo';
+import { isPlaceholder, jsonLdScript, pageTitle, personJsonLd, projectJsonLd } from '@/lib/seo';
 import { repo } from './fixtures';
 
 const BASE = 'https://example.dev';
@@ -34,5 +34,16 @@ describe('JSON-LD', () => {
       description: 'EN',
       sameAs: 'https://github.com/jakubstachowskii/AwizacjaApp',
     });
+  });
+});
+
+describe('jsonLdScript', () => {
+  it('tekst z „</script>” nie zamyka znacznika, a JSON zostaje ten sam', () => {
+    const data = { description: 'a </script><script>alert(1)</script> b \u2028 c' };
+    const out = jsonLdScript(data);
+    expect(out).not.toMatch(/<\/script/i);
+    expect(out).not.toContain('<');
+    expect(out).not.toContain(String.fromCharCode(0x2028));
+    expect(JSON.parse(out)).toEqual(data);
   });
 });

@@ -59,6 +59,22 @@ export function toSlug(name: string): string {
     .replace(/^-|-$/g, '');
 }
 
+/**
+ * Adres „Website” z GitHuba jako link „ZOBACZ”: tylko http(s), żeby `javascript:` czy `data:` nigdy
+ * nie trafiły do href. Adres bez schematu („example.com”) dostaje https://. Inaczej brak linku.
+ */
+export function demoUrl(homepage: string | null | undefined): string | undefined {
+  const value = homepage?.trim();
+  if (!value) return undefined;
+  const candidate = /^[a-z][a-z0-9+.-]*:/i.test(value) ? value : `https://${value}`;
+  try {
+    const url = new URL(candidate);
+    return url.protocol === 'https:' || url.protocol === 'http:' ? candidate : undefined;
+  } catch {
+    return undefined;
+  }
+}
+
 function platformsOf(repo: Repo, o?: Override): Platform[] {
   if (o?.platforms?.length) return o.platforms;
   const fromTopics = PLATFORMS.filter((p) => repo.topics.includes(p));
@@ -103,7 +119,7 @@ export function buildProjects(
       },
       tags: tagsOf(repo, o),
       repo: repo.html_url,
-      demo: repo.homepage || undefined,
+      demo: demoUrl(repo.homepage),
       year: new Date(repo.pushed_at).getUTCFullYear(),
       stars: repo.stargazers_count,
       mock: o?.mock ?? 'generic',
