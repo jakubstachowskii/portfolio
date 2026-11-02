@@ -310,3 +310,11 @@ Pozostałe wymagania strukturalne PLAN §6 (role tokenów, 5 stanów, focus ring
 - Tytuł: linie z `<br>` nie łamią się w środku (`white-space: nowrap`), a kolumna tekstu nie zwęża się poniżej tytułu; gdy brak miejsca, sekcja przechodzi w układ jeden pod drugim.
 - Kalendarz: zapytanie kontenerowe (`@container`): siatka wyrównana do prawej tylko wtedy, gdy się nie mieści (44 tygodnie = 700 px). Na szerokich ekranach bez zmian, przy lewej krawędzi jak we wzorcu.
 - `pnpm audit:site`: kalendarz i nagłówki z `<br>` sprawdzane na wszystkich szerokościach, także 920–1100 px; pomiar po załadowaniu fontów.
+
+## #43 · 2026-11-02 · Profesjonalne teksty strony (PL i EN) · przyjęta
+
+- Prośba Jakuba: cała treść rzeczowa i profesjonalna, bez kreatywnych nazw (np. „Skrzynka z narzędziami” → „Technologie i narzędzia”), bez twierdzeń wykraczających poza jego projekty. Zmieniony wyłącznie tekst w `src/i18n/`; układ, liczba linii w nagłówkach, klucze i działanie bez zmian.
+- Treść oparta na faktach z repozytoriów i danych Jakuba: aplikacje desktopowe i webowe (projekty są desktopowe), JavaScript, React, Electron, studia (WSB Merito, cyberbezpieczeństwo). Karty w hero (web / mobile / desktop) zostają, bo są elementem wyglądu.
+- Poprawka po uwagach Jakuba: ton przyziemny i naturalny, w pierwszej osobie (hero „Cześć, jestem Jakub.”, sekcje „Moje projekty”, „Kilka słów o mnie”, „Czego używam”), bez haseł marketingowych.
+- Tytuł hero ma krótkie słowa: linie mają `overflow: hidden` (animacja wejścia), więc za długie słowo byłoby ucięte na 1024–1920 px. `pnpm audit:site` sprawdza teraz ucięcie linii tytułu na wszystkich szerokościach.
+- Stopka bez napisu „Zrobione w Astro i TypeScript”: informacja dla programistów, nie dla rekruterów (technologie są w README). W stopce zostają © z imieniem i link „na górę”.

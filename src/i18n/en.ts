@@ -2,10 +2,9 @@ import type { pl } from './pl';
 
 export const en = {
   meta: {
-    title: 'Developer: web, mobile and desktop apps',
-    // TODO(content): opis strony do meta description
+    title: 'Desktop and web application developer',
     description:
-      'Developer. Desktop, mobile and web apps that take over manual work — from delivery bookings to furniture cutting plans.',
+      'Developer and computer science student. I build desktop and web apps — here you’ll find my projects and how to reach me.',
   },
   nav: {
     skip: 'Skip to content',
@@ -30,37 +29,36 @@ export const en = {
     },
   },
   footer: {
-    made: 'DESIGNED AND BUILT BY HAND',
     top: 'BACK TO TOP ↑',
   },
   home: {
     hero: {
-      status: 'STATUS: OPEN TO PROJECTS',
-      lines: ['I write code', 'that gets the', 'job done.'],
-      lead: 'I’m a developer. I build desktop, mobile and web apps that take over what people still do by hand — from delivery bookings to furniture cutting plans.',
+      status: 'STATUS: OPEN TO OFFERS',
+      lines: ['Hi,', 'I’m', 'Jakub.'],
+      lead: 'I build desktop and web apps. What I enjoy most is taking something people do by hand or on paper and turning it into a program that does it for them. I’m studying computer science, specialising in cybersecurity.',
       ctaProjects: 'SEE PROJECTS',
       ctaGithub: 'GITHUB',
       ctaCv: 'CV.PDF ↓',
     },
     deck: {
       label:
-        'Card stack: web, mobile and desktop apps. Press Enter to browse; arrow keys change the card; Esc exits.',
+        'Cards showing types of applications: web, mobile and desktop. Press Enter to browse; arrow keys change the card; Esc exits.',
       hintIdle: 'click to browse',
-      hintActive: 'drag the card or use ← →',
+      hintActive: 'drag the card or use ← →',
       prev: 'Previous card',
       next: 'Next card',
       show: 'Show card',
       cards: {
-        web: { label: 'WEB', title: 'Web apps', sub: 'in every browser' },
-        mobile: { label: 'MOBILE', title: 'Mobile apps', sub: 'in your pocket, in the field' },
-        desktop: { label: 'DESKTOP', title: 'Desktop apps', sub: 'everyday tools' },
+        web: { label: 'WEB', title: 'Web apps', sub: 'run in the browser' },
+        mobile: { label: 'MOBILE', title: 'Mobile apps', sub: 'for phone and tablet' },
+        desktop: { label: 'DESKTOP', title: 'Desktop apps', sub: 'installed on your computer' },
       },
     },
-    tape: ['Desktop', 'Mobile', 'Web', 'From idea to launch', 'Cybersecurity'],
+    tape: ['Desktop apps', 'Web apps', 'JavaScript', 'React', 'Electron', 'Cybersecurity'],
     projects: {
-      kicker: '01 — PROJECT INDEX',
-      title: ['Things that', 'work.'],
-      lead: 'Projects straight from my GitHub. Hover or click to see a preview.',
+      kicker: '01 — PROJECTS',
+      title: ['My', 'projects.'],
+      lead: 'They’re all on my GitHub. Hover over or click a project to see a preview.',
       all: 'All repositories ↗',
       preview: 'PREVIEW',
       tech: 'Technologies',
@@ -78,7 +76,7 @@ export const en = {
     },
     gh: {
       label: 'GitHub activity',
-      kicker: 'LIVE — GITHUB',
+      kicker: 'GITHUB',
       title: ['Code', 'on GitHub.'],
       repos: {
         one: 'public repository',
@@ -93,40 +91,40 @@ export const en = {
     },
     about: {
       kicker: '02 — ABOUT',
-      title: ['I start with', 'what hurts.'],
-      lead: 'Delivery bookings and grain purchases kept on paper, furniture cuts worked out by hand. I take a problem like that and build a tool that does it for people.',
-      body: 'I study computer science with a cybersecurity specialisation, so I think about security from the first line of code, not after launch.',
+      title: ['A bit', 'about me.'],
+      lead: 'I like software that solves a specific problem. That’s how my projects started: an app for delivery bookings and grain purchases that used to be kept on paper, and a program for furniture cutting plans that used to be worked out by hand.',
+      body: 'I study computer science at WSB Merito University in Chorzów, specialising in cybersecurity. So in every project I also think about how to protect data and who should have access to what.',
       facts: {
         role: ['ROLE', 'Developer'],
-        platforms: ['PLATFORMS', 'Desktop · Mobile · Web'],
+        platforms: ['PLATFORMS', 'Desktop · Web'],
         spec: ['SPECIALISATION', 'Cybersecurity'],
         school: ['UNIVERSITY', 'WSB Merito Chorzów'],
         city: ['LOCATION', ''],
-        rule: ['PRINCIPLE', 'Simple, solid, secure.'],
+        rule: ['DAY TO DAY', 'JavaScript · React · Electron'],
       },
       steps: [
         {
-          title: 'A concrete problem',
-          text: 'I start with what eats people’s time — the technology comes after.',
+          title: 'Problem first',
+          text: 'Before I write any code, I want to understand what is taking someone’s time. I pick the technology after that.',
         },
         {
-          title: 'Secure from the start',
-          text: 'I design permissions, data and access together with features, not at the end.',
+          title: 'Security from day one',
+          text: 'I think about access and data protection from the first day, not at the very end.',
         },
         {
-          title: 'All the way',
-          text: 'From the idea to a working version you can hand to users.',
+          title: 'To a working version',
+          text: 'I like finishing things: from an idea to a program someone can install and use.',
         },
       ],
     },
     stack: {
       kicker: '03 — STACK',
-      title: ['The', 'toolbox.'],
-      cats: { web: 'WEB', ui: 'UI', desktop: 'DESKTOP', data: 'DATA', tools: 'TOOLS' },
+      title: ['What', 'I use.'],
+      cats: { web: 'WEB', ui: 'UI', desktop: 'DESKTOP', data: 'DATABASES', tools: 'TOOLS' },
     },
     contact: {
       kicker: '04 — CONTACT',
-      title: ['Write', 'to me.'],
+      title: ['Get in', 'touch.'],
       copy: 'COPY',
       copied: 'COPIED',
       github: 'GITHUB ↗',
@@ -147,9 +145,9 @@ export const en = {
   },
   notFound: {
     title: 'Page not found',
-    description: 'This page does not exist.',
+    description: 'There is no page at this address.',
     code: '404',
-    text: 'This page is not here.',
+    text: 'This page doesn’t exist.',
     cta: 'BACK TO START',
   },
   ui: {

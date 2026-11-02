@@ -25,7 +25,7 @@ export const site = {
   locales,
 };
 
-/** Skrzynka z narzędziami (sekcja Stack): kategoria → etykieta z i18n (`home.stack.cats`). */
+/** Technologie i narzędzia (sekcja Stack): kategoria → etykieta z i18n (`home.stack.cats`). */
 export const stack = [
   { cat: 'web', name: 'HTML · CSS' },
   { cat: 'web', name: 'JavaScript' },
