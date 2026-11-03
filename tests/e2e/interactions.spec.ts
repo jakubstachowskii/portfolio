@@ -48,6 +48,48 @@ test.describe('talia kart', () => {
   });
 });
 
+test.describe('talia kart: dotyk', () => {
+  test.skip(
+    ({ isMobile, browserName }) => !isMobile || browserName !== 'chromium',
+    'dotyk przez CDP',
+  );
+
+  // gest palcem jak na telefonie (Input.dispatchTouchEvent): start w środku przedniej karty, potem ruchy
+  async function swipe(page: Page, step: { x: number; y: number }, steps: number) {
+    const box = (await page.locator('.dk.front').boundingBox())!;
+    const cdp = await page.context().newCDPSession(page);
+    const touch = (type: string, x = 0, y = 0) =>
+      cdp.send('Input.dispatchTouchEvent', {
+        type,
+        touchPoints: type === 'touchEnd' ? [] : [{ x, y }],
+      });
+    const [x, y] = [box.x + box.width / 2, box.y + box.height / 2];
+    await touch('touchStart', x, y);
+    for (let i = 1; i <= steps; i++) await touch('touchMove', x + step.x * i, y + step.y * i);
+    await touch('touchEnd');
+  }
+
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/');
+    await page
+      .locator('.dk.front')
+      .evaluate((el) => el.scrollIntoView({ block: 'center', behavior: 'instant' }));
+  });
+
+  test('przewinięcie strony palcem po talii jej nie aktywuje', async ({ page }) => {
+    const before = await page.evaluate(() => scrollY);
+    await swipe(page, { x: 0.5, y: -20 }, 12);
+    await expect.poll(() => page.evaluate(() => scrollY)).toBeGreaterThan(before);
+    await expect(page.locator('.deck')).not.toHaveClass(/flat/);
+    expect(await front(page)).toBe('web');
+  });
+
+  test('przeciągnięcie palcem w bok przerzuca kartę', async ({ page }) => {
+    await swipe(page, { x: 18, y: 1 }, 10);
+    await expect.poll(() => front(page)).toBe('mobile');
+  });
+});
+
 test.describe('indeks projektów', () => {
   test('najechanie wybiera projekt i pokazuje jego podgląd', async ({ page, isMobile }) => {
     test.skip(isMobile, 'najechanie: desktop');
