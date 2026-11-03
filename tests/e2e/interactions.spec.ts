@@ -58,7 +58,7 @@ test.describe('talia kart: dotyk', () => {
   async function swipe(page: Page, step: { x: number; y: number }, steps: number) {
     const box = (await page.locator('.dk.front').boundingBox())!;
     const cdp = await page.context().newCDPSession(page);
-    const touch = (type: string, x = 0, y = 0) =>
+    const touch = (type: 'touchStart' | 'touchMove' | 'touchEnd', x = 0, y = 0) =>
       cdp.send('Input.dispatchTouchEvent', {
         type,
         touchPoints: type === 'touchEnd' ? [] : [{ x, y }],
