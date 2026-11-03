@@ -2,6 +2,19 @@
   "user": "jakubstachowskii",
   "repos": [
     {
+      "name": "trening-app",
+      "description": null,
+      "topics": [],
+      "language": null,
+      "homepage": null,
+      "html_url": "https://github.com/jakubstachowskii/trening-app",
+      "pushed_at": "2026-11-03T15:25:27Z",
+      "stargazers_count": 0,
+      "fork": false,
+      "archived": false,
+      "readme": null
+    },
+    {
       "name": "LottoAnalyzer",
       "description": null,
       "topics": [],
