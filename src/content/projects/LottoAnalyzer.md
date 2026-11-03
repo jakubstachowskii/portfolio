@@ -2,7 +2,7 @@
 summary: 'Aplikacja do analizy wyników Lotto: statystyki częstości liczb, historia losowań, import CSV i pobieranie najnowszych wyników. Projekt edukacyjny.'
 summaryEn: 'An app for analysing Lotto results: number frequency stats, draw history, CSV import and fetching the latest results. An educational project.'
 platforms: [desktop]
-tags: [Electron, JavaScript, SQLite]
+tags: [Electron, JavaScript, JSON]
 mock: lotto
 order: 3
 gallery:
@@ -21,4 +21,4 @@ Aplikacja do analizy wyników polskiego Lotto. Projekt edukacyjny i rozrywkowy: 
 
 ## Technologia
 
-Electron i JavaScript, dane w lokalnej bazie SQLite tworzonej przy pierwszym uruchomieniu.
+Electron i JavaScript, bez frameworka. Losowania zapisują się w lokalnym pliku JSON.

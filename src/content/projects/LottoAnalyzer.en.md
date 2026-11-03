@@ -10,4 +10,4 @@ An app for analysing Polish Lotto results. An educational, just-for-fun project:
 
 ## Technology
 
-Electron and JavaScript, with data in a local SQLite database created on first launch.
+Electron and JavaScript, no framework. Draws are stored in a local JSON file.

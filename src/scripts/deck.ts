@@ -49,12 +49,19 @@ export function initDeck(scene: HTMLElement) {
       if (e.pointerType === 'mouse' && e.button !== 0) return;
       // stan sprzed kliknięcia odczytujemy PRZED fokusem: fokus sam aktywuje talię
       const wasActive = s.active;
-      if (e.pointerType === 'mouse') e.preventDefault(); // bez zaznaczania tekstu
-      // preventDefault blokuje fokus — ustawiamy ręcznie; focusVisible: false, bo to klik myszą
-      // (inaczej przy pierwszym kliknięciu Chrome rysuje ramkę jak dla klawiatury)
-      scene.focus({ preventScroll: true, focusVisible: false });
+      const mouse = e.pointerType === 'mouse';
+      // fokus aktywuje talię: przy dotyku dopiero po stuknięciu albo przeciągnięciu w bok,
+      // bo palec na karcie to często początek przewijania strony
+      const focusScene = () => scene.focus({ preventScroll: true, focusVisible: false });
+      if (mouse) {
+        e.preventDefault(); // bez zaznaczania tekstu
+        // preventDefault blokuje fokus — ustawiamy ręcznie; focusVisible: false, bo to klik myszą
+        // (inaczej przy pierwszym kliknięciu Chrome rysuje ramkę jak dla klawiatury)
+        focusScene();
+      }
       window.clearTimeout(leaveT);
       const sx = e.clientX;
+      const sy = e.clientY;
       let lastX = e.clientX;
       let lastT = performance.now();
       let vel = 0;
@@ -69,11 +76,17 @@ export function initDeck(scene: HTMLElement) {
         if (ev.pointerType === 'mouse' && ev.buttons === 0) return onUp();
         const now = performance.now();
         dx = ev.clientX - sx;
+        const dy = ev.clientY - sy;
         if (now > lastT) vel = (ev.clientX - lastX) / (now - lastT);
         lastX = ev.clientX;
         lastT = now;
+        // ruch w pionie przed poziomym = przewijanie strony, talia zostaje w spoczynku
+        if (!moved && !mouse && Math.abs(dy) > MOVE_START && Math.abs(dy) > Math.abs(dx)) {
+          return stop();
+        }
         if (!moved && Math.abs(dx) > MOVE_START) {
           moved = true;
+          if (!mouse) focusScene();
           set({ dragging: true, active: true, peek: false });
         }
         if (!moved || raf) return;
@@ -82,8 +95,14 @@ export function initDeck(scene: HTMLElement) {
           set({ dx });
         });
       };
+      // przeglądarka przejęła gest (przewijanie): bez aktywacji i bez przerzucania karty
+      const onCancel = () => {
+        stop();
+        if (moved) set({ dragging: false, dx: 0 });
+      };
       const onUp = () => {
         stop();
+        if (!mouse && !moved) focusScene(); // stuknięcie palcem = jak klik
         const quick = Math.abs(vel) > FLICK_SPEED && Math.abs(dx) > FLICK_MIN;
         if (moved && (Math.abs(dx) > DRAG_THRESHOLD || quick)) fling((dx || vel) > 0 ? 1 : -1);
         else if (!moved && wasActive)
@@ -97,12 +116,12 @@ export function initDeck(scene: HTMLElement) {
         raf = 0;
         window.removeEventListener('pointermove', onMove);
         window.removeEventListener('pointerup', onUp);
-        window.removeEventListener('pointercancel', onUp);
+        window.removeEventListener('pointercancel', onCancel);
         window.removeEventListener('blur', onUp);
       };
       window.addEventListener('pointermove', onMove);
       window.addEventListener('pointerup', onUp);
-      window.addEventListener('pointercancel', onUp);
+      window.addEventListener('pointercancel', onCancel);
       window.addEventListener('blur', onUp);
     });
   }
