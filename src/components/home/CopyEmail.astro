@@ -93,10 +93,16 @@ const d = t(Astro.props.locale).home.contact;
       background-color var(--t-base) ease,
       color var(--t-base) ease;
   }
-  .copy:hover,
   .copy.done {
     background: transparent;
     color: var(--acc-ink);
+  }
+  /* najechanie tylko z myszą: Safari na iOS „przykleja” :hover po dotknięciu (np. przy przewijaniu) */
+  @media (hover: hover) {
+    .copy:hover {
+      background: transparent;
+      color: var(--acc-ink);
+    }
   }
   .ic-done,
   .done .ic-copy {

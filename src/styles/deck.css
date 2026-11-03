@@ -228,8 +228,11 @@
   cursor: pointer;
   transition: border-color var(--t-fast) ease;
 }
-.dk-btn:hover {
-  border-color: var(--acc);
+/* najechanie tylko z myszą: Safari na iOS „przykleja” :hover po dotknięciu (np. przy przewijaniu) */
+@media (hover: hover) {
+  .dk-btn:hover {
+    border-color: var(--acc);
+  }
 }
 .dk-hint {
   font-size: 11px;

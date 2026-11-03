@@ -59,9 +59,14 @@ const links = (['projekty', 'o-mnie', 'stack'] as const).map((id, i) => ({
     border-left: 1px solid var(--line);
     min-height: 20px;
   }
-  .nl:hover,
   .nl.on {
     color: var(--text);
+  }
+  /* najechanie tylko z myszą: Safari na iOS „przykleja” :hover po dotknięciu (np. przy przewijaniu) */
+  @media (hover: hover) {
+    .nl:hover {
+      color: var(--text);
+    }
   }
   .n {
     color: var(--text2);

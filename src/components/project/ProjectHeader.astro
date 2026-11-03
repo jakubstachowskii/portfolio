@@ -48,8 +48,11 @@ const d = t(locale).project;
     color: var(--text2);
     transition: color var(--t-fast);
   }
-  .back:hover {
-    color: var(--text);
+  /* najechanie tylko z myszą: Safari na iOS „przykleja” :hover po dotknięciu (np. przy przewijaniu) */
+  @media (hover: hover) {
+    .back:hover {
+      color: var(--text);
+    }
   }
   .titles {
     display: flex;

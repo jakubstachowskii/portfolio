@@ -78,8 +78,11 @@ const dict = t(Astro.props.locale);
       background-color var(--t-fast),
       border-color var(--t-fast);
   }
-  .tbtn:hover {
-    border-color: var(--acc);
+  /* najechanie tylko z myszą: Safari na iOS „przykleja” :hover po dotknięciu (np. przy przewijaniu) */
+  @media (hover: hover) {
+    .tbtn:hover {
+      border-color: var(--acc);
+    }
   }
   /* ciemny motyw → słońce (przejście na jasny), jasny → księżyc */
   .ic-moon,

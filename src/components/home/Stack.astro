@@ -62,16 +62,19 @@ const tools = stack.map((s) => {
       border-color var(--t-base) ease,
       transform var(--t-mid) var(--ease-spring);
   }
-  .tool:hover {
-    border-color: var(--acc);
-    transform: translateY(-3px);
-  }
   .tk {
     font-size: 11px;
     color: var(--text2);
   }
-  .tool:hover .tk {
-    color: var(--acc-text);
+  /* najechanie tylko z myszą: Safari na iOS „przykleja” :hover po dotknięciu (np. przy przewijaniu) */
+  @media (hover: hover) {
+    .tool:hover {
+      border-color: var(--acc);
+      transform: translateY(-3px);
+    }
+    .tool:hover .tk {
+      color: var(--acc-text);
+    }
   }
   .name {
     font-size: clamp(16px, 1.6vw, 20px);
