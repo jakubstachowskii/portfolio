@@ -340,3 +340,9 @@ Audyt metodą Cloudflare security-audit (profil quick, commit 8ec79fb): 0 podatn
 - ochrona przed osadzaniem w ramce poza nagłówkiem (strona nie ma formularzy ani akcji, które można wymusić kliknięciem).
 - Krótsze „O mnie” (prośba Jakuba): bez trzech kart 01–03 (ogólniki) i wiersza „Na co dzień” (powtarzał sekcję Stack); lead w hero skrócony, bo powtarzał akapit z „O mnie”. Doszły aplikacje mobilne (Jakub: „mobilna też będzie”) w tytule, opisie, hero, taśmie i platformach.
 - „O mnie” od Jakuba (fakty od niego): technikum i nauka na własną rękę, praktyki, pierwszy rok studiów; drugi akapit mówi, czego szuka (staż / junior, zdalnie lub na miejscu, pełny etat). Bez opisu projektów — są w swojej sekcji.
+
+## #45 · 2026-11-03 · Zrzuty projektów, CV i ciemna nawigacja · przyjęta
+
+- **Zrzuty ekranu** od Jakuba w `src/assets/projects/`: okładka = plik `<NazwaRepo>.*` (zastępuje szkic na liście i na podstronie), reszta w `gallery` we frontmatterze. Pominięty zrzut Magazynu (same zera, pusty widok). Obrazy idą przez `astro:assets` (AVIF/WebP w kilku szerokościach), więc rozmiar źródeł nie trafia do przeglądarki.
+- **CV** (`public/Jakub-Stachowski-CV.pdf`) bez numeru telefonu: plik jest publiczny, więc numer trafiałby do każdego, także do botów zbierających dane. Wersja z telefonem zostaje u Jakuba do wysyłki na konkretne oferty. Na razie tylko wersja polska, także pod `/en/`.
+- **Nawigacja**: nieprzezroczysta i zawsze ciemna, także w jasnym motywie (prośba Jakuba, wybór wariantu po porównaniu zrzutów: półprzezroczysta / pełna jasna / czarna). Ciemna paleta przypisana lokalnie klasą `.scheme-dark` w `tokens.css`, więc kontrasty w pasku są takie jak w motywie ciemnym. Usunięty token `--nav-bg` i `backdrop-filter`.
