@@ -17,7 +17,7 @@ export const site = {
   github: 'jakubstachowskii',
   linkedin: 'https://www.linkedin.com/in/jakub-stachowski-845937444',
   /** Adres CV (np. '/cv.pdf' po wrzuceniu pliku do public/); pusty = przycisk „CV.PDF ↓” ukryty. */
-  cv: '',
+  cv: '/Jakub-Stachowski-CV.pdf',
   /** Repozytoria pomijane na liście projektów (np. ta strona). */
   hiddenRepos: ['portfolio'] as string[],
   year: 2026,

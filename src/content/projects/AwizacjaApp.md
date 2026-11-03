@@ -5,6 +5,8 @@ platforms: [desktop]
 tags: [Electron, React, SQLite]
 mock: awizacja
 order: 1
+gallery:
+  - ../../assets/projects/AwizacjaApp-moduly.webp
 ---
 
 ## Co robi

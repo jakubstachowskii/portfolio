@@ -63,11 +63,15 @@ const home = t(locale).home;
     font-size: 11px;
     color: var(--text2);
   }
+  /* miejsce na etykietę: zrzut zaczyna się pod nią, nie pod spodem */
+  .stage:has(.cover) {
+    padding: 36px 0 20px;
+  }
   .cover {
     position: relative;
     width: 86%;
     height: auto;
-    max-height: 86%;
+    max-height: 100%;
     object-fit: cover;
     object-position: top;
     border: 1px solid var(--line2);
