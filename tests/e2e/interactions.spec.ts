@@ -105,6 +105,18 @@ test.describe('talia kart: dotyk', () => {
     await expect(page.locator('.deck')).not.toHaveClass(/flat/);
   });
 
+  test('po ~4 s bez dotyku talia wraca do spoczynku; każde stuknięcie liczy od nowa', async ({
+    page,
+  }) => {
+    await swipe(page, { x: 0, y: 0 }, 0);
+    await expect(page.locator('.deck')).toHaveClass(/flat/);
+    await page.waitForTimeout(2500);
+    await swipe(page, { x: 0, y: 0 }, 0); // następna karta, licznik od nowa
+    await page.waitForTimeout(2500);
+    await expect(page.locator('.deck')).toHaveClass(/flat/);
+    await expect(page.locator('.deck')).not.toHaveClass(/flat/, { timeout: 3000 });
+  });
+
   test('przeciągnięcie palcem w bok przerzuca kartę', async ({ page }) => {
     await swipe(page, { x: 18, y: 1 }, 10);
     await expect.poll(() => front(page)).toBe('mobile');
