@@ -5,6 +5,8 @@ platforms: [desktop]
 tags: [Electron, JavaScript, SQLite]
 mock: lotto
 order: 3
+gallery:
+  - ../../assets/projects/LottoAnalyzer-generator.webp
 ---
 
 ## Co robi

@@ -5,6 +5,9 @@ platforms: [desktop]
 tags: [Electron, React, Vite, SQLite]
 mock: formatka
 order: 2
+gallery:
+  - ../../assets/projects/FormatkaApp-zabudowa.webp
+  - ../../assets/projects/FormatkaApp-pdf.png
 ---
 
 ## Co robi
