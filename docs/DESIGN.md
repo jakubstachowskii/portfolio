@@ -38,7 +38,7 @@ Kontrast tekstu ≥ 4.5:1 na `bg`, `bg2`, `surface`, `surface2` w obu motywach p
 ## 3. Układ
 
 - Kontener `.wrap`: `max-width: 1200px`, boczne `24px`.
-- Nawigacja: sticky, `min-height: 64px`, tło nieprzezroczyste, zawsze ciemne (`.scheme-dark`, także w jasnym motywie), pasek postępu 2px (scroll-driven).
+- Nawigacja: sticky, `min-height: 64px`, tło nieprzezroczyste w kolorze `--bg` motywu, pasek postępu 2px (scroll-driven).
 - `section[id]` ma `scroll-margin-top: 64px` (116px ≤ 900px, gdy linki schodzą do drugiego rzędu).
 - Breakpointy wzorca: **1280** (kreski sekcji znikają), **900** (linki w drugim, przewijanym rzędzie), **520** (znika podpis pod logo).
 - Geometria (px) przenoszona 1:1 ze wzorca, bez skali 8pt (DECISIONS #24).

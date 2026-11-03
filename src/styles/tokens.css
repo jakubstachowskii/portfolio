@@ -45,20 +45,6 @@
   --stamp-opacity: 0.9;
 }
 
-/* Nawigacja: zawsze ciemna i nieprzezroczysta, także w jasnym motywie (DECISIONS #45).
-   Ciemna paleta przypisana lokalnie, więc tekst i linie w pasku mają kontrast jak w motywie ciemnym. */
-.scheme-dark {
-  color-scheme: dark;
-  --bg: #0d0e10;
-  --line: #2a2e33;
-  --line2: #3a3f45;
-  --text: #eceae4;
-  --text2: #9a9ca1;
-  --acc-ink: #0d0e10;
-  --acc-text: #5ff0d0;
-  color: var(--text);
-}
-
 /* ── Motyw jasny ── */
 [data-theme='light'] {
   color-scheme: light;
