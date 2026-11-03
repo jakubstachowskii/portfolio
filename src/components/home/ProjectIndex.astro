@@ -96,7 +96,6 @@ const rows = projects;
     transition: clip-path var(--t-row) var(--ease-fill);
     pointer-events: none;
   }
-  .row:hover .row-fill,
   .row.on .row-fill {
     clip-path: inset(0 0 0 0);
   }
@@ -132,15 +131,25 @@ const rows = projects;
     justify-self: end;
     transition: transform var(--t-row) var(--ease-spring);
   }
-  .row:hover .arr,
   .row.on .arr {
     transform: rotate(-45deg);
   }
-  .row:hover .ttl,
   .row.on .ttl,
-  .row:hover .plat,
   .row.on .plat {
     translate: 8px 0;
+  }
+  /* najechanie tylko z myszą: Safari na iOS „przykleja” :hover po dotknięciu (np. przy przewijaniu) */
+  @media (hover: hover) {
+    .row:hover .row-fill {
+      clip-path: inset(0 0 0 0);
+    }
+    .row:hover .arr {
+      transform: rotate(-45deg);
+    }
+    .row:hover .ttl,
+    .row:hover .plat {
+      translate: 8px 0;
+    }
   }
   @media (max-width: 520px) {
     .row-in {

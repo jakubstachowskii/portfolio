@@ -100,8 +100,11 @@
     text-decoration-color: transparent;
     transition: text-decoration-color var(--t-base) ease;
   }
-  .mail:hover {
-    text-decoration-color: currentColor;
+  /* najechanie tylko z myszą: Safari na iOS „przykleja” :hover po dotknięciu (np. przy przewijaniu) */
+  @media (hover: hover) {
+    .mail:hover {
+      text-decoration-color: currentColor;
+    }
   }
 
   /* przyciski */
@@ -110,8 +113,11 @@
     overflow: hidden;
     transition: transform var(--t-base) var(--ease-spring);
   }
-  .btn:hover {
-    transform: translateY(-2px);
+  /* najechanie tylko z myszą: Safari na iOS „przykleja” :hover po dotknięciu (np. przy przewijaniu) */
+  @media (hover: hover) {
+    .btn:hover {
+      transform: translateY(-2px);
+    }
   }
   .btn:active {
     transform: translateY(0) scale(0.97);

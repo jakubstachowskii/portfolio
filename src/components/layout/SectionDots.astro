@@ -78,10 +78,16 @@ const dict = t(locale);
       translate var(--t-mid) var(--ease-spring);
     pointer-events: none;
   }
-  .dot:hover .dl,
   .dot:focus-visible .dl {
     opacity: 1;
     translate: 0 0;
+  }
+  /* najechanie tylko z myszą: Safari na iOS „przykleja” :hover po dotknięciu (np. przy przewijaniu) */
+  @media (hover: hover) {
+    .dot:hover .dl {
+      opacity: 1;
+      translate: 0 0;
+    }
   }
   /* na miętowym tle sekcji Kontakt kreski przechodzą w ciemny kolor */
   .dots.inv .dot::before {

@@ -346,3 +346,8 @@ Audyt metodą Cloudflare security-audit (profil quick, commit 8ec79fb): 0 podatn
 - **Zrzuty ekranu** od Jakuba w `src/assets/projects/`: okładka = plik `<NazwaRepo>.*` (zastępuje szkic na liście i na podstronie), reszta w `gallery` we frontmatterze. Pominięty zrzut Magazynu (same zera, pusty widok). Obrazy idą przez `astro:assets` (AVIF/WebP w kilku szerokościach), więc rozmiar źródeł nie trafia do przeglądarki.
 - **CV** (`public/Jakub-Stachowski-CV.pdf`) bez numeru telefonu: plik jest publiczny, więc numer trafiałby do każdego, także do botów zbierających dane. Wersja z telefonem zostaje u Jakuba do wysyłki na konkretne oferty. Na razie tylko wersja polska, także pod `/en/`.
 - **Nawigacja**: nieprzezroczysta, w kolorze tła motywu (czarna w ciemnym, jasna w jasnym), bez `backdrop-filter` i tokenu `--nav-bg`. Najpierw była czarna w obu motywach; Jakub po obejrzeniu wolał jasną w jasnym motywie, bo cała strona jest jasna.
+
+## #46 · 2026-11-03 · Najechanie tylko z myszą; talia na dotyk · przyjęta
+
+- **`:hover` w `@media (hover: hover)`** we wszystkich komponentach: Safari na iOS po dotknięciu zostawia element w stanie najechania, więc przy przewijaniu palcem po liście projektów zapalało się kilka wierszy naraz (nagranie Jakuba z iPhone'a). Na telefonie podświetlenie pokazuje tylko wybrany element (`.on`, `:focus-visible`); na komputerze bez zmian.
+- **Talia kart na dotyk** (`src/scripts/deck.ts`): aktywacja dopiero po stuknięciu albo przeciągnięciu w bok (przewijanie palcem jej nie aktywuje); powrót do spoczynku po dotknięciu poza talią, po przewinięciu po niej albo po ~4 s bez dotyku (odpowiednik opuszczenia myszą). Testy e2e na dotyk przez CDP, test 4 s na sterowanym zegarze strony.
