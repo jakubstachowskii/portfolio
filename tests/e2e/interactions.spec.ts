@@ -56,7 +56,17 @@ test.describe('talia kart: dotyk', () => {
 
   // gest palcem jak na telefonie (Input.dispatchTouchEvent): start w środku przedniej karty, potem ruchy
   async function swipe(page: Page, step: { x: number; y: number }, steps: number) {
+    // po aktywacji talia się rozkłada i przesuwa: karta na środek ekranu, żeby palec nie trafił
+    // w przyklejone menu (to „dotyk poza talią”, który celowo ją wyłącza)
+    await page
+      .locator('.dk.front')
+      .evaluate((el) => el.scrollIntoView({ block: 'center', behavior: 'instant' }));
     const box = (await page.locator('.dk.front').boundingBox())!;
+    const hit = await page.evaluate(
+      ([px, py]) => !!document.elementFromPoint(px!, py!)?.closest('[data-deck]'),
+      [box.x + box.width / 2, box.y + box.height / 2],
+    );
+    expect(hit, 'palec trafia w talię').toBe(true);
     const cdp = await page.context().newCDPSession(page);
     const touch = (type: 'touchStart' | 'touchMove' | 'touchEnd', x = 0, y = 0) =>
       cdp.send('Input.dispatchTouchEvent', {
@@ -108,13 +118,18 @@ test.describe('talia kart: dotyk', () => {
   test('po ~4 s bez dotyku talia wraca do spoczynku; każde stuknięcie liczy od nowa', async ({
     page,
   }) => {
+    // sterowany zegar strony: wynik nie zależy od obciążenia maszyny CI (prawdziwe 2,5 s + narzut
+    // gestu potrafiło przekroczyć 4 s i talia słusznie wracała do spoczynku przed sprawdzeniem)
+    await page.clock.install();
+    await page.goto('/');
     await swipe(page, { x: 0, y: 0 }, 0);
     await expect(page.locator('.deck')).toHaveClass(/flat/);
-    await page.waitForTimeout(2500);
+    await page.clock.runFor(2500);
     await swipe(page, { x: 0, y: 0 }, 0); // następna karta, licznik od nowa
-    await page.waitForTimeout(2500);
+    await page.clock.runFor(2500);
     await expect(page.locator('.deck')).toHaveClass(/flat/);
-    await expect(page.locator('.deck')).not.toHaveClass(/flat/, { timeout: 3000 });
+    await page.clock.runFor(2000);
+    await expect(page.locator('.deck')).not.toHaveClass(/flat/);
   });
 
   test('przeciągnięcie palcem w bok przerzuca kartę', async ({ page }) => {
