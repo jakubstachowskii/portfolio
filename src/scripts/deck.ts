@@ -32,6 +32,12 @@ export function initDeck(scene: HTMLElement) {
     window.clearTimeout(leaveT);
     if (!s.active) set({ active: true, peek: false });
   };
+  /** powrót do spoczynku z oddaniem fokusu (bez tego Safari na iOS trzymałby talię aktywną) */
+  const rest = () => {
+    const focused = document.activeElement;
+    if (focused instanceof HTMLElement && scene.contains(focused)) focused.blur();
+    set({ active: false, peek: false });
+  };
   const fling = (dir: number) => {
     if (s.fly) return;
     set({ fly: dir, dragging: false, dx: 0, active: true });
@@ -80,9 +86,11 @@ export function initDeck(scene: HTMLElement) {
         if (now > lastT) vel = (ev.clientX - lastX) / (now - lastT);
         lastX = ev.clientX;
         lastT = now;
-        // ruch w pionie przed poziomym = przewijanie strony, talia zostaje w spoczynku
+        // ruch w pionie przed poziomym = przewijanie strony: talia zostaje albo wraca do spoczynku
         if (!moved && !mouse && Math.abs(dy) > MOVE_START && Math.abs(dy) > Math.abs(dx)) {
-          return stop();
+          stop();
+          if (s.active) rest();
+          return;
         }
         if (!moved && Math.abs(dx) > MOVE_START) {
           moved = true;
@@ -158,6 +166,11 @@ export function initDeck(scene: HTMLElement) {
     const next = e.relatedTarget as Node | null;
     if (next && scene.contains(next)) return;
     if (s.active && !s.dragging) set({ active: false });
+  });
+  // Safari na iOS nie zdejmuje fokusu po stuknięciu w tło strony, więc focusout nie przychodzi:
+  // dotknięcie gdziekolwiek poza talią (także początek przewijania) wraca do spoczynku
+  document.addEventListener('pointerdown', (e) => {
+    if (s.active && !s.dragging && !scene.contains(e.target as Node)) rest();
   });
   scene.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowRight') {

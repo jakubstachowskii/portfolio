@@ -84,6 +84,27 @@ test.describe('talia kart: dotyk', () => {
     expect(await front(page)).toBe('web');
   });
 
+  test('dotknięcie poza talią wraca do spoczynku (jak Safari na iOS: bez zdjęcia fokusu)', async ({
+    page,
+  }) => {
+    await swipe(page, { x: 0, y: 0 }, 0); // stuknięcie
+    await expect(page.locator('.deck')).toHaveClass(/flat/);
+    // iOS nie zdejmuje fokusu po stuknięciu w tło: samo pointerdown, fokus zostaje w talii
+    await page.evaluate(() =>
+      document
+        .querySelector('h1')!
+        .dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, pointerType: 'touch' })),
+    );
+    await expect(page.locator('.deck')).not.toHaveClass(/flat/);
+  });
+
+  test('przewinięcie palcem po aktywnej talii wraca do spoczynku', async ({ page }) => {
+    await swipe(page, { x: 0, y: 0 }, 0);
+    await expect(page.locator('.deck')).toHaveClass(/flat/);
+    await swipe(page, { x: 0.5, y: -20 }, 12);
+    await expect(page.locator('.deck')).not.toHaveClass(/flat/);
+  });
+
   test('przeciągnięcie palcem w bok przerzuca kartę', async ({ page }) => {
     await swipe(page, { x: 18, y: 1 }, 10);
     await expect.poll(() => front(page)).toBe('mobile');
