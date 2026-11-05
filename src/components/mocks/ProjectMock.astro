@@ -12,6 +12,7 @@ import Formatka from './Formatka.astro';
 import Generic from './Generic.astro';
 import Lotto from './Lotto.astro';
 import Pig from './Pig.astro';
+import Trening from './Trening.astro';
 import type { Dictionary } from '@/i18n/utils';
 import type { Project } from '@/lib/projects';
 
@@ -27,4 +28,5 @@ const { project, m } = Astro.props;
 {project.mock === 'formatka' && <Formatka />}
 {project.mock === 'lotto' && <Lotto m={m} />}
 {project.mock === 'pig' && <Pig m={m} />}
+{project.mock === 'trening' && <Trening />}
 {project.mock === 'generic' && <Generic title={project.title} />}

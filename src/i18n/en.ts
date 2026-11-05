@@ -72,6 +72,7 @@ export const en = {
       tech: 'Technologies',
       demo: 'VIEW ↗',
       code: 'CODE ON GITHUB ‹/›',
+      wip: 'IN PROGRESS',
     },
     mocks: {
       booking: 'BOOKING',

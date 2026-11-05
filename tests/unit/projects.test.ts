@@ -31,6 +31,13 @@ describe('buildProjects', () => {
     ]);
   });
 
+  it('„w trakcie” tylko z nadpisania (`wip: true`), domyślnie wyłączone', () => {
+    expect(out.map((p) => p.wip)).toEqual([false, false, false]);
+    const wip = buildProjects(repos, { Older: { wip: true, mock: 'trening' } });
+    expect(wip.find((p) => p.id === 'Older')).toMatchObject({ wip: true, mock: 'trening' });
+    expect(wip.filter((p) => p.wip)).toHaveLength(1);
+  });
+
   it('nadpisanie wygrywa z danymi z GitHuba', () => {
     expect(out[0]).toMatchObject({
       title: 'Awizacja',

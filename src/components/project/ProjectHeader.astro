@@ -1,6 +1,7 @@
 ---
 import ProjectFacts from './ProjectFacts.astro';
 import ProjectStage from './ProjectStage.astro';
+import WipBadge from './WipBadge.astro';
 import type { Locale } from '@/config/site';
 import { t } from '@/i18n/utils';
 import type { Project } from '@/lib/projects';
@@ -20,7 +21,10 @@ const d = t(locale).project;
     {d.back}
   </a>
   <div class="in d1 titles">
-    <span class="mono kicker">{`${p.num} — ${p.platforms}`}</span>
+    <span class="mono kicker">
+      {`${p.num} — ${p.platforms}`}
+      {p.wip && <WipBadge locale={locale} />}
+    </span>
     <h1 class="disp ttl">{p.title}</h1>
   </div>
   <p class="in d2 lead">{p.desc[locale]}</p>

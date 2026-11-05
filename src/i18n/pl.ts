@@ -74,6 +74,7 @@ export const pl = {
       tech: 'Technologie',
       demo: 'ZOBACZ ↗',
       code: 'KOD NA GITHUBIE ‹/›',
+      wip: 'W TRAKCIE',
     },
     mocks: {
       booking: 'AWIZACJA',
