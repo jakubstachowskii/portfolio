@@ -351,3 +351,10 @@ Audyt metodą Cloudflare security-audit (profil quick, commit 8ec79fb): 0 podatn
 
 - **`:hover` w `@media (hover: hover)`** we wszystkich komponentach: Safari na iOS po dotknięciu zostawia element w stanie najechania, więc przy przewijaniu palcem po liście projektów zapalało się kilka wierszy naraz (nagranie Jakuba z iPhone'a). Na telefonie podświetlenie pokazuje tylko wybrany element (`.on`, `:focus-visible`); na komputerze bez zmian.
 - **Talia kart na dotyk** (`src/scripts/deck.ts`): aktywacja dopiero po stuknięciu albo przeciągnięciu w bok (przewijanie palcem jej nie aktywuje); powrót do spoczynku po dotknięciu poza talią, po przewinięciu po niej albo po ~4 s bez dotyku (odpowiednik opuszczenia myszą). Testy e2e na dotyk przez CDP, test 4 s na sterowanym zegarze strony.
+
+## #47 · 2026-11-05 · Projekt „w trakcie” i Trening App · przyjęta
+
+- **Pole `wip` w nadpisaniu projektu** (`src/content.config.ts`, `src/lib/projects.ts`): domyślnie wyłączone, więc istniejące projekty bez zmian (porównanie zrzutów z `main`: 48/48 identycznych). Włączone daje plakietkę „W TRAKCIE” / „IN PROGRESS” (`WipBadge.astro`) na liście, w podglądzie i na podstronie.
+- **Trening App** (`src/content/projects/trening-app*.md`): 4. projekt, platforma Mobile, opis rozdziela to, co już działa, od planów. Zamiast pustego „Soon” — prawdziwa treść i uczciwy status, bez dat.
+- **Szkic `trening`**: unosząca się sztanga z talerzami (pomysł Jakuba), zaciski w kolorze akcentu, pętla pauzowana poza ekranem (`.lift`, `.breathe` w `global.css`), bez animacji przy `prefers-reduced-motion`.
+- Pokazuje się dopiero po zdjęciu topiku `portfolio-hide` z repo trening-app (najlepiej tuż przed merge).
