@@ -10,7 +10,7 @@ export const PLATFORMS = ['desktop', 'web', 'mobile'] as const;
 export type Platform = (typeof PLATFORMS)[number];
 
 /** Szkic w podglądzie (src/components/mocks/). `generic` = repo bez własnego szkicu. */
-export const MOCKS = ['awizacja', 'formatka', 'lotto', 'pig', 'generic'] as const;
+export const MOCKS = ['awizacja', 'formatka', 'lotto', 'pig', 'trening', 'generic'] as const;
 export type MockKind = (typeof MOCKS)[number];
 
 /** Frontmatter nadpisania (schema w src/content.config.ts). */
@@ -25,6 +25,8 @@ export interface Override {
   cover?: ImageMetadata | undefined;
   featured?: boolean | undefined;
   hidden?: boolean | undefined;
+  /** projekt w budowie: plakietka „W TRAKCIE” na liście, w podglądzie i na podstronie */
+  wip?: boolean | undefined;
 }
 
 export interface Project {
@@ -45,6 +47,7 @@ export interface Project {
   mock: MockKind;
   cover?: ImageMetadata | undefined;
   featured: boolean;
+  wip: boolean;
 }
 
 /** `AwizacjaApp` → `awizacja-app`, `Pig-Game` → `pig-game` (ASCII, małe litery, myślniki). */
@@ -125,6 +128,7 @@ export function buildProjects(
       mock: o?.mock ?? 'generic',
       cover: o?.cover ?? covers[repo.name],
       featured: o?.featured ?? false,
+      wip: o?.wip ?? false,
     };
   });
 }

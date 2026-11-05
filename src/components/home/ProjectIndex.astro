@@ -1,4 +1,5 @@
 ---
+import WipBadge from '@/components/project/WipBadge.astro';
 import type { Locale } from '@/config/site';
 import { projectPath } from '@/lib/paths';
 import type { Project } from '@/lib/projects';
@@ -30,7 +31,10 @@ const rows = projects;
               <span class="mono num">{p.num}</span>
               <span class="tx">
                 <span class="disp ttl">{p.title}</span>
-                <span class="mono plat">{p.platforms}</span>
+                <span class="mono plat">
+                  {p.platforms}
+                  {p.wip && <WipBadge locale={locale} />}
+                </span>
               </span>
               <svg
                 class="arr"

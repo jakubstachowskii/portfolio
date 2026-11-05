@@ -1,0 +1,27 @@
+---
+import type { Locale } from '@/config/site';
+import { t } from '@/i18n/utils';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+// Plakietka projektu w budowie (`wip: true` w nadpisaniu). Kolor z rodzica: na miętowym wierszu też czytelna.
+---
+
+<span class="mono wip">{t(locale).home.projects.wip}</span>
+
+<style>
+  .wip {
+    display: inline-block;
+    margin-left: 10px;
+    padding: 1px 6px;
+    border: 1px solid currentColor;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    line-height: 1.5;
+    vertical-align: 1px;
+    white-space: nowrap;
+  }
+</style>

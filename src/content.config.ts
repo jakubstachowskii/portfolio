@@ -30,6 +30,8 @@ const projects = defineCollection({
       gallery: z.array(image()).optional(),
       featured: z.boolean().optional(),
       hidden: z.boolean().optional(),
+      /** projekt w budowie: plakietka „W TRAKCIE” */
+      wip: z.boolean().optional(),
     }),
 });
 

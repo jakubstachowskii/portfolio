@@ -1,6 +1,7 @@
 ---
 import ProjectFacts from '@/components/project/ProjectFacts.astro';
 import ProjectStage from '@/components/project/ProjectStage.astro';
+import WipBadge from '@/components/project/WipBadge.astro';
 import type { Locale } from '@/config/site';
 import type { Project } from '@/lib/projects';
 
@@ -17,7 +18,10 @@ const { project: p, locale, hidden = false } = Astro.props;
   <ProjectStage project={p} locale={locale} />
   <div class="info">
     <div class="titles">
-      <span class="mono plat">{p.platforms}</span>
+      <span class="mono plat">
+        {p.platforms}
+        {p.wip && <WipBadge locale={locale} />}
+      </span>
       <h3 class="disp name">{p.title}</h3>
     </div>
     <p class="desc">{p.desc[locale]}</p>

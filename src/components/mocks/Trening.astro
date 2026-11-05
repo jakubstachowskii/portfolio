@@ -1,0 +1,80 @@
+---
+// Szkic: sztanga z talerzami unosząca się nad cieniem (siłownia). Akcent = zaciski, talerze z var(--hue1),
+// gryf var(--text2), tuleje i małe talerze var(--line2). Jedna pętla: unoszenie i oddech cienia (zasada w ProjectMock).
+const plates = [
+  // [x, szerokość, wysokość, kolor] po lewej; prawa strona = odbicie lustrzane. Największe bliżej środka.
+  [84, 14, 96, 'hue1'],
+  [71, 12, 74, 'hue1'],
+  [61, 9, 50, 'line2'],
+] as const;
+const mirror = (x: number, w: number) => 320 - x - w;
+---
+
+<div class="gym">
+  <svg class="bar lift" viewBox="0 0 320 120" aria-hidden="true">
+    <rect class="sleeve" x="8" y="54" width="92" height="12" />
+    <rect class="sleeve" x="220" y="54" width="92" height="12" />
+    <rect class="shaft" x="100" y="57" width="120" height="6" />
+    <rect class="sleeve" x="100" y="50" width="6" height="20" />
+    <rect class="sleeve" x="214" y="50" width="6" height="20" />
+    {plates.map(([x, w, h, c]) =>
+      [x, mirror(x, w)].map((px) => (
+        <rect x={px} y={60 - h / 2} width={w} height={h} rx="2" style={`fill: var(--${c})`} />
+      )),
+    )}
+    <rect class="clamp" x="54" y="51" width="6" height="18" />
+    <rect class="clamp" x={mirror(54, 6)} y="51" width="6" height="18" />
+  </svg>
+  <span class="shadow breathe"></span>
+</div>
+
+<style>
+  .gym {
+    position: relative;
+    width: 76%;
+    max-width: 360px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  .bar {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+  .shaft {
+    fill: var(--text2);
+  }
+  .sleeve {
+    fill: var(--line2);
+  }
+  .clamp {
+    fill: var(--acc);
+  }
+  .shadow {
+    width: 62%;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--line2);
+    opacity: 0.6;
+  }
+  .lift {
+    animation: lift var(--t-wave) ease-in-out infinite;
+  }
+  .breathe {
+    animation: breathe var(--t-wave) ease-in-out infinite;
+  }
+  @keyframes lift {
+    50% {
+      translate: 0 -14px;
+    }
+  }
+  @keyframes breathe {
+    50% {
+      scale: 0.82 1;
+      opacity: 0.35;
+    }
+  }
+</style>
