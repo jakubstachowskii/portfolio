@@ -178,6 +178,21 @@ const dict = t(locale);
       column-gap: 12px;
     }
   }
+  /* najmniejsze telefony (320 px): ciaśniej, żeby nazwa, motyw, CV i KONTAKT zostały w jednym rzędzie */
+  @media (max-width: 340px) {
+    .navbar {
+      column-gap: 8px;
+    }
+    .actions {
+      gap: 6px;
+    }
+    .cvb {
+      padding: 0 8px;
+    }
+    .cta {
+      padding: 0 12px;
+    }
+  }
   @media (prefers-reduced-motion: reduce) {
     .progress {
       display: none;
