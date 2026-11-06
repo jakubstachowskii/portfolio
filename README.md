@@ -26,12 +26,12 @@ Moje portfolio programisty: projekty, krótko o mnie, technologie, CV i kontakt.
 
 ## Projekty
 
-| Projekt | Platforma | Technologie |
-| ------- | --------- | ----------- |
-| [AwizacjaApp](https://github.com/jakubstachowskii/AwizacjaApp) | Desktop | Electron, React, SQLite |
-| [FormatkaApp](https://github.com/jakubstachowskii/FormatkaApp) | Desktop | Electron, React, Vite, SQLite |
-| [LottoAnalyzer](https://github.com/jakubstachowskii/LottoAnalyzer) | Desktop | Electron, JavaScript |
-| [Trening App](https://github.com/jakubstachowskii/trening-app) *(w trakcie)* | Mobile | React Native, Expo, TypeScript, SQLite |
+| Projekt                                                                      | Platforma | Technologie                            |
+| ---------------------------------------------------------------------------- | --------- | -------------------------------------- |
+| [AwizacjaApp](https://github.com/jakubstachowskii/AwizacjaApp)               | Desktop   | Electron, React, SQLite                |
+| [FormatkaApp](https://github.com/jakubstachowskii/FormatkaApp)               | Desktop   | Electron, React, Vite, SQLite          |
+| [LottoAnalyzer](https://github.com/jakubstachowskii/LottoAnalyzer)           | Desktop   | Electron, JavaScript                   |
+| [Trening App](https://github.com/jakubstachowskii/trening-app) _(w trakcie)_ | Mobile    | React Native, Expo, TypeScript, SQLite |
 
 ## Jak strona jest zrobiona
 
