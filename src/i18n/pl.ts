@@ -26,6 +26,14 @@ export const pl = {
       kontakt: '04 KONTAKT',
     },
   },
+  /** CV w menu, w hero i w Kontakcie; otwiera się w nowej karcie (↗ jak przy GitHubie) */
+  cv: {
+    button: 'CV.PDF ↗',
+    nav: 'CV ↗',
+    navShort: 'CV',
+    /** dopisek tylko dla czytników ekranu, po widocznym tekście (WCAG 2.5.3: widoczny tekst w nazwie) */
+    hint: ' – PDF, otwiera się w nowej karcie',
+  },
   footer: {
     top: 'NA GÓRĘ ↑',
   },
@@ -36,7 +44,6 @@ export const pl = {
       lead: 'Piszę aplikacje desktopowe, webowe i mobilne. Studiuję informatykę ze specjalizacją z cyberbezpieczeństwa.',
       ctaProjects: 'ZOBACZ PROJEKTY',
       ctaGithub: 'GITHUB',
-      ctaCv: 'CV.PDF ↓',
     },
     deck: {
       label:

@@ -9,6 +9,7 @@ interface Props {
 
 const { locale } = Astro.props;
 const h = t(locale).home.hero;
+const cv = t(locale).cv;
 const last = h.lines.length - 1;
 // ostatnie słowo statusu łamie się razem z rokiem („PROJEKTY · 2026”), żeby rok nie został sam
 const statusWords = h.status.split(' ');
@@ -76,8 +77,9 @@ const statusHead = statusWords.length ? `${statusWords.join(' ')} ` : '';
         </a>
         {/* CV pokazuje się dopiero po ustawieniu `cv` w site.ts (bez martwego linku) */}
         {site.cv && (
-          <a class="btn mono cta cta-ghost" href={site.cv}>
-            {h.ctaCv}
+          <a class="btn mono cta cta-ghost" href={site.cv} target="_blank" rel="noopener">
+            {cv.button}
+            <span class="sr-only">{cv.hint}</span>
           </a>
         )}
       </div>

@@ -28,6 +28,13 @@ export const en = {
       kontakt: '04 CONTACT',
     },
   },
+  /** the CV is only in Polish for now, so the label says so */
+  cv: {
+    button: 'CV.PDF (PL) ↗',
+    nav: 'CV ↗',
+    navShort: 'CV',
+    hint: ' – PDF in Polish, opens in a new tab',
+  },
   footer: {
     top: 'BACK TO TOP ↑',
   },
@@ -38,7 +45,6 @@ export const en = {
       lead: 'I build desktop, web and mobile apps. I’m studying computer science, specialising in cybersecurity.',
       ctaProjects: 'SEE PROJECTS',
       ctaGithub: 'GITHUB',
-      ctaCv: 'CV.PDF ↓',
     },
     deck: {
       label:

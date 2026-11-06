@@ -27,6 +27,15 @@ const dict = t(locale);
     <NavLinks locale={locale} onHome={onHome} langHref={langHref} />
     <div class="actions">
       <ThemeToggle locale={locale} />
+      {/* CV zawsze pod ręką: menu jest przyklejone; na wąskim telefonie sam skrót „CV” */}
+      {site.cv && (
+        <a class="btn mono cvb" href={site.cv} target="_blank" rel="noopener">
+          {/* ukryty wariant (display: none) nie trafia do drzewa dostępności, więc nazwa = widoczny tekst + dopisek */}
+          <span class="cv-long">{dict.cv.nav}</span>
+          <span class="cv-short">{dict.cv.navShort}</span>
+          <span class="sr-only">{dict.cv.hint}</span>
+        </a>
+      )}
       <a class="btn btn-acc mono cta" href={sectionHref('kontakt', locale, onHome)}>
         {dict.nav.contact}
         <svg
@@ -91,6 +100,31 @@ const dict = t(locale);
     font-size: 13px;
     font-weight: 700;
   }
+  /* drugorzędny wobec KONTAKT: ramka w kolorze akcentu (--acc-text ma kontrast w obu motywach) */
+  .cvb {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--target);
+    padding: 0 14px;
+    border: 1px solid var(--acc-text);
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .cv-short {
+    display: none;
+  }
+  @media (max-width: 400px) {
+    .cvb {
+      padding: 0 10px;
+    }
+    .cv-long {
+      display: none;
+    }
+    .cv-short {
+      display: inline;
+    }
+  }
   /* ukryty przycięciem, nie przesunięciem nad stronę: na telefonie „odbicie” przy
      mocnym przewinięciu w górę odsłania obszar nad stroną i link byłby tam widoczny */
   .skip {
@@ -142,6 +176,21 @@ const dict = t(locale);
     }
     .navbar {
       column-gap: 12px;
+    }
+  }
+  /* najmniejsze telefony (320 px): ciaśniej, żeby nazwa, motyw, CV i KONTAKT zostały w jednym rzędzie */
+  @media (max-width: 340px) {
+    .navbar {
+      column-gap: 8px;
+    }
+    .actions {
+      gap: 6px;
+    }
+    .cvb {
+      padding: 0 8px;
+    }
+    .cta {
+      padding: 0 12px;
     }
   }
   @media (prefers-reduced-motion: reduce) {
