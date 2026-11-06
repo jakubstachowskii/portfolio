@@ -358,3 +358,13 @@ Audyt metodą Cloudflare security-audit (profil quick, commit 8ec79fb): 0 podatn
 - **Trening App** (`src/content/projects/trening-app*.md`): 4. projekt, platforma Mobile, opis rozdziela to, co już działa, od planów. Zamiast pustego „Soon” — prawdziwa treść i uczciwy status, bez dat.
 - **Szkic `trening`**: unosząca się sztanga z talerzami (pomysł Jakuba), zaciski w kolorze akcentu, pętla pauzowana poza ekranem (`.lift`, `.breathe` w `global.css`), bez animacji przy `prefers-reduced-motion`.
 - Pokazuje się dopiero po zdjęciu topiku `portfolio-hide` z repo trening-app (najlepiej tuż przed merge).
+
+## #48 · 2026-11-06 · CV łatwe do znalezienia · przyjęta
+
+- **Trzy miejsca, jeden plik**: przycisk w przyklejonym menu (każda wysokość strony i każda podstrona; poniżej 400 px skrót „CV”), dotychczasowy przycisk w hero i nowy w Kontakcie obok e-maila, GitHuba i LinkedIna. Propozycja z ilustracją przed/po zaakceptowana przez Jakuba po 10 rundach analizy.
+- **Nowa karta i „↗”**: na stronie „↗” oznacza nową kartę (GitHub, LinkedIn), „↓” przewinięcie, więc CV ma „↗”. Rekruter widzi PDF w podglądzie przeglądarki i może go stamtąd pobrać.
+- **Przycisk w menu drugorzędny wobec KONTAKT**: ramka `--acc-text` (kontrast w obu motywach), bez wypełnienia.
+- **Wersja EN**: „CV.PDF (PL)” i opis „in Polish”, dopóki nie ma CV po angielsku (odłożone).
+- **Opis dla czytników ekranu** w `aria-label`; teksty w `src/i18n` (`cv`), twarda spacja przed strzałką.
+- **Plik**: tytuł w metadanych PDF „Jakub Stachowski – CV” (nazwa projektu w Canvie), bo pokazuje się na karcie przeglądarki.
+- Sprawdzenie: reszta strony identyczna z `main` (56/56 zrzutów sekcji), test e2e CV we wszystkich trzech miejscach.

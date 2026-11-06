@@ -27,6 +27,23 @@ const dict = t(locale);
     <NavLinks locale={locale} onHome={onHome} langHref={langHref} />
     <div class="actions">
       <ThemeToggle locale={locale} />
+      {/* CV zawsze pod ręką: menu jest przyklejone; na wąskim telefonie sam skrót „CV” */}
+      {site.cv && (
+        <a
+          class="btn mono cvb"
+          href={site.cv}
+          target="_blank"
+          rel="noopener"
+          aria-label={dict.cv.label}
+        >
+          <span class="cv-long" aria-hidden="true">
+            {dict.cv.nav}
+          </span>
+          <span class="cv-short" aria-hidden="true">
+            {dict.cv.navShort}
+          </span>
+        </a>
+      )}
       <a class="btn btn-acc mono cta" href={sectionHref('kontakt', locale, onHome)}>
         {dict.nav.contact}
         <svg
@@ -90,6 +107,31 @@ const dict = t(locale);
     color: var(--acc-ink);
     font-size: 13px;
     font-weight: 700;
+  }
+  /* drugorzędny wobec KONTAKT: ramka w kolorze akcentu (--acc-text ma kontrast w obu motywach) */
+  .cvb {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--target);
+    padding: 0 14px;
+    border: 1px solid var(--acc-text);
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .cv-short {
+    display: none;
+  }
+  @media (max-width: 400px) {
+    .cvb {
+      padding: 0 10px;
+    }
+    .cv-long {
+      display: none;
+    }
+    .cv-short {
+      display: inline;
+    }
   }
   /* ukryty przycięciem, nie przesunięciem nad stronę: na telefonie „odbicie” przy
      mocnym przewinięciu w górę odsłania obszar nad stroną i link byłby tam widoczny */

@@ -10,6 +10,7 @@ interface Props {
 
 const { locale } = Astro.props;
 const d = t(locale).home.contact;
+const cv = t(locale).cv;
 ---
 
 <section id="kontakt" class="sec">
@@ -22,6 +23,11 @@ const d = t(locale).home.contact;
     </h2>
     <div class="actions">
       <CopyEmail locale={locale} />
+      {site.cv && (
+        <a class="btn mono out" href={site.cv} target="_blank" rel="noopener" aria-label={cv.label}>
+          {cv.button}
+        </a>
+      )}
       <a
         class="btn mono out"
         href={`https://github.com/${site.github}`}

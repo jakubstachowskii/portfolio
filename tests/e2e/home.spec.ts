@@ -73,4 +73,29 @@ test.describe('dane właściciela', () => {
       /^mailto:[^@\s]+@[^@\s]+$/,
     );
   });
+
+  test('CV w menu, w hero i w Kontakcie: ten sam PDF, nowa karta, opis dla czytnika', async ({
+    page,
+  }) => {
+    for (const [path, label] of [
+      ['/', /otwiera się w nowej karcie/],
+      ['/en/', /in Polish/],
+    ] as const) {
+      await page.goto(path);
+      for (const where of ['header', '.hero', '#kontakt']) {
+        const cv = page.locator(`${where} a[href$=".pdf"]`);
+        await expect(cv, `${path} ${where}`).toHaveCount(1);
+        await expect(cv).toHaveAttribute('target', '_blank');
+        await expect(cv).toHaveAttribute('aria-label', label);
+        await expect(cv).toBeVisible();
+      }
+      const href = await page.locator('header a[href$=".pdf"]').getAttribute('href');
+      const res = await page.request.get(href!);
+      expect(res.status()).toBe(200);
+      expect(res.headers()['content-type']).toContain('pdf');
+    }
+    // podstrona projektu też ma menu, więc i CV
+    await page.goto('/projekty/awizacja-app/');
+    await expect(page.locator('header a[href$=".pdf"]')).toBeVisible();
+  });
 });
