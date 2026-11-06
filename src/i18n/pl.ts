@@ -31,7 +31,8 @@ export const pl = {
     button: 'CV.PDF ↗',
     nav: 'CV ↗',
     navShort: 'CV',
-    label: 'CV (PDF), otwiera się w nowej karcie',
+    /** dopisek tylko dla czytników ekranu, po widocznym tekście (WCAG 2.5.3: widoczny tekst w nazwie) */
+    hint: ' – PDF, otwiera się w nowej karcie',
   },
   footer: {
     top: 'NA GÓRĘ ↑',

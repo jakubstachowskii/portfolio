@@ -24,8 +24,9 @@ const cv = t(locale).cv;
     <div class="actions">
       <CopyEmail locale={locale} />
       {site.cv && (
-        <a class="btn mono out" href={site.cv} target="_blank" rel="noopener" aria-label={cv.label}>
+        <a class="btn mono out" href={site.cv} target="_blank" rel="noopener">
           {cv.button}
+          <span class="sr-only">{cv.hint}</span>
         </a>
       )}
       <a

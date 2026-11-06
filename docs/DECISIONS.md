@@ -365,6 +365,6 @@ Audyt metodą Cloudflare security-audit (profil quick, commit 8ec79fb): 0 podatn
 - **Nowa karta i „↗”**: na stronie „↗” oznacza nową kartę (GitHub, LinkedIn), „↓” przewinięcie, więc CV ma „↗”. Rekruter widzi PDF w podglądzie przeglądarki i może go stamtąd pobrać.
 - **Przycisk w menu drugorzędny wobec KONTAKT**: ramka `--acc-text` (kontrast w obu motywach), bez wypełnienia.
 - **Wersja EN**: „CV.PDF (PL)” i opis „in Polish”, dopóki nie ma CV po angielsku (odłożone).
-- **Opis dla czytników ekranu** w `aria-label`; teksty w `src/i18n` (`cv`), twarda spacja przed strzałką.
+- **Opis dla czytników ekranu**: widoczny tekst + ukryty dopisek `.sr-only` (nie `aria-label`, bo zastąpiłby widoczny tekst — WCAG 2.5.3 „etykieta w nazwie”, test axe w smoke); teksty w `src/i18n` (`cv`), twarda spacja przed strzałką.
 - **Plik**: tytuł w metadanych PDF „Jakub Stachowski – CV” (nazwa projektu w Canvie), bo pokazuje się na karcie przeglądarki.
 - Sprawdzenie: reszta strony identyczna z `main` (56/56 zrzutów sekcji), test e2e CV we wszystkich trzech miejscach.

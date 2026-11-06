@@ -33,7 +33,7 @@ export const en = {
     button: 'CV.PDF (PL) ↗',
     nav: 'CV ↗',
     navShort: 'CV',
-    label: 'CV (PDF, in Polish), opens in a new tab',
+    hint: ' – PDF in Polish, opens in a new tab',
   },
   footer: {
     top: 'BACK TO TOP ↑',

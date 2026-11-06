@@ -77,7 +77,7 @@ test.describe('dane właściciela', () => {
   test('CV w menu, w hero i w Kontakcie: ten sam PDF, nowa karta, opis dla czytnika', async ({
     page,
   }) => {
-    for (const [path, label] of [
+    for (const [path, hint] of [
       ['/', /otwiera się w nowej karcie/],
       ['/en/', /in Polish/],
     ] as const) {
@@ -86,8 +86,25 @@ test.describe('dane właściciela', () => {
         const cv = page.locator(`${where} a[href$=".pdf"]`);
         await expect(cv, `${path} ${where}`).toHaveCount(1);
         await expect(cv).toHaveAttribute('target', '_blank');
-        await expect(cv).toHaveAttribute('aria-label', label);
         await expect(cv).toBeVisible();
+        // nazwa dla czytnika = widoczny tekst + dopisek (WCAG 2.5.3), a nie zastępczy aria-label
+        await expect(cv).not.toHaveAttribute('aria-label');
+        // widoczny tekst: bez dopisku .sr-only i bez wariantu ukrytego przez display: none
+        const visible = await cv.evaluate((a) =>
+          [...a.childNodes]
+            .filter((n) =>
+              n instanceof HTMLElement
+                ? !n.classList.contains('sr-only') && getComputedStyle(n).display !== 'none'
+                : true,
+            )
+            .map((n) => n.textContent ?? '')
+            .join('')
+            .replace(/\s+/g, ' ')
+            .trim(),
+        );
+        const escaped = visible.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/ /g, '\\s');
+        await expect(cv).toHaveAccessibleName(new RegExp(`^${escaped}`));
+        await expect(cv).toHaveAccessibleName(hint);
       }
       const href = await page.locator('header a[href$=".pdf"]').getAttribute('href');
       const res = await page.request.get(href!);

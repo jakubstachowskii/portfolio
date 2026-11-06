@@ -29,19 +29,11 @@ const dict = t(locale);
       <ThemeToggle locale={locale} />
       {/* CV zawsze pod ręką: menu jest przyklejone; na wąskim telefonie sam skrót „CV” */}
       {site.cv && (
-        <a
-          class="btn mono cvb"
-          href={site.cv}
-          target="_blank"
-          rel="noopener"
-          aria-label={dict.cv.label}
-        >
-          <span class="cv-long" aria-hidden="true">
-            {dict.cv.nav}
-          </span>
-          <span class="cv-short" aria-hidden="true">
-            {dict.cv.navShort}
-          </span>
+        <a class="btn mono cvb" href={site.cv} target="_blank" rel="noopener">
+          {/* ukryty wariant (display: none) nie trafia do drzewa dostępności, więc nazwa = widoczny tekst + dopisek */}
+          <span class="cv-long">{dict.cv.nav}</span>
+          <span class="cv-short">{dict.cv.navShort}</span>
+          <span class="sr-only">{dict.cv.hint}</span>
         </a>
       )}
       <a class="btn btn-acc mono cta" href={sectionHref('kontakt', locale, onHome)}>

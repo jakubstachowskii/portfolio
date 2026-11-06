@@ -77,14 +77,9 @@ const statusHead = statusWords.length ? `${statusWords.join(' ')} ` : '';
         </a>
         {/* CV pokazuje się dopiero po ustawieniu `cv` w site.ts (bez martwego linku) */}
         {site.cv && (
-          <a
-            class="btn mono cta cta-ghost"
-            href={site.cv}
-            target="_blank"
-            rel="noopener"
-            aria-label={cv.label}
-          >
+          <a class="btn mono cta cta-ghost" href={site.cv} target="_blank" rel="noopener">
             {cv.button}
+            <span class="sr-only">{cv.hint}</span>
           </a>
         )}
       </div>
